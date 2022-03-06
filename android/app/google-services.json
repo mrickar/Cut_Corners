@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "539240224453",
+    "project_id": "cut-corners",
+    "storage_bucket": "cut-corners.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539240224453:android:b812c8fe7975734d8882ac",
+        "android_client_info": {
+          "package_name": "com.example.cut_corners"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539240224453-9j8klrcftva8e4t4vv4arbit2b2dvnkp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cut_corners",
+            "certificate_hash": "0e3b79a99f10bac5240b67a88630f431b976d701"
+          }
+        },
+        {
+          "client_id": "539240224453-9jk9j26tncki0684nrufefrtqa3q2va8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlsMBG_LqZyMyGrr_UVKfHyQKb8qijSEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539240224453-9jk9j26tncki0684nrufefrtqa3q2va8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
