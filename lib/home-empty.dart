@@ -7,7 +7,7 @@ class HomeEmpty extends StatefulWidget {
   @override
   _HomeEmptyState createState() => _HomeEmptyState();
 }
-//todo NAPION
+//todo NAPION hop
 class _HomeEmptyState extends State<HomeEmpty> {
 
   final addListColor = Colors.red.shade700;
