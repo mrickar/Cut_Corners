@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'main.dart';
 
 bool isClickedName=false;
 bool isClickedSurname=false;
@@ -12,10 +17,10 @@ bool isClickedDailyAct=false;
 Color itemBackgroundColor=Colors.blue.shade400;
 class ProfilePage extends StatefulWidget {
    ProfilePage({Key? key}) : super(key: key);
-  final _controllerTextEditName=TextEditingController(text:person1.name);
-   final _controllerTextEditSurname=TextEditingController(text:person1.surname);
-   final _controllerTextEditHeight=TextEditingController(text:person1.height.toString());
-   final _controllerTextEditWeight=TextEditingController(text:person1.weight.toString());
+  final _controllerTextEditName=TextEditingController(text:USER.name);
+   final _controllerTextEditSurname=TextEditingController(text:USER.surname);
+   final _controllerTextEditHeight=TextEditingController(text:USER.height.toString());
+   final _controllerTextEditWeight=TextEditingController(text:USER.weight.toString());
    final _nameFormState=GlobalKey<FormFieldState>();
    final _surnameFormState=GlobalKey<FormFieldState>();
    final _heightFormState=GlobalKey<FormFieldState>();
@@ -27,6 +32,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String curUid=getUid();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,8 +55,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 color:Colors.amber,
               ),
               child: TextButton(
-                onPressed: () { person1.printInfo(); },
-                child: const Text("SHOW"),
+                onPressed: ()
+                {
+                  signOutwitGoogle();
+                  SystemNavigator.pop();
+                  },
+                child: const Text("SIGN OUT"),
               ),
             ),
           ),
@@ -78,8 +90,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     {
                       if(widget._nameFormState.currentState!.validate())
                       {
-                        person1.name=widget._controllerTextEditName.value.text;
-                        FirebaseFirestore.instance.collection("Profiles").doc(person1.email).update({"name":person1.name});
+                        USER.name=widget._controllerTextEditName.value.text;
+                        FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"name":USER.name});
                       }
                       else
                       {
@@ -141,8 +153,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     {
                       if(widget._surnameFormState.currentState!.validate())
                       {
-                        person1.surname=widget._controllerTextEditSurname.value.text;
-                        FirebaseFirestore.instance.collection("Profiles").doc(person1.email).update({"surname":person1.surname});
+                        USER.surname=widget._controllerTextEditSurname.value.text;
+                        FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"surname":USER.surname});
                       }
                       else
                       {
@@ -204,8 +216,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     {
                       if(widget._heightFormState.currentState!.validate())
                         {
-                          person1.height=int.parse(widget._controllerTextEditHeight.value.text);
-                          FirebaseFirestore.instance.collection("Profiles").doc(person1.email).update({"height":person1.height});
+                          USER.height=int.parse(widget._controllerTextEditHeight.value.text);
+                          FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"height":USER.height});
                         }
                       else
                         {
@@ -272,8 +284,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     {
                       if(widget._weightFormState.currentState!.validate())
                       {
-                        person1.weight=int.parse(widget._controllerTextEditWeight.value.text);
-                        FirebaseFirestore.instance.collection("Profiles").doc(person1.email).update({"weight":person1.weight});
+                        USER.weight=int.parse(widget._controllerTextEditWeight.value.text);
+                        FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"weight":USER.weight});
                       }
                       else
                       {
@@ -355,27 +367,27 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: 250,
                   child: DropdownButtonFormField<String>(
                     key:widget._genderFormState,
-                    value: person1.gender,
+                    value: USER.gender,
                     onChanged:isClickedGender? (value) {
                     }:null,
                     onSaved:(value){
                       setState(() {
-                        person1.gender=value!;
-                        FirebaseFirestore.instance.collection("Profiles").doc(person1.email).update({"gender":person1.gender});
+                        USER.gender=value!;
+                        FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"gender":USER.gender});
                       });
                     },
                     items: const [
                       DropdownMenuItem(
-                        child:Text("MAN"),
-                        value: "MAN",
+                        child:Text("Male"),
+                        value: "Male",
                       ),
                       DropdownMenuItem(
-                        child:Text("WOMAN"),
-                        value: "WOMAN",
+                        child:Text("Female"),
+                        value: "Female",
                       ),
                       DropdownMenuItem(
-                        child:Text("OTHER"),
-                        value: "OTHER",
+                        child:Text("Other"),
+                        value: "Other",
                       ),
                     ],
                     //initialValue: person1.name,
@@ -423,13 +435,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 250,
                       child: DropdownButtonFormField<int>(
                         key:widget._activityFormState,
-                        value: person1.dailyActivity,
+                        value: USER.dailyActivity,
                         onChanged:isClickedDailyAct? (value) {
                         }:null,
                         onSaved:(value){
                           setState(() {
-                            FirebaseFirestore.instance.collection("Profiles").doc(person1.email).update({"dailyActivity":person1.dailyActivity});
-                            person1.dailyActivity=value!;
+                            FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"dailyActivity":USER.dailyActivity});
+                            USER.dailyActivity=value!;
                           });
                         },
                         items: const [

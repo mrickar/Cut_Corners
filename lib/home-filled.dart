@@ -1,3 +1,4 @@
+import 'package:cut_corners/profilePage.dart';
 import 'package:flutter/material.dart';
 
 class HomeFilled extends StatefulWidget {
@@ -34,7 +35,9 @@ class _HomeFilledState extends State<HomeFilled> {
                       color: Colors.black,
                       size: 24.0,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
+                    },
                   ),
                 ),
               ),

@@ -1,4 +1,7 @@
 //import 'package:cut_corners/meal-list-filled.dart';
+import 'package:cut_corners/SigninScreen.dart';
+import 'package:cut_corners/repositories/profileInformation.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'home-empty.dart';
 import 'home-filled.dart';
@@ -7,10 +10,9 @@ import 'meal-list-empty.dart';
 import 'meal-list-filled.dart';
 import 'questionnaire.dart';
 
-void main() => runApp(MaterialApp(
-  home: Home(),
+void main() => runApp(const MaterialApp(
+  home: SigninScreen(),
 ));
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -23,6 +25,9 @@ class _HomeState extends State<Home> {
   final bottomNavigatorBack = Colors.red.shade600;
   final bottomNavigatorFront = Colors.grey.shade900;
   int _currentIndex = 1;
+
+
+
   static List<Widget> pages = <Widget>[
     ShoppingList(),
     mealList.isEmpty ? HomeEmpty() : HomeFilled(),
@@ -34,6 +39,13 @@ class _HomeState extends State<Home> {
     setState(() {
       _currentIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    print("*****************");
+    getUser();
+    super.initState();
   }
 
   @override
@@ -78,5 +90,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
 }
 
