@@ -3,6 +3,7 @@ import 'package:cut_corners/SigninScreen.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'home-empty.dart';
 import 'home-filled.dart';
 import 'shopping-list.dart';
@@ -10,9 +11,7 @@ import 'meal-list-empty.dart';
 import 'meal-list-filled.dart';
 import 'questionnaire.dart';
 
-void main() => runApp(const MaterialApp(
-  home: SigninScreen(),
-));
+void main() => runApp(const ProviderScope(child: MaterialApp(home: SigninScreen())));
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -43,7 +42,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    print("*****************");
     getUser();
     super.initState();
   }
