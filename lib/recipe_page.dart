@@ -96,7 +96,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                                       itemCount: recipeOfFood.ingredients.length,
                                       itemBuilder: (BuildContext context, int index) {
                                         //todo Bullet koy başına
-                                        String ingItem=recipeOfFood.ingredients[index].amount.toString()+
+                                        String ingItem=recipeOfFood.ingredients[index].amountNum.toString()+
                                             " "+ recipeOfFood.ingredients[index].amountType+
                                             " "+recipeOfFood.ingredients[index].name;
                                         return Text(ingItem);

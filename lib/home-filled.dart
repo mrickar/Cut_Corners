@@ -51,7 +51,7 @@ class _HomeFilledState extends State<HomeFilled> {
                   width: 300.0,
                   child: Row(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: CircleAvatar(
                           backgroundImage: null,
@@ -125,7 +125,7 @@ class _HomeFilledState extends State<HomeFilled> {
                   width: 300.0,
                   child: Row(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: CircleAvatar(
                           backgroundImage: null,

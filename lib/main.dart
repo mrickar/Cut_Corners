@@ -1,6 +1,8 @@
 //import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cut_corners/SigninScreen.dart';
+import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
+import 'package:cut_corners/temp.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +30,7 @@ class _HomeState extends State<Home> {
 
 
   static List<Widget> pages = <Widget>[
-    ShoppingList(),
+    ShoppingList(),//tempPage(),
     mealList.isEmpty ? HomeEmpty() : HomeFilled(),
     mealList.isEmpty ? MealListEmpty() : MealListFilled(),
 
@@ -43,6 +45,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     getUser();
+    //PROVIDERLA YAP
+    FoodRecipeRepository().getFoods();
     super.initState();
   }
 

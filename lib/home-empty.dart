@@ -1,3 +1,4 @@
+import 'package:cut_corners/profilePage.dart';
 import 'package:flutter/material.dart';
 
 class HomeEmpty extends StatefulWidget {
@@ -31,7 +32,7 @@ class _HomeEmptyState extends State<HomeEmpty> {
                       color: Colors.black,
                       size: 24.0,
                     ),
-                    onPressed: () {},
+                    onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));},
                   ),
                 ),
               ),

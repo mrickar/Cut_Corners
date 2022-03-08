@@ -28,8 +28,8 @@ late String gender = "";
 late int dailyActivity = 0;
 
 List<Drop> dropdownQ = [
-  Drop(header: "gender", items: <String>['Male', 'Female',"Other"]),
-  Drop(header: "daily-activity", items: [ '1', '2', '3', '4', '5']),
+  Drop(header: "gender", items: <String>[" ",'Male', 'Female',"Other"]),
+  Drop(header: "daily-activity", items: [ " ",'1', '2', '3', '4', '5']),
 ];
 
 List<Field> fieldQ = [
