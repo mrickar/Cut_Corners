@@ -112,8 +112,11 @@ class _tempPageState extends State<tempPage> {
               if(index==foodRecipeRep.length+1)
               {
                 //uploadFood();
-                print(foodRecipeRep.length);
-                //FoodRecipeRepository().printFoods();
+                //print(foodRecipeRep.length);
+                //printFoods();
+                //clear();
+                //categorizeFoods();
+                createPersonalMealList();
 
               }
               else if(index==foodRecipeRep.length)
@@ -129,15 +132,61 @@ class _tempPageState extends State<tempPage> {
     );
   }
 
-  /*void uploadFood()
+  void uploadFood()
   {
-    for (var food in FoodRecipeRepository().foodRecipeRep.keys) {
-      final name=FoodRecipeRepository().foodRecipeRep[food]!.name;
-      FirebaseFirestore.instance.collection("food_recipe").doc(name).set(FoodRecipeRepository().foodRecipeRep[food]!.toMap());
-      for(var i in FoodRecipeRepository().foodRecipeRep["random yemek"]!.ingredients)
+    for (var food in exampleFoods) {
+      final name=food.name;
+      FirebaseFirestore.instance.collection("food_recipe").doc(name).set(food.toMap());
+      for(var i in food.ingredients)
       {
         FirebaseFirestore.instance.collection("food_recipe").doc(name).collection("ingredients").doc(i.name).set(i.toMap());
       }
     }
-  }*/
+  }
+
+  void categorizeFoods()
+  {
+      for(var element in foodRecipeRep.keys)
+        {
+          var food=foodRecipeRep[element];
+          if(food!.calories<1000)
+            {
+              FirebaseFirestore.instance.collection("calorieList").doc("700-1000").collection("foodNames").doc(food.name).set({"name":food.name});
+            }
+          else if(food!.calories<1300)
+          {
+            FirebaseFirestore.instance.collection("calorieList").doc("1000-1300").collection("foodNames").doc(food.name).set({"name":food.name});
+          }
+          else
+          {
+            FirebaseFirestore.instance.collection("calorieList").doc("1300-1600").collection("foodNames").doc(food.name).set({"name":food.name});
+          }
+
+        }
+  }
+}
+
+void clear()
+{
+  var documentReference = FirebaseFirestore.instance.collection("calorieList").doc("700-1000");
+  documentReference.collection("foodNames").snapshots().forEach((element) {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+    {
+      docSnapshot .reference.delete();
+    }
+  });
+  documentReference = FirebaseFirestore.instance.collection("calorieList").doc("1000-1300");
+  documentReference.collection("foodNames").snapshots().forEach((element) {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+    {
+      docSnapshot .reference.delete();
+    }
+  });
+  documentReference = FirebaseFirestore.instance.collection("calorieList").doc("1300-1600");
+  documentReference.collection("foodNames").snapshots().forEach((element) {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+    {
+      docSnapshot .reference.delete();
+    }
+  });
 }

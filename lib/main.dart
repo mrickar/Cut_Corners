@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
 
 
   static List<Widget> pages = <Widget>[
-    const ShoppingList(),//const tempPage(),
+    const tempPage(),//const ShoppingList(),//const tempPage(),
     mealList.isEmpty ? HomeEmpty() : HomeFilled(),
     mealList.isEmpty ? MealListEmpty() : MealListFilled(),
 
@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
   void initState() {
     getUser();
     //PROVIDERLA YAP
-    getFoods();
+    getAllFoods();
     super.initState();
   }
 

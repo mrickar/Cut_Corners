@@ -27,13 +27,24 @@ class Ingredient{
     };
   }
 }
-class IngredientRepository {
-  /*Ingredient sogan=Ingredient("sogan",2,"tane",false);
-  Ingredient sarimsak=Ingredient("sarımsak",2,"tane",false);
-  Ingredient yumurta=Ingredient("yumurta",1,"tane",false);*/
-  /*List<Ingredient> IngList = [
-    Ingredient("sogan", 100, "gr"),
-    Ingredient("sarımsak", 2, "tane"),
-    Ingredient("yumurta", 1, "tane")
-  ];*/
-}
+
+Ingredient sogan=Ingredient(name:"sogan",amountNum:2,amountType: "tane");
+Ingredient sarimsak=Ingredient(name: "sarımsak",amountNum: 2,amountType: "tane");
+Ingredient yumurta=Ingredient(name: "yumurta",amountNum: 1,amountType: "tane");
+Ingredient sut=Ingredient(name: "süt",amountNum: 125 ,amountType: "ml");
+Ingredient sivi_yag=Ingredient(name: "sivi_yag",amountNum: 60 ,amountType: "ml");
+Ingredient makarna=Ingredient(name: "makarna",amountNum: 2,amountType: "paket");
+Ingredient havuc=Ingredient(name: "havuç",amountNum: 1,amountType: "tane");
+Ingredient ceviz=Ingredient(name: "ceviz",amountNum: 150,amountType: "gr");
+Ingredient vanilya=Ingredient(name: "vanilya",amountNum: 1,amountType: "paket");
+Ingredient yogurt=Ingredient(name: "yoğurt",amountNum: 110,amountType: "gr");
+
+
+
+
+List<Ingredient> IngList = [sogan,sarimsak,yumurta];
+List<Ingredient> IngList2 = [sogan,sarimsak,makarna];
+List<Ingredient> IngList3 = [makarna,yogurt,yumurta];
+List<Ingredient> IngList4 = [sogan,vanilya,yumurta,sut];
+List<Ingredient> IngList5 = [havuc,sivi_yag,yumurta,ceviz,sut];
+
