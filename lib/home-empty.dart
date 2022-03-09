@@ -82,8 +82,7 @@ class _HomeEmptyState extends State<HomeEmpty> {
                 shape: CircleBorder(),
               ),
               child: IconButton(
-                icon: Expanded(
-                  child: Align(
+                icon: Align(
                     alignment: Alignment.bottomCenter,
                     child: Icon(
                       Icons.add_circle,
@@ -91,7 +90,6 @@ class _HomeEmptyState extends State<HomeEmpty> {
                       color: addListColor,
                     ),
                   ),
-                ),
                 onPressed: () {},
               ),
 
