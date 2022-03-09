@@ -1,5 +1,6 @@
 import 'package:cut_corners/main.dart';
 import 'package:cut_corners/questionnaire.dart';
+import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -18,6 +19,7 @@ class _SigninScreenState extends State<SigninScreen> {
   void initState() {
     super.initState();
     initializeFirebase();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class _SigninScreenState extends State<SigninScreen> {
     setState(() {
       isFirebaseInit=true;
     });
+
     bool isExistsCheck=await isExists();
     setState(() {
       if(isExistsCheck)

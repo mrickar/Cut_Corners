@@ -1,9 +1,9 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:cut_corners/repositories/shoppingList_repository.dart';
+
 
 class FoodRecipe{
   late List<Ingredient> ingredients=[];
@@ -36,6 +36,7 @@ Map<String,dynamic> toMap()
   };
 }
 }
+
 late Map<String,FoodRecipe>foodRecipeRep={};
 Future<void> getAllFoods()
 async {
@@ -47,7 +48,7 @@ async {
     Map<String, dynamic> data = food.data();
     foodRecipeRep[food.id]=FoodRecipe.fromMap(data,ingQSnap);
   }
-  printFoods();
+  //printFoods();
 }
 Map<String,List<String>> personalMealList=
 {
@@ -57,6 +58,7 @@ Map<String,List<String>> personalMealList=
 };
 Future<void> createPersonalMealList()//int dayNumber)
 async {
+  int dayNumber=2;
   List<String> food700=[];
   var querySnapshot = await FirebaseFirestore.instance.collection("calorieList").doc("700-1000").collection("foodNames").get();
   for(var doc in querySnapshot.docs)
@@ -77,15 +79,22 @@ async {
   }
 
   var randomChoose=Random();
-  personalMealList["breakfast"]!.add(food700[randomChoose.nextInt(food700.length)]);
-  personalMealList["lunch"]!.add(food1000[randomChoose.nextInt(food1000.length)]);
-  personalMealList["dinner"]!.add(food1300[randomChoose.nextInt(food1300.length)]);
-
-  for(var e in personalMealList.keys)
+  for(int i=0;i<dayNumber;i++)
     {
-      print(personalMealList[e]);
+      /*personalMealList["breakfast"]!.add(food700[randomChoose.nextInt(food700.length)]);
+      personalMealList["lunch"]!.add(food1000[randomChoose.nextInt(food1000.length)]);
+      personalMealList["dinner"]!.add(food1300[randomChoose.nextInt(food1300.length)]);*/
+      var breakfast=food700[randomChoose.nextInt(food700.length)];
+      var lunch = food1000[randomChoose.nextInt(food1000.length)];
+      var dinner = food1300[randomChoose.nextInt(food1300.length)];
+      Map<String,String> data={
+        "breakfast":breakfast,
+        "lunch":lunch,
+        "dinner":dinner
+      };
+      FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i+1}").set(data);
     }
-  print("***DONE****");
+  await createShoppingList();
   return;
 }
 

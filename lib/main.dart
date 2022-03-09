@@ -1,7 +1,10 @@
 //import 'package:cut_corners/meal-list-filled.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/SigninScreen.dart';
 import 'package:cut_corners/repositories/food_recipe_repository.dart';
+import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
+import 'package:cut_corners/repositories/shoppingList_repository.dart';
 import 'package:cut_corners/temp.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,14 +30,13 @@ class _HomeState extends State<Home> {
   final bottomNavigatorBack = Colors.red.shade600;
   final bottomNavigatorFront = Colors.grey.shade900;
   int _currentIndex = 1;
-
+  bool isMealListReady=false;
 
 
   static List<Widget> pages = <Widget>[
-    const tempPage(),//const ShoppingList(),//const tempPage(),
+    const ShoppingList(),//const tempPage(),
     mealList.isEmpty ? HomeEmpty() : HomeFilled(),
     mealList.isEmpty ? MealListEmpty() : MealListFilled(),
-
   ];
 
   void onTabTapped(int index) {
@@ -45,15 +47,17 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    getUser();
-    //PROVIDERLA YAP
-    getAllFoods();
+    setState(() {
+      getUser();
+      getAllFoods();
+      getPersonalMealList();
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return isMealListReady?Scaffold(
       body: Center(
         child: pages.elementAt(_currentIndex),
       ),
@@ -91,8 +95,36 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-    );
+    )
+    :const Center(child: CircularProgressIndicator());
   }
 
+  Future<void> getPersonalMealList()
+  async {
+    var querySnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
+    for(int i=1;i<querySnapshot.docs.length+1;i++)
+    {
+      var documentSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i}").get();
+      Map<String, dynamic>? map = documentSnapshot.data();
+      List<String> dailyMeal=[documentSnapshot.data()!["breakfast"],documentSnapshot.data()!["lunch"],documentSnapshot.data()!["dinner"]];
+      mealList.add(Daily(mealCount: querySnapshot.docs.length, meals: dailyMeal));
+    }
+    setState(() {
+      isMealListReady=true;
+      checkPages();
+      if(mealList.isNotEmpty)
+        {
+          createShoppingList();
+        }
+    });
+  }
+  void checkPages()
+  {
+    pages=<Widget>[
+      const ShoppingList(),//const tempPage(),
+      mealList.isEmpty ? HomeEmpty() : HomeFilled(),
+      mealList.isEmpty ? MealListEmpty() : MealListFilled(),
+    ];
+  }
 }
 

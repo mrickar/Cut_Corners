@@ -25,7 +25,7 @@ Future<bool> isExists()
 async {
   return FirebaseAuth.instance.currentUser!=null;
   String uid = FirebaseAuth.instance.currentUser!.uid;
-  var doc = await FirebaseFirestore.instance.collection("users").doc(uid).get();
+  var doc = await FirebaseFirestore.instance.collection("Profiles").doc(uid).get();
   return doc.exists;
 }
 

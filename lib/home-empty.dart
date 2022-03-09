@@ -1,4 +1,7 @@
+import 'package:cut_corners/main.dart';
+import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cut_corners/profilePage.dart';
+import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:flutter/material.dart';
 
 class HomeEmpty extends StatefulWidget {
@@ -41,7 +44,7 @@ class _HomeEmptyState extends State<HomeEmpty> {
             Ink(
               width: 120.0,
               height: 120.0,
-              decoration: ShapeDecoration(
+              decoration: const ShapeDecoration(
                 shape: CircleBorder(),
               ),
               child: IconButton(
@@ -50,7 +53,12 @@ class _HomeEmptyState extends State<HomeEmpty> {
                     size: 96.0,
                     color: addListColor,
                 ),
-                onPressed: () {},
+                onPressed: () async {
+
+                  //TODO GIT EKLE
+                  await createPersonalMealList();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
+                },
               ),
             ),
             //const SizedBox(height: 24.0,),

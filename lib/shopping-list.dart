@@ -1,4 +1,5 @@
 import 'package:cut_corners/repositories/ingredients.dart';
+import 'package:cut_corners/repositories/shoppingList_repository.dart';
 import 'package:flutter/material.dart';
 
 /*class Ingredient{
@@ -11,10 +12,11 @@ import 'package:flutter/material.dart';
   Ingredient({required this.name, required this.amount, required this.amountType});
 }*/
 
-List<Ingredient> _all = [
+/*List<Ingredient> _all = [
   Ingredient(name: "rice", amountNum: 2, amountType: "kg"),
   Ingredient(name: "olive oil", amountNum: 1, amountType: "L"),
-];
+];*/
+List<Ingredient> _all = all.values.toList();
 List<Ingredient> _needs = [
   Ingredient(name: "rice", amountNum: 2, amountType: "kg"),
   Ingredient(name: "olive oil", amountNum: 1, amountType: "L"),

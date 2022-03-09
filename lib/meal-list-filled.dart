@@ -18,8 +18,10 @@ const dayBackgroundColor = Colors.greenAccent;
 final mealTextColor = Colors.grey.shade800;
 
 List<Daily> mealList = [
+  /*
   Daily(mealCount:2, meals:["wrap", "cesar salad"]),
   Daily(mealCount: 2, meals: ["spaghetti", "pasta"]),
+  */
 ];
 
 Widget dailyMealTemplate(Daily daily, int i) {
