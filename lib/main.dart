@@ -5,7 +5,6 @@ import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:cut_corners/repositories/shoppingList_repository.dart';
-import 'package:cut_corners/temp.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
