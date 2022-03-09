@@ -27,7 +27,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  final bottomNavigatorBack = Colors.red.shade600;
+  final bottomNavigatorBack = Color(0xff4297a0);
   final bottomNavigatorFront = Colors.grey.shade900;
   int _currentIndex = 1;
   bool isMealListReady=false;
