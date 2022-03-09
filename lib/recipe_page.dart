@@ -40,7 +40,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
   }
   @override
   Widget build(BuildContext context) {
-    final recipeOfFood=FoodRecipeRepository().foodRecipeRep[widget.foodName];
+    final recipeOfFood=foodRecipeRep[widget.foodName];
     final colorProv = ref.watch(colorChangeforPageProvider);
     return Scaffold(
           backgroundColor: Colors.grey.shade400,
@@ -96,9 +96,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                                       itemCount: recipeOfFood.ingredients.length,
                                       itemBuilder: (BuildContext context, int index) {
                                         //todo Bullet koy başına
-                                        String ingItem=recipeOfFood.ingredients[index].amountNum.toString()+
-                                            " "+ recipeOfFood.ingredients[index].amountType+
-                                            " "+recipeOfFood.ingredients[index].name;
+                                        String ingItem=recipeOfFood.ingredients[index].amountName;
                                         return Text(ingItem);
                                       },
                                     ),

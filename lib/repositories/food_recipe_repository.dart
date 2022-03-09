@@ -37,47 +37,24 @@ Map<String,dynamic> toMap()
   };
 }
 }
+late Map<String,FoodRecipe>foodRecipeRep={};
+Future<void> getFoods()
+async {
+  QuerySnapshot<Map<String, dynamic>> foodRecipeCol = await FirebaseFirestore.instance.collection("food_recipe").get();
 
-class FoodRecipeRepository extends ChangeNotifier{
-  late Map<String,FoodRecipe>foodRecipeRep={};/*=
+  for(QueryDocumentSnapshot<Map<String, dynamic>> food in foodRecipeCol.docs)
   {
-    "random yemek":FoodRecipe(IngredientRepository().IngList,"random yemek",1000,"images/yemek1.jpg","PisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisirPisir"),
-    "güzel yemek":FoodRecipe(IngredientRepository().IngList,"güzel yemek",2000,"images/yemek2.jpg","Pisir"),
-    "yemekhane yemek":FoodRecipe(IngredientRepository().IngList,"yemekhane yemek",10,"images/yemek3.jpg","Pisir"),
-  };*/
-  //List<FoodRecipe>FoodRecipeRep=[FoodRecipe(IngredientRepository().IngList,"random yemek",1000,"images/yemek1.jpg","Pisir")];
-
-  Future<void> getFoods()
-  async {
-
-    QuerySnapshot<Map<String, dynamic>> foodRecipeCol = await FirebaseFirestore.instance.collection("food_recipe").get();
-
-    for(QueryDocumentSnapshot<Map<String, dynamic>> food in foodRecipeCol.docs)
-      {
-        QuerySnapshot<Map<String, dynamic>> ingQSnap = await FirebaseFirestore.instance.collection("food_recipe").doc(food.id).collection("ingredients").get();
-        Map<String, dynamic> data = food.data();
-        foodRecipeRep[food.id]=FoodRecipe.fromMap(data,ingQSnap);
-      }
-    printFoods();
+    QuerySnapshot<Map<String, dynamic>> ingQSnap = await FirebaseFirestore.instance.collection("food_recipe").doc(food.id).collection("ingredients").get();
+    Map<String, dynamic> data = food.data();
+    foodRecipeRep[food.id]=FoodRecipe.fromMap(data,ingQSnap);
   }
-  Future<Map<String, FoodRecipe>> makeFoodList()
-  async {
-    await getFoods();
-    return foodRecipeRep;
-  }
-
-  void printFoods()
-  {
-    for(var element in foodRecipeRep.keys)
-      {
-        print(element);
-      }
-    print("******DONE*****");
-  }
+  printFoods();
 }
-
-
-
-final FoodProvider=ChangeNotifierProvider((ref) => FoodRecipeRepository());
-
-final FoodRepProvider=FutureProvider((ref) => ref.watch(FoodProvider).makeFoodList(),);
+void printFoods()
+{
+  for(var element in foodRecipeRep.keys)
+  {
+    print(element);
+  }
+  print("******DONE*****");
+}

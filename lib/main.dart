@@ -14,6 +14,7 @@ import 'meal-list-filled.dart';
 import 'questionnaire.dart';
 
 void main() => runApp(const ProviderScope(child: MaterialApp(home: SigninScreen())));
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -30,7 +31,7 @@ class _HomeState extends State<Home> {
 
 
   static List<Widget> pages = <Widget>[
-    ShoppingList(),//tempPage(),
+    tempPage(),//ShoppingList(),
     mealList.isEmpty ? HomeEmpty() : HomeFilled(),
     mealList.isEmpty ? MealListEmpty() : MealListFilled(),
 
@@ -46,7 +47,7 @@ class _HomeState extends State<Home> {
   void initState() {
     getUser();
     //PROVIDERLA YAP
-    FoodRecipeRepository().getFoods();
+    getFoods();
     super.initState();
   }
 
