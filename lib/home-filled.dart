@@ -105,7 +105,7 @@ class _HomeFilledState extends State<HomeFilled> {
                           ),
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: CircleAvatar(
                           backgroundImage: null,

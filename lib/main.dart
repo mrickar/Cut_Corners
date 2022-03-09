@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
 
 
   static List<Widget> pages = <Widget>[
-    tempPage(),//ShoppingList(),
+    const ShoppingList(),//const tempPage(),
     mealList.isEmpty ? HomeEmpty() : HomeFilled(),
     mealList.isEmpty ? MealListEmpty() : MealListFilled(),
 

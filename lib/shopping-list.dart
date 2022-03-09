@@ -1,6 +1,7 @@
+import 'package:cut_corners/repositories/ingredients.dart';
 import 'package:flutter/material.dart';
 
-class Ingredient{
+/*class Ingredient{
   late String name;
   late int amount;
   late String amountType;
@@ -8,15 +9,15 @@ class Ingredient{
 
   //Ingredient(this.name,this.amount,this.amountType,this.isDrink);
   Ingredient({required this.name, required this.amount, required this.amountType});
-}
+}*/
 
 List<Ingredient> _all = [
-  Ingredient(name: "rice", amount: 2, amountType: "kg"),
-  Ingredient(name: "olive oil", amount: 1, amountType: "L"),
+  Ingredient(name: "rice", amountNum: 2, amountType: "kg"),
+  Ingredient(name: "olive oil", amountNum: 1, amountType: "L"),
 ];
 List<Ingredient> _needs = [
-  Ingredient(name: "rice", amount: 2, amountType: "kg"),
-  Ingredient(name: "olive oil", amount: 1, amountType: "L"),
+  Ingredient(name: "rice", amountNum: 2, amountType: "kg"),
+  Ingredient(name: "olive oil", amountNum: 1, amountType: "L"),
 ];
 List<Ingredient> _owned = [];
 
@@ -45,7 +46,7 @@ class _ShoppingListState extends State<ShoppingList> {
             final index = i ~/ 2;
 
             return ListTile(
-              leading: Text(_all[index].amount.toString() + " " + _all[index].amountType),
+              leading: Text(_all[index].amountNum.toString() + " " + _all[index].amountType),
               title: Text(_all[index].name),
               trailing: Icon(
                 !_needs.contains(_all[index]) ? Icons.check_box_outline_blank : Icons.check_box,

@@ -1,17 +1,16 @@
 const ml="ml";
 const gr="gr";
 class Ingredient{
-  //late String pathOfItem;
   late String name;
   late int amountNum;
   late String amountType;
   late String amountName;
-  //late bool isDrink;
 
-  Ingredient(this.name,this.amountNum,this.amountType)
+  /*Ingredient(this.name,this.amountNum,this.amountType)
   {
     amountName=amountNum.toString()+" "+amountType+" "+name;
-  }
+  }*/
+  Ingredient({required this.name, required this.amountNum, required this.amountType});
   Ingredient.fromMap(Map<String,dynamic> data)
   {
     name=data["name"];
