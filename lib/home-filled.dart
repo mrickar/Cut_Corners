@@ -19,6 +19,7 @@ class _HomeFilledState extends State<HomeFilled> {
   final profilePersonColor = Color(0xffffffff);
   final dateColor = Color(0xff41aeba);
   final addMealColor = Color(0xff595959);
+  final rectangularContainerColor = Color(0xfff7ac32);
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class _HomeFilledState extends State<HomeFilled> {
                     padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
                     child: Center(
                       child: Container(
-                        color: Colors.red,
+                        color: rectangularContainerColor,
                         height: 100,
                         width: 300,
                         child: Align(
@@ -110,12 +111,17 @@ class _HomeFilledState extends State<HomeFilled> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(75.0, 0, 0, 0),
-                      child: CircleAvatar(
-                      backgroundImage: null,
-                      backgroundColor: Colors.blue,
-                      radius: 60.0,
-                ),
+                      padding: const EdgeInsets.fromLTRB(75.0, 6.0, 0, 0),
+                      child: Container(
+                        width: 120, height: 120,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(60),
+                            )
+                        ),
+                        child: Image.asset('images/breakfast-icon.png', fit: BoxFit.cover,),
+                      ),
                     ),
                   ),
               ],
@@ -129,7 +135,7 @@ class _HomeFilledState extends State<HomeFilled> {
                   padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
                   child: Center(
                     child: Container(
-                      color: Colors.red,
+                      color: rectangularContainerColor,
                       height: 100,
                       width: 300,
                       child: Align(
@@ -156,11 +162,16 @@ class _HomeFilledState extends State<HomeFilled> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 75.0, 0),
-                    child: CircleAvatar(
-                      backgroundImage: null,
-                      backgroundColor: Colors.blue,
-                      radius: 60.0,
+                    padding: const EdgeInsets.fromLTRB(0, 6.0, 75.0, 0),
+                    child: Container(
+                      width: 120, height: 120,
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(60),
+                          )
+                      ),
+                      child: Image.asset('images/lunch-icon.png', fit: BoxFit.cover,),
                     ),
                   ),
                 ),
@@ -175,7 +186,7 @@ class _HomeFilledState extends State<HomeFilled> {
                   padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
                   child: Center(
                     child: Container(
-                      color: Colors.red,
+                      color: rectangularContainerColor,
                       height: 100,
                       width: 300,
                       child: Align(
@@ -202,11 +213,16 @@ class _HomeFilledState extends State<HomeFilled> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(75.0, 0, 0, 0),
-                    child: CircleAvatar(
-                      backgroundImage: null,
-                      backgroundColor: Colors.blue,
-                      radius: 60.0,
+                    padding: const EdgeInsets.fromLTRB(75.0, 6.0, 0, 0),
+                    child: Container(
+                      width: 120, height: 120,
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(60),
+                          )
+                      ),
+                      child: Image.asset('images/dinner-icon.png', fit: BoxFit.cover,),
                     ),
                   ),
                 ),
