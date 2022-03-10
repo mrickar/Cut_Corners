@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:cut_corners/main.dart';
 import 'package:cut_corners/profilePage.dart';
+import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:flutter/material.dart';
 
 class HomeEmpty extends StatefulWidget {
@@ -90,7 +92,12 @@ class _HomeEmptyState extends State<HomeEmpty> {
                       color: addListColor,
                     ),
                   ),
-                onPressed: () {},
+                  onPressed: () async {
+
+
+                  await createPersonalMealList();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
+                },
               ),
 
             ),
