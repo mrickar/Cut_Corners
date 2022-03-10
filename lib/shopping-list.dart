@@ -41,7 +41,7 @@ class _ShoppingListState extends State<ShoppingList> {
 
     return Scaffold(
       body: ListView.builder(
-          itemCount: _all.length + 1,
+          itemCount: _all.length,
           itemBuilder: (context, i) {
             if (i.isOdd) return const Divider();
 
