@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cut_corners/profilePage.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,7 @@ class _HomeFilledState extends State<HomeFilled> {
 
   final background = Colors.grey.shade300;
   final mealCard = Colors.grey.shade600;
-  final textColor = Colors.black;
+  final textColor = Colors.white;
   final addListColor = Color(0xfff7ac32);
   final profileColor = Color(0xff4297a0);
   final backgroundColor = Color(0xfff4eae6);
@@ -96,9 +98,11 @@ class _HomeFilledState extends State<HomeFilled> {
                                 foregroundColor: MaterialStateProperty.all<Color>(textColor),
                               ),
                               child: const Text(
-                                "Breakfast",
+                                "BREAKFAST",
                                 style: TextStyle(
-                                  fontSize: 24.0,
+                                  fontSize: 18.0,
+                                  fontFamily: 'Lexend Peta',
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                               onPressed: () {},
@@ -111,7 +115,7 @@ class _HomeFilledState extends State<HomeFilled> {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(75.0, 6.0, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(65.0, 6.0, 0, 0),
                       child: Container(
                         width: 120, height: 120,
                         decoration: BoxDecoration(
@@ -147,9 +151,11 @@ class _HomeFilledState extends State<HomeFilled> {
                               foregroundColor: MaterialStateProperty.all<Color>(textColor),
                             ),
                             child: const Text(
-                              "Lunch",
+                              "LUNCH",
                               style: TextStyle(
-                                fontSize: 24.0,
+                                fontSize: 18.0,
+                                fontFamily: 'Lexend Peta',
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                             onPressed: () {},
@@ -162,7 +168,7 @@ class _HomeFilledState extends State<HomeFilled> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 6.0, 75.0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 6.0, 65.0, 0),
                     child: Container(
                       width: 120, height: 120,
                       decoration: BoxDecoration(
@@ -198,9 +204,11 @@ class _HomeFilledState extends State<HomeFilled> {
                               foregroundColor: MaterialStateProperty.all<Color>(textColor),
                             ),
                             child: const Text(
-                              "Dinner",
+                              "DINNER",
                               style: TextStyle(
-                                fontSize: 24.0,
+                                fontSize: 18.0,
+                                fontFamily: 'Lexend Peta',
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
                             onPressed: () {},
@@ -213,7 +221,7 @@ class _HomeFilledState extends State<HomeFilled> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(75.0, 6.0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(65.0, 6.0, 0, 0),
                     child: Container(
                       width: 120, height: 120,
                       decoration: BoxDecoration(
