@@ -68,10 +68,6 @@ class _ShoppingListState extends State<ShoppingList> {
               child: ListView.builder(
                   itemCount: _all.length,
                   itemBuilder: (context, i) {
-                    if (i.isOdd) return const Divider();
-
-                    final index = i ~/ 2;
-
                     return Card(
                       elevation: 0.0,
                       color: listBackground,
@@ -82,7 +78,7 @@ class _ShoppingListState extends State<ShoppingList> {
                         leading: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
                           child: Text(
-                              _all[index].amountNum.toString() + " " + _all[index].amountType,
+                              _all[i].amountNum.toString() + " " + _all[i].amountType,
                               style: TextStyle(
                                 color: itemTextColor,
                                 fontFamily: 'Lexend Peta',
@@ -91,7 +87,7 @@ class _ShoppingListState extends State<ShoppingList> {
                           ),
                         ),
                         title: Text(
-                            _all[index].name,
+                            _all[i].name,
                             style: TextStyle(
                               color: itemTextColor,
                               fontFamily: 'Lexend Peta',
@@ -99,17 +95,17 @@ class _ShoppingListState extends State<ShoppingList> {
                             ),
                         ),
                         trailing: Icon(
-                          !_needs.contains(_all[index]) ? Icons.check_box_outline_blank : Icons.check_box,
+                          !_needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
                         ),
                         onTap: () {
                           setState(() {
-                            if(_needs.contains(_all[index])) {
-                              _needs.remove(_all[index]);
-                              _owned.add(_all[index]);
+                            if(_needs.contains(_all[i])) {
+                              _needs.remove(_all[i]);
+                              _owned.add(_all[i]);
                             }
                             else {
-                              _owned.remove(_all[index]);
-                              _needs.add(_all[index]);
+                              _owned.remove(_all[i]);
+                              _needs.add(_all[i]);
                             }
                           });
                         },
