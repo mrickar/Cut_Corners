@@ -19,6 +19,7 @@ final mealTextColor = Color(0xff595959);
 final recreateButtonColor = Color(0xffff6b00);
 final recreateTextColor = Color(0xffffffff);
 final dayNumberColor = Color(0xfff4eae6);
+final bacgroundColor = Color(0xfff4eae6);
 
 List<Daily> mealList = [
   /*
@@ -75,38 +76,40 @@ class _MealListFilledState extends State<MealListFilled> {
 
   @override
   Widget build(BuildContext context) {
-
-    return Column(
-      children: [
-        Expanded(
-          child: ListView.builder(
-              itemCount: mealList.length,
-              itemBuilder: (context, i) {
-                return dailyMealTemplate(mealList[i], i+1);
-              }
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-            color: recreateButtonColor,
-            height: 47.0,
-            width: 134.0,
-            child: TextButton(
-              child: Text(
-                "Make Again",
-                style: TextStyle(
-                  color: recreateTextColor,
-                  fontSize: 14.0,
-                  fontFamily: 'Krona One',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              onPressed: () {},
+    return Container(
+      color: bacgroundColor,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+                itemCount: mealList.length,
+                itemBuilder: (context, i) {
+                  return dailyMealTemplate(mealList[i], i+1);
+                }
             ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Container(
+              color: recreateButtonColor,
+              height: 47.0,
+              width: 134.0,
+              child: TextButton(
+                child: Text(
+                  "Make Again",
+                  style: TextStyle(
+                    color: recreateTextColor,
+                    fontSize: 14.0,
+                    fontFamily: 'Krona One',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ],
+      ),
     );
 
   }
