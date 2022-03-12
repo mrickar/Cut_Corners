@@ -58,13 +58,10 @@ flutter:
      - family: Lexend Peta
        fonts:
          - asset: font-families/Lexend_Peta/static/LexendPeta-Medium.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+
+     - family: Krona One
+       fonts:
+         - asset: font-families/Krona_One/KronaOne-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
