@@ -1,3 +1,4 @@
+import 'package:cut_corners/questionnaire.dart';
 import 'package:flutter/material.dart';
 
 class MealListEmpty extends StatefulWidget {
@@ -8,10 +9,10 @@ class MealListEmpty extends StatefulWidget {
 }
 
 int dayNumber = 0;
-int mealNumber = 0;
 String dropdownDayValue = 'Enter Day Number';
-String dropdownMealValue = 'Enter Meal Number';
 final selectionColor = Colors.amber;
+final questionBackground = Color(0xfff7ac32);
+final questionTextColor = Color(0xffffffff);
 
 class _MealListEmptyState extends State<MealListEmpty> {
 
@@ -29,8 +30,38 @@ class _MealListEmptyState extends State<MealListEmpty> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 180,),
+        SizedBox(
+          width: 289.0,
+          height: 99.0,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: questionBackground,
+            ),
+            child: Center(
+              child: Text(
+                "Choose How Many Days You Want to Plan",
+                style: TextStyle(
+                  color: questionTextColor,
+                  fontSize: 20.0,
+                  fontFamily: 'Lexend Peta',
+                  fontWeight: FontWeight.w400,
+                  //fontFamily:
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,37 +93,10 @@ class _MealListEmptyState extends State<MealListEmpty> {
               }).toList(),
             )
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: DropdownButton<String>(
-              isExpanded: true,
-              value: dropdownMealValue,
-              icon: const Icon(Icons.arrow_downward),
-              elevation: 16,
-              style: TextStyle(color: selectionColor),
-              underline: Container(
-                height: 2,
-                color: selectionColor,
-              ),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownMealValue = newValue!;
-                  mealNumber = int.parse(dropdownMealValue.split(" ")[0]);
-                });
-              },
-              items: <String>['Enter Meal Number', '2 meal per day', '3 meal per day']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            )
-          ),
           const SizedBox(height: 160,),
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Expanded(
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: GestureDetector(
@@ -105,7 +109,7 @@ class _MealListEmptyState extends State<MealListEmpty> {
                 ),
               ),
             ),
-          ),
+            ),
         ],
       ),
     );
