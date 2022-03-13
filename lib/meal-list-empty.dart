@@ -1,4 +1,3 @@
-import 'package:cut_corners/questionnaire.dart';
 import 'package:flutter/material.dart';
 
 class MealListEmpty extends StatefulWidget {
@@ -13,6 +12,10 @@ String dropdownDayValue = 'Enter Day Number';
 final selectionColor = Colors.amber;
 final questionBackground = Color(0xfff7ac32);
 final questionTextColor = Color(0xffffffff);
+final dropdownbackground = Color(0xff9bc0c3);
+final dropdownTextColor = Color(0xffffffff);
+final recreateButtonColor = Color(0xffff6b00);
+final recreateTextColor = Color(0xffffffff);
 
 class _MealListEmptyState extends State<MealListEmpty> {
 
@@ -59,25 +62,22 @@ class _MealListEmptyState extends State<MealListEmpty> {
             ),
           ),
         ),
-      ],
-    );
-
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+        SizedBox(height: 50,),
+        Container(
+          color: dropdownbackground,
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
             child: DropdownButton<String>(
-              isExpanded: true,
+              isExpanded: false,
               value: dropdownDayValue,
-              icon: const Icon(Icons.arrow_downward),
+              icon: const Icon(Icons.arrow_drop_down_circle_rounded),
               elevation: 16,
-              style: TextStyle(color: selectionColor),
-              underline: Container(
-                height: 2,
-                color: selectionColor,
+              style: TextStyle(
+                  color: dropdownTextColor,
+                  fontFamily: 'Lexend Peta',
+                  fontWeight: FontWeight.w400,
               ),
+              dropdownColor: dropdownbackground,
               onChanged: (String? newValue) {
                 setState(() {
                   dropdownDayValue = newValue!;
@@ -91,27 +91,31 @@ class _MealListEmptyState extends State<MealListEmpty> {
                   child: Text(value),
                 );
               }).toList(),
-            )
+            ),
           ),
-          const SizedBox(height: 160,),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: CircleAvatar(
-                    radius: 60.0,
-                    backgroundColor: selectionColor,
-                    child: Text("Save Meal List"),
-                  ),
+        ),
+        const SizedBox(height: 130,),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Container(
+            color: recreateButtonColor,
+            height: 47.0,
+            width: 197.0,
+            child: TextButton(
+              child: Text(
+                "Make a Meal List",
+                style: TextStyle(
+                  color: recreateTextColor,
+                  fontSize: 14.0,
+                  fontFamily: 'Krona One',
+                  fontWeight: FontWeight.w400,
                 ),
               ),
+              onPressed: () {},
             ),
-            ),
-        ],
-      ),
+          ),
+        ),
+      ],
     );
   }
 }
