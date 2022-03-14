@@ -10,7 +10,10 @@ class Ingredient{
   {
     amountName=amountNum.toString()+" "+amountType+" "+name;
   }*/
-  Ingredient({required this.name, required this.amountNum, required this.amountType});
+  Ingredient({required this.name, required this.amountNum, required this.amountType})
+  {
+    amountName=amountNum.toString()+" "+amountType+" "+name;
+  }
   Ingredient.fromMap(Map<String,dynamic> data)
   {
     name=data["name"];
