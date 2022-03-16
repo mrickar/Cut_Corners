@@ -11,7 +11,7 @@ class ProfileInfo{
   late int dailyActivity;
   late int age;
   late double dailyCal;
-
+/*sdada*/
   ProfileInfo(this.name,this.surname,this.gender,this.height,this.weight,this.dailyActivity,this.age)
   {
       dailyCal=calculateDailyCaloryNeed(this);
