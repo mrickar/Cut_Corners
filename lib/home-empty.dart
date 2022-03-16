@@ -4,6 +4,13 @@ import 'package:cut_corners/main.dart';
 import 'package:cut_corners/profilePage.dart';
 import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+
+var now = new DateTime.now();
+var formatter = new DateFormat('yyyy.MM.dd');
+String formattedDate = formatter.format(now);
+String weekDay = DateFormat('EEEE').format(now);
 
 class HomeEmpty extends StatefulWidget {
   const HomeEmpty({Key? key}) : super(key: key);
@@ -36,14 +43,14 @@ class _HomeEmptyState extends State<HomeEmpty> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                    "04.03.2022",
+                    "$formattedDate",
                     style: TextStyle(
                         color: dateColor,
                         fontSize: 14.0,
                     ),
                 ),
                 Text(
-                  "Friday",
+                  "$weekDay",
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,

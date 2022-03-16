@@ -1,7 +1,16 @@
 import 'dart:ui';
 
 import 'package:cut_corners/profilePage.dart';
+import 'package:cut_corners/repositories/getFromAPI.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+
+var now = new DateTime.now();
+var formatter = new DateFormat('yyyy.MM.dd');
+String formattedDate = formatter.format(now);
+String weekDay = DateFormat('EEEE').format(now);
+
 
 class HomeFilled extends StatefulWidget {
   const HomeFilled({Key? key}) : super(key: key);
@@ -39,14 +48,14 @@ class _HomeFilledState extends State<HomeFilled> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "04.03.2022",
+                  "$formattedDate",
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
                   ),
                 ),
                 Text(
-                  "Friday",
+                  "$weekDay",
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
@@ -80,10 +89,114 @@ class _HomeFilledState extends State<HomeFilled> {
             alignment: Alignment.topRight,
           ),
           const SizedBox(height: 30.0,),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Stack(
-              children: [
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Stack(
+                children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
+                      child: Center(
+                        child: Container(
+                          color: rectangularContainerColor,
+                          height: 100,
+                          width: 300,
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 12.0, 0),
+                              child: Text(
+                                "BREAKFAST",
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontFamily: 'Lexend Peta',
+                                  fontWeight: FontWeight.w400,
+                                  color: textColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(65.0, 6.0, 0, 0),
+                        child: Container(
+                          width: 120, height: 120,
+                          decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(60),
+                              )
+                          ),
+                          child: Image.asset('images/breakfast-icon.png', fit: BoxFit.cover,),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
+                    child: Center(
+                      child: Container(
+                        color: rectangularContainerColor,
+                        height: 100,
+                        width: 300,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(12.0, 0, 0, 0),
+                            child: Text(
+                              "LUNCH",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontFamily: 'Lexend Peta',
+                                fontWeight: FontWeight.w400,
+                                color: textColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 6.0, 65.0, 0),
+                      child: Container(
+                        width: 120, height: 120,
+                        decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(60),
+                            )
+                        ),
+                        child: Image.asset('images/lunch-icon.png', fit: BoxFit.cover,),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {},
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Stack(
+                children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
                     child: Center(
@@ -95,19 +208,14 @@ class _HomeFilledState extends State<HomeFilled> {
                           alignment: Alignment.centerRight,
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 12.0, 0),
-                            child: TextButton(
-                              style: ButtonStyle(
-                                foregroundColor: MaterialStateProperty.all<Color>(textColor),
+                            child: Text(
+                              "DINNER",
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                fontFamily: 'Lexend Peta',
+                                fontWeight: FontWeight.w400,
+                                color: textColor,
                               ),
-                              child: const Text(
-                                "BREAKFAST",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontFamily: 'Lexend Peta',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                              onPressed: () {},
                             ),
                           ),
                         ),
@@ -120,123 +228,18 @@ class _HomeFilledState extends State<HomeFilled> {
                       padding: const EdgeInsets.fromLTRB(65.0, 6.0, 0, 0),
                       child: Container(
                         width: 120, height: 120,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.all(
                               Radius.circular(60),
                             )
                         ),
-                        child: Image.asset('images/breakfast-icon.png', fit: BoxFit.cover,),
+                        child: Image.asset('images/dinner-icon.png', fit: BoxFit.cover,),
                       ),
                     ),
                   ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
-                  child: Center(
-                    child: Container(
-                      color: rectangularContainerColor,
-                      height: 100,
-                      width: 300,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(12.0, 0, 0, 0),
-                          child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(textColor),
-                            ),
-                            child: const Text(
-                              "LUNCH",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontFamily: 'Lexend Peta',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 6.0, 65.0, 0),
-                    child: Container(
-                      width: 120, height: 120,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(60),
-                          )
-                      ),
-                      child: Image.asset('images/lunch-icon.png', fit: BoxFit.cover,),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 12.0, 0, 0),
-                  child: Center(
-                    child: Container(
-                      color: rectangularContainerColor,
-                      height: 100,
-                      width: 300,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 12.0, 0),
-                          child: TextButton(
-                            style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(textColor),
-                            ),
-                            child: const Text(
-                              "DINNER",
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontFamily: 'Lexend Peta',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(65.0, 6.0, 0, 0),
-                    child: Container(
-                      width: 120, height: 120,
-                      decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(60),
-                          )
-                      ),
-                      child: Image.asset('images/dinner-icon.png', fit: BoxFit.cover,),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

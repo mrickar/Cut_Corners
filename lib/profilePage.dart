@@ -7,8 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:intl/intl.dart';
 import 'main.dart';
+
+var now = new DateTime.now();
+var formatter = new DateFormat('yyyy.MM.dd');
+String formattedDate = formatter.format(now);
+String weekDay = DateFormat('EEEE').format(now);
 
 bool isClickedName=false;
 bool isClickedSurname=false;
@@ -55,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(
           iconTheme: const IconThemeData(
-            color: Colors.black, //change your color here
+            color: Colors.black,
           ),
           automaticallyImplyLeading: true,
           backgroundColor: backgroundColor,
@@ -67,14 +72,14 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "04.03.2022",
+                  "$formattedDate",
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
                   ),
                 ),
                 Text(
-                  "Friday",
+                  "$weekDay",
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
@@ -94,7 +99,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: profilePersonColor,
                   size: 24.0,
                 ),
-                onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));},
+                onPressed: () {},
               ),
             ),
           ),],
