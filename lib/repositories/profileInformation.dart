@@ -9,8 +9,13 @@ class ProfileInfo{
   late int height;
   late int weight;
   late int dailyActivity;
+  late int age;
+  late double dailyCal;
 
-  ProfileInfo(this.name,this.surname,this.gender,this.height,this.weight,this.dailyActivity);
+  ProfileInfo(this.name,this.surname,this.gender,this.height,this.weight,this.dailyActivity,this.age)
+  {
+      dailyCal=calculateDailyCaloryNeed(this);
+  }
   ProfileInfo.fromMap(Map <String,dynamic> data)
   {
     name=data["name"];
@@ -19,6 +24,7 @@ class ProfileInfo{
     height=data["height"];
     weight=data["weight"];
     dailyActivity=data["dailyActivity"];
+    dailyCal=calculateDailyCaloryNeed(this);
   }
 Map<String,dynamic> toMap()
 {
@@ -51,4 +57,15 @@ async {
   DocumentSnapshot<Map<String, dynamic>> snapshot =  await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).get();
   USER =ProfileInfo.fromMap(snapshot.data()!);
   return;
+}
+double calculateDailyCaloryNeed(ProfileInfo person)
+{
+  if(person.gender=="Male")
+    {
+      return 10*person.weight+6.25*person.height-5*person.age+5;
+    }
+  else
+    {
+      return 10*person.weight+6.25*person.height-5*person.age-161;
+    }
 }
