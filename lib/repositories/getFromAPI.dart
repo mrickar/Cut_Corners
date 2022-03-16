@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 
 import 'food_recipe_repository.dart';
@@ -126,9 +127,12 @@ class FoodRecipeDeneme{
   }
 }
 */
-Future<void> getIDsFromAPI(/*int numberOfMeal*/) //tastyfood
+Future<void> getIDsFromAPI(/*int numberOfMeal,String mealTime,bool isVegan,bool isVegetarian*/) //tastyfood
 async {
   int numberOfMeal=5;
+  bool isVegan=false;
+  bool isVegetarian=false;
+  String mealTime="breakfast";//"lunch", "dinner"
   //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/list";
@@ -137,7 +141,15 @@ async {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
     'x-rapidapi-key': "d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
   };
-  final queryString = {"from":"0","size":numberOfMeal.toString(),"tags":"under_30_minutes"};//TODO TAKE QUERY
+  String tags=mealTime;
+  if(isVegan) {
+    tags+=",vegan";
+  }
+  else if(isVegetarian)
+  {
+    tags+=",vegetarian";
+  }
+  final queryString = {"from":Random().nextInt(10),"size":"40","tags":tags,"num_servings":"1"};//,"tags":"under_30_minutes"};//TODO TAKE QUERY
   Uri uri = Uri.https(authority,unencodedPath,queryString);
   http.Response response = await http.get(uri,headers: headers);
   final data=await jsonDecode(response.body);
@@ -146,10 +158,10 @@ async {
   {
     idList.add(element["id"]);
   }
-  getInformationsFromAPI(idList);
+  getInformationsFromAPI(idList,numberOfMeal);
 }
 
-Future<void> getInformationsFromAPI(List<int> idList) async {
+Future<void> getInformationsFromAPI(List<int> idList,int numberOfMeal) async {
   //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/get-more-info";
@@ -161,8 +173,8 @@ Future<void> getInformationsFromAPI(List<int> idList) async {
   for(int id in idList)
   {
     Future.delayed(const Duration(milliseconds: 30));
-    final querystring = {"id":id.toString()};
-    Uri uri = Uri.https(authority,unencodedPath,querystring);
+    final queryString = {"id":id.toString()};
+    Uri uri = Uri.https(authority,unencodedPath,queryString);
     http.Response response = await http.get(uri,headers: headers);
     final mealData=await jsonDecode(response.body);
     print("********"+id.toString()+"**********");
@@ -175,6 +187,7 @@ Future<void> getInformationsFromAPI(List<int> idList) async {
     FoodRecipe newFood=FoodRecipe.fromAPI(mealData);
     mp[newFood.name]=newFood;
     print("NEW FOOD ADDED");
+    if(mp.length==numberOfMeal) break;
   }
 
   for(var e in mp.keys)
