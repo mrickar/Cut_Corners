@@ -50,7 +50,7 @@ void printValues(){
 }
 ProfileInfo createProfile()
 {
-  return ProfileInfo(fieldQ[0].value,fieldQ[1].value,dropdownQ[0].value,int.parse(fieldQ[2].value),int.parse(fieldQ[3].value),int.parse(dropdownQ[1].value));
+  return ProfileInfo(fieldQ[0].value,fieldQ[1].value,dropdownQ[0].value,int.parse(fieldQ[2].value),int.parse(fieldQ[3].value),int.parse(dropdownQ[1].value));//TODO AGE
 }
 class Field{
   final String header;
