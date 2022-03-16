@@ -54,7 +54,10 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60.0),
         child: AppBar(
-          automaticallyImplyLeading: false,
+          iconTheme: const IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+          automaticallyImplyLeading: true,
           backgroundColor: backgroundColor,
           elevation: 0.0,
           title: Padding(
