@@ -101,7 +101,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                                       },
                                     ),
                                     SingleChildScrollView(
-                                      child: Text(recipeOfFood.recipe),
+                                      child: Text(recipeOfFood.instructions),
                                     )
                                   ],
                                 ),

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'food_recipe_repository.dart';
-import 'ingredients.dart';
+
 Map<String,dynamic> brokenNum= {
   "¼":0.25,
   "Â¼":0.25,
@@ -11,18 +11,18 @@ Map<String,dynamic> brokenNum= {
   "½":0.5,
   "Â½":0.5,
 };
+/*
 class FoodRecipeDeneme{
   late List<Ingredient> ingredients=[];
   late String name;
   late int calories;
   late String photoPath;
-  String instructions=""; //TODO madde madde olacak şekilde ayarla
+  String instructions="";
   int? cookTime;
   late Nutrition nutrition;
 
-  FoodRecipeDeneme(this.ingredients,this.name,this.calories,this.photoPath,this.instructions);//TODO YENILERI EKLE
-  FoodRecipeDeneme.fromMap(Map<String,dynamic> data)
-  {
+  FoodRecipeDeneme(this.ingredients,this.name,this.calories,this.photoPath,this.instructions,this.cookTime,this.nutrition);
+  FoodRecipeDeneme.fromAPI(Map<String,dynamic> data){
     name=data["name"];
     cookTime=data["total_time_minutes"];
     nutrition=Nutrition.fromMap(data["nutrition"]);
@@ -61,7 +61,6 @@ class FoodRecipeDeneme{
         {
           tmpAmountNum="0";
           tmpName=ing["raw_text"];
-          //TODO int.parse leri double yap ingredient amountu da double yap
           for(var char in tmpName.split(" "))
           {
             if (double.tryParse(char) != null)
@@ -92,13 +91,25 @@ class FoodRecipeDeneme{
   }
   Map<String,dynamic> toMap()
   {
-
-    return {
-      "name":name,
-      "calories":calories,
-      "photoPath":photoPath,
-      "recipe":instructions
-    };
+    if(cookTime!=null)
+      {
+        return {
+          "name":name,
+          "calories":calories,
+          "photoPath":photoPath,
+          "instructions":instructions,
+          "cookTime":cookTime
+        };
+      }
+    else
+      {
+        return {
+          "name":name,
+          "calories":calories,
+          "photoPath":photoPath,
+          "instructions":instructions
+        };
+      }
   }
   void printFood()
   {
@@ -114,23 +125,23 @@ class FoodRecipeDeneme{
     nutrition.printNutrition();
   }
 }
+*/
 Future<void> getIDsFromAPI(/*int numberOfMeal*/) //tastyfood
 async {
   int numberOfMeal=5;
-  const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
+  //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/list";
-  const url = "https://tasty.p.rapidapi.com/recipes/list";
+  //const url = "https://tasty.p.rapidapi.com/recipes/list";
   const headers = {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
     'x-rapidapi-key': "d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
   };
-  final querystring = {"from":"0","size":numberOfMeal.toString(),"tags":"under_30_minutes"};//TODO TAKE QUERY
-  Uri uri = Uri.https(authority,unencodedPath,querystring);
+  final queryString = {"from":"0","size":numberOfMeal.toString(),"tags":"under_30_minutes"};//TODO TAKE QUERY
+  Uri uri = Uri.https(authority,unencodedPath,queryString);
   http.Response response = await http.get(uri,headers: headers);
   final data=await jsonDecode(response.body);
   List<int> idList=[];
-  Map<String,FoodRecipeDeneme> mp={};
   for(var element in data["results"])
   {
     idList.add(element["id"]);
@@ -139,14 +150,14 @@ async {
 }
 
 Future<void> getInformationsFromAPI(List<int> idList) async {
-  const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
+  //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/get-more-info";
   const headers = {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
     'x-rapidapi-key': "d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
   };
-  Map<String,FoodRecipeDeneme> mp={};
+  Map<String,FoodRecipe> mp={};
   for(int id in idList)
   {
     Future.delayed(const Duration(milliseconds: 30));
@@ -161,7 +172,7 @@ Future<void> getInformationsFromAPI(List<int> idList) async {
       continue;
     }
     print("NEW FOOD");
-    FoodRecipeDeneme newFood=FoodRecipeDeneme.fromMap(mealData);
+    FoodRecipe newFood=FoodRecipe.fromAPI(mealData);
     mp[newFood.name]=newFood;
     print("NEW FOOD ADDED");
   }
