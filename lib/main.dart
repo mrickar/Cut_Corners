@@ -1,6 +1,7 @@
 //import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/SigninScreen.dart';
+import 'package:cut_corners/custom_icons_icons.dart';
 import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
@@ -16,6 +17,7 @@ import 'meal-list-filled.dart';
 import 'questionnaire.dart';
 
 
+
 void main() => runApp(const ProviderScope(child: MaterialApp(home: SigninScreen())));
 
 class Home extends StatefulWidget {
@@ -28,7 +30,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final bottomNavigatorBack = Color(0xff9bc0c3);
-  final bottomNavigatorFront = Colors.grey.shade900;
+  final bottomNavigatorIconBack = Color(0xfff7ac32);
+  final bottomNavigatorIconFront = Color(0xffffffff);
   int _currentIndex = 1;
   bool isMealListReady=false;
 
@@ -66,30 +69,41 @@ class _HomeState extends State<Home> {
         elevation: 0.0,
         showSelectedLabels: false,
         showUnselectedLabels: false,
-        selectedIconTheme: const IconThemeData(size: 32),
-        unselectedIconTheme: const IconThemeData(size: 24),
+        //selectedIconTheme: const IconThemeData(size: 32),
+        //unselectedIconTheme: const IconThemeData(size: 24),
         currentIndex: _currentIndex,
         onTap: onTabTapped,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_cart,
-              color: bottomNavigatorFront,
+            icon: CircleAvatar(
+              backgroundColor: bottomNavigatorIconBack,
+              radius: 25,
+              child: Icon(
+                CustomIcons.shopping_list_icon,
+                color: bottomNavigatorIconFront,
+                size: 50,
+              ),
             ),
             label: "Shop list",
 
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home_filled,
-              color: bottomNavigatorFront,
+              CustomIcons.home_icon,
+              color: bottomNavigatorIconFront,
+              size: 50,
             ),
             label: "Home",
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.set_meal,
-              color: bottomNavigatorFront,
+            icon: CircleAvatar(
+              backgroundColor: bottomNavigatorIconBack,
+              radius: 25,
+              child: Icon(
+                CustomIcons.meal_icon,
+                color: bottomNavigatorIconFront,
+                size: 50,
+              ),
             ),
             label: "Meal list",
           ),

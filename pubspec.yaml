@@ -65,6 +65,10 @@ flutter:
      - family: Krona One
        fonts:
          - asset: font-families/Krona_One/KronaOne-Regular.ttf
+
+     - family: CustomIcons
+       fonts:
+         - asset: icons/fonts/CustomIcons.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
