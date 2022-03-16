@@ -145,7 +145,9 @@ class _HomeFilledState extends State<HomeFilled> {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[0/*kacinci gün*/].meals[1/*[kahvalti,lunch,dinner]*/],)));
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Stack(
@@ -196,7 +198,9 @@ class _HomeFilledState extends State<HomeFilled> {
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[0/*kacinci gün*/].meals[2/*[kahvalti,lunch,dinner]*/],)));
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Stack(
