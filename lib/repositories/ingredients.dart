@@ -2,7 +2,7 @@ const ml="ml";
 const gr="gr";
 class Ingredient{
   late String name;
-  late int amountNum;
+  late double amountNum;
   late String amountType;
   late String amountName;
 

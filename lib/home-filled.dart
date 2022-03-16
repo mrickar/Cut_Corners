@@ -66,7 +66,9 @@ class _HomeFilledState extends State<HomeFilled> {
                   color: profilePersonColor,
                   size: 24.0,
                 ),
-                onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));},
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
+                  },
               ),
             ),
           ),],
@@ -118,7 +120,7 @@ class _HomeFilledState extends State<HomeFilled> {
                       padding: const EdgeInsets.fromLTRB(65.0, 6.0, 0, 0),
                       child: Container(
                         width: 120, height: 120,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.all(
                               Radius.circular(60),

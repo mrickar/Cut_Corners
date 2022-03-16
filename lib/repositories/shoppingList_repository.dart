@@ -26,7 +26,7 @@ async {
               else
                 {
                   //TODO amountType farkliysa patliyor
-                  all[doc.data()["name"]]!.amountNum+=doc.data()["amountNum"] as int;
+                  all[doc.data()["name"]]!.amountNum+=doc.data()["amountNum"] as double;
                 }
             }
         }

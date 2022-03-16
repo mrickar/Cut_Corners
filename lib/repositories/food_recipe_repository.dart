@@ -4,7 +4,32 @@ import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
 import 'package:cut_corners/repositories/shoppingList_repository.dart';
 
-
+class Nutrition{
+  late int calories;
+  late int sugar;
+  late int carbohydrates;
+  late int protein;
+  late int fat;
+  late int fiber;
+  Nutrition.fromMap(Map<String,dynamic> data)
+  {
+    calories=data["calories"];
+    sugar=data["sugar"];
+    carbohydrates=data["carbohydrates"];
+    protein=data["protein"];
+    fat=data["fat"];
+    fiber=data["fiber"];
+  }
+  void printNutrition()
+  {
+    print("calories: "+calories!.toString());
+    print("sugar: "+sugar!.toString());
+    print("carbohydrates: "+carbohydrates!.toString());
+    print("protein: "+protein!.toString());
+    print("fat: "+fat!.toString());
+    print("fiber: "+fiber!.toString());
+  }
+}
 class FoodRecipe{
   late List<Ingredient> ingredients=[];
   late String name;
