@@ -8,10 +8,9 @@ class MealListFilled extends StatefulWidget {
 }
 
 class Daily{
-  final int mealCount;
   final List meals;
 
-  Daily({required this.mealCount, required this.meals});
+  Daily({required this.meals});
 }
 
 const dayBackgroundColor = Color(0xff9bc0c3);

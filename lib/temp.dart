@@ -64,6 +64,7 @@ class _tempPageState extends State<tempPage> {
     );
   }
 
+  /*
   void uploadFood()
   {
     for (var food in exampleFoods) {
@@ -75,6 +76,7 @@ class _tempPageState extends State<tempPage> {
       }
     }
   }
+  */
 
   void categorizeFoods()
   {
@@ -85,7 +87,7 @@ class _tempPageState extends State<tempPage> {
             {
               FirebaseFirestore.instance.collection("calorieList").doc("700-1000").collection("foodNames").doc(food.name).set({"name":food.name});
             }
-          else if(food!.calories<1300)
+          else if(food.calories<1300)
           {
             FirebaseFirestore.instance.collection("calorieList").doc("1000-1300").collection("foodNames").doc(food.name).set({"name":food.name});
           }

@@ -52,7 +52,7 @@ class _HomeState extends State<Home> {
   void initState() {
     setState(() {
       getUser();
-      getAllFoods();
+      getAllFoodRecipes();
       getPersonalMealList();
     });
     super.initState();
@@ -118,10 +118,10 @@ class _HomeState extends State<Home> {
     var querySnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
     for(int i=1;i<querySnapshot.docs.length+1;i++)
     {
-      var documentSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i}").get();
+      var documentSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day$i").get();
       Map<String, dynamic>? map = documentSnapshot.data();
       List<String> dailyMeal=[documentSnapshot.data()!["breakfast"],documentSnapshot.data()!["lunch"],documentSnapshot.data()!["dinner"]];
-      mealList.add(Daily(mealCount: querySnapshot.docs.length, meals: dailyMeal));
+      mealList.add(Daily(meals: dailyMeal));
     }
     setState(() {
       isMealListReady=true;

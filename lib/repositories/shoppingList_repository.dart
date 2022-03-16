@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/meal-list-filled.dart';
+import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 
 import 'ingredients.dart';
@@ -12,11 +13,12 @@ Map<String,Ingredient> all={};
 
 Future<void> createShoppingList()
 async {
+
   for(var dailyMeal in mealList)
     {
       for (var mealName in dailyMeal.meals)
         {
-          var querySnapshot = await FirebaseFirestore.instance.collection("food_recipe").doc(mealName).collection("ingredients").get();
+          var querySnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(mealName).collection("ingredients").get();
           for(var doc in querySnapshot.docs)
             {
               if(!all.containsKey(doc.data()["name"]))
@@ -31,7 +33,6 @@ async {
             }
         }
     }
-
   for(var key in all.keys)
     {
       var item=all[key];

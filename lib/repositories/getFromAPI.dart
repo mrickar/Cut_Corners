@@ -127,12 +127,11 @@ class FoodRecipeDeneme{
   }
 }
 */
-Future<void> getIDsFromAPI(/*int numberOfMeal,String mealTime,bool isVegan,bool isVegetarian*/) //tastyfood
+Future<void> getIDsFromAPI(double dailyNeed,String mealTime,int numberOfMealDay/*,bool isVegan,bool isVegetarian*/) //tastyfood
 async {
-  int numberOfMeal=5;
   bool isVegan=false;
   bool isVegetarian=false;
-  String mealTime="breakfast";//"lunch", "dinner"
+  //String mealTime="breakfast";//"lunch", "dinner"
   //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/list";
@@ -149,7 +148,7 @@ async {
   {
     tags+=",vegetarian";
   }
-  final queryString = {"from":Random().nextInt(10),"size":"40","tags":tags,"num_servings":"1"};//,"tags":"under_30_minutes"};//TODO TAKE QUERY
+  final queryString = {"from":Random().nextInt(10).toString(),"size":"100","tags":tags,"num_servings":"1"};//,"tags":"under_30_minutes"};//TODO TAKE QUERY
   Uri uri = Uri.https(authority,unencodedPath,queryString);
   http.Response response = await http.get(uri,headers: headers);
   final data=await jsonDecode(response.body);
@@ -158,10 +157,10 @@ async {
   {
     idList.add(element["id"]);
   }
-  getInformationsFromAPI(idList,numberOfMeal);
+  await getInformationsFromAPI(idList,numberOfMealDay,dailyNeed,mealTime);
 }
 
-Future<void> getInformationsFromAPI(List<int> idList,int numberOfMeal) async {
+Future<void> getInformationsFromAPI(List<int> idList,int numberOfMealDay,double dailyNeed, String mealTime) async {
   //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/get-more-info";
@@ -169,30 +168,38 @@ Future<void> getInformationsFromAPI(List<int> idList,int numberOfMeal) async {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
     'x-rapidapi-key': "d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
   };
-  Map<String,FoodRecipe> mp={};
+  double mealCalMax=(12*dailyNeed)/30;
+  double mealCalMin=(8*dailyNeed)/30;
+  print("MAX "+mealCalMax.toString());
+  print("MIN "+mealCalMin.toString());
+  //Map<String,FoodRecipe> mp={};
+  int mealCnt=0;
   for(int id in idList)
   {
-    Future.delayed(const Duration(milliseconds: 30));
+    //Future.delayed(const Duration(milliseconds: 30));
     final queryString = {"id":id.toString()};
     Uri uri = Uri.https(authority,unencodedPath,queryString);
     http.Response response = await http.get(uri,headers: headers);
     final mealData=await jsonDecode(response.body);
     print("********"+id.toString()+"**********");
-    if(mealData["nutrition"].length==0)
+    if(mealData["nutrition"].length==0 /*||mealData["nutrition"]["calories"]>mealCalMax||mealData["nutrition"]["calories"]<mealCalMin */)
     {
+      print("length "+mealData["nutrition"].length.toString()+" "+mealData["nutrition"]["calories"].toString());
       print("CONTINUE");
       continue;
     }
     print("NEW FOOD");
     FoodRecipe newFood=FoodRecipe.fromAPI(mealData);
-    mp[newFood.name]=newFood;
+    foodRecipeRep[newFood.name]=newFood;
+    personalMealList[mealTime]!.add(newFood.name);
+    mealCnt++;
     print("NEW FOOD ADDED");
-    if(mp.length==numberOfMeal) break;
+    if(mealCnt==numberOfMealDay) break;
   }
 
-  for(var e in mp.keys)
+  for(var e in foodRecipeRep.keys)
   {
-    mp[e]!.printFood();
+    foodRecipeRep[e]!.printFood();
   }
   print("*********DONE***********");
 }

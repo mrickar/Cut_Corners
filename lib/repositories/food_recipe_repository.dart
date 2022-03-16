@@ -1,7 +1,7 @@
-import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
+import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:cut_corners/repositories/shoppingList_repository.dart';
 
 import 'getFromAPI.dart';
@@ -31,6 +31,18 @@ class Nutrition{
     print("fat: "+fat.toString());
     print("fiber: "+fiber.toString());
   }
+
+  Map<String, dynamic> toMap() {
+    return
+      {
+        "calories":calories,
+        "sugar":sugar,
+        "carbohydrates":carbohydrates,
+        "protein":protein,
+        "fat":fat,
+        "fiber":fiber,
+      };
+  }
 }
 class FoodRecipe{
   late List<Ingredient> ingredients=[];
@@ -42,7 +54,7 @@ class FoodRecipe{
   late Nutrition nutrition;
 
   FoodRecipe(this.ingredients,this.name,this.calories,this.photoPath,this.instructions,this.cookTime,this.nutrition);
-  FoodRecipe.fromMap(Map<String,dynamic> data, QuerySnapshot<Map<String, dynamic>> ingQSnap){
+  FoodRecipe.fromMap(Map<String,dynamic> data, QuerySnapshot<Map<String, dynamic>> ingQSnap, Nutrition nutData){
   for (QueryDocumentSnapshot<Map<String, dynamic>> element in ingQSnap.docs)
     {
       ingredients.add(Ingredient.fromMap(element.data()));
@@ -52,6 +64,7 @@ class FoodRecipe{
   calories=data["calories"].toInt();
   photoPath=data["photoPath"];
   instructions=data["recipe"];
+  nutrition=nutData;
 }
   FoodRecipe.fromAPI(Map<String,dynamic> data){
     name=data["name"];
@@ -156,29 +169,41 @@ class FoodRecipe{
 }
 
 late Map<String,FoodRecipe>foodRecipeRep={};
-Future<void> getAllFoods()
+Future<void> getAllFoodRecipes()
 async {
-  QuerySnapshot<Map<String, dynamic>> foodRecipeCol = await FirebaseFirestore.instance.collection("food_recipe").get();
+  QuerySnapshot<Map<String, dynamic>> foodRecipeCol = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipe").get();
 
   for(QueryDocumentSnapshot<Map<String, dynamic>> food in foodRecipeCol.docs)
   {
     QuerySnapshot<Map<String, dynamic>> ingQSnap = await FirebaseFirestore.instance.collection("food_recipe").doc(food.id).collection("ingredients").get();
+    DocumentSnapshot<Map<String, dynamic>> nutritionSnapshot = await FirebaseFirestore.instance.collection("food_recipe").doc(food.id).collection("nutrition").doc("nutrition").get();
+    var nutMap = nutritionSnapshot.data();
+    Nutrition nutData=Nutrition.fromMap(nutMap!);
     Map<String, dynamic> data = food.data();
-    foodRecipeRep[food.id]=FoodRecipe.fromMap(data,ingQSnap);
+    foodRecipeRep[food.id]=FoodRecipe.fromMap(data,ingQSnap,nutData);
   }
   printAllFoodNames();
 }
-/*
+
 Map<String,List<String>> personalMealList=
 {
   "breakfast":[],
   "lunch":[],
   "dinner":[],
 };
-*/
-Future<void> createPersonalMealList()//int dayNumber)
+
+Future<void> createPersonalMealList(int dayNumber,bool isVegan,bool isVegetarian)
 async {
-  int dayNumber=2;
+  dayNumber=2;
+  double dailyNeed=USER.dailyCal;
+  print("***************breakfast**********");
+  await getIDsFromAPI(dailyNeed, "breakfast",dayNumber);
+  print("***************lunch**********");
+  await getIDsFromAPI(dailyNeed, "lunch",dayNumber);
+  print("***************dinner**********");
+  await getIDsFromAPI(dailyNeed, "dinner",dayNumber);
+  print("***************bitti**********");
+  /*
   List<String> food700=[];
   var querySnapshot = await FirebaseFirestore.instance.collection("calorieList").doc("700-1000").collection("foodNames").get();
   for(var doc in querySnapshot.docs)
@@ -197,27 +222,46 @@ async {
   {
     food1300.add(doc.data()["name"]);
   }
-
-  var randomChoose=Random();
+*/
+  //var randomChoose=Random();
   for(int i=0;i<dayNumber;i++)
     {
       /*personalMealList["breakfast"]!.add(food700[randomChoose.nextInt(food700.length)]);
       personalMealList["lunch"]!.add(food1000[randomChoose.nextInt(food1000.length)]);
       personalMealList["dinner"]!.add(food1300[randomChoose.nextInt(food1300.length)]);*/
-      var breakfast=food700[randomChoose.nextInt(food700.length)];
+      /*var breakfast=food700[randomChoose.nextInt(food700.length)];
       var lunch = food1000[randomChoose.nextInt(food1000.length)];
-      var dinner = food1300[randomChoose.nextInt(food1300.length)];
+      var dinner = food1300[randomChoose.nextInt(food1300.length)];*/
+      print("*******for ici*******");
       Map<String,String> data={
-        "breakfast":breakfast,
-        "lunch":lunch,
-        "dinner":dinner
+        "breakfast":personalMealList["breakfast"]![i],
+        "lunch":personalMealList["lunch"]![i],
+        "dinner":personalMealList["dinner"]![i]
       };
+      print("********firebase once*********");
       FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i+1}").set(data);
+      print("********firebase ara*********");
+      uploadFood();
+      print("********firebase sonra*********");
     }
   await createShoppingList();
   return;
 }
-
+void uploadFood() {
+  for (var key in foodRecipeRep.keys) {
+    var food = foodRecipeRep[key];
+    final name = food!.name;
+    FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+        name).set(food.toMap());
+    for (var i in food.ingredients) {
+      FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+          name).collection("ingredients").doc(i.name).set(i.toMap());
+    }
+    FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+        name).collection("nutrition").doc("nutrition").set(
+        food.nutrition.toMap());
+  }
+}
 
 void printAllFoodNames()
 {
@@ -226,6 +270,30 @@ void printAllFoodNames()
     print(element);
   }
   print("******DONE*****");
+}
+void deleteMealList_FoodRecipesFB()
+{
+  var documentReference = FirebaseFirestore.instance.collection("Profiles").doc(getUid());
+  documentReference.collection("personalMealList").snapshots().forEach((element) {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+    {
+      docSnapshot .reference.delete();
+    }
+  });
+  documentReference.collection("shoppingList").snapshots().forEach((element) {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+    {
+      docSnapshot .reference.delete();
+    }
+  });
+  /*
+  FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").d;
+  documentReference.collection("food_recipes").snapshots().forEach((element) {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+      docSnapshot .reference.delete();
+    }
+  );
+   */
 }
 /*
 List<FoodRecipe>exampleFoods=[

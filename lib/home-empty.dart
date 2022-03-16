@@ -100,7 +100,8 @@ class _HomeEmptyState extends State<HomeEmpty> {
                     ),
                   ),
                   onPressed: () async {
-                  await createPersonalMealList();
+                  await createPersonalMealList(10,false,false);
+                  print("**********create sonra********");
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                 },
               ),
