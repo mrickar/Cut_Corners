@@ -1,5 +1,3 @@
-const ml="ml";
-const gr="gr";
 class Ingredient{
   late String name;
   late double amountNum;
@@ -18,7 +16,7 @@ class Ingredient{
   {
     name=data["name"];
     amountType=data["amountType"];
-    amountNum=data["amountNum"];
+    amountNum=data["amountNum"].toDouble();
     amountName=amountNum.toString()+" "+amountType+" "+name;
   }
   Map<String,dynamic> toMap()

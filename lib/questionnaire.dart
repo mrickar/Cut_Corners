@@ -13,15 +13,16 @@ class Questionnaire extends StatefulWidget {
   _QuestionnaireState createState() => _QuestionnaireState();
 }
 
-List<String> questions = ["name","surname", "height", "weight", "gender", "daily-activity"];
+List<String> questions = ["name","surname", "age","height", "weight", "gender", "daily-activity"];
 List<String> dropdownQuestions = ["gender", "daily-activity"];
-List<String> textFieldQuestions = ["name","surname", "height", "weight"];
+List<String> textFieldQuestions = ["name","surname","age", "height", "weight"];
 List values = [];
 
 final selectionColor = Colors.grey.shade800;
 
 late String name = "";
 late String surname = "";
+late int age = 0;
 late int height = 0;
 late int weight = 0;
 late String gender = "";
@@ -35,6 +36,7 @@ List<Drop> dropdownQ = [
 List<Field> fieldQ = [
   Field(header: "Name"),
   Field(header: "Surname"),
+  Field(header: "Age"),
   Field(header: "height"),
   Field(header: "weight"),
 ];
@@ -50,7 +52,7 @@ void printValues(){
 }
 ProfileInfo createProfile()
 {
-  return ProfileInfo(fieldQ[0].value,fieldQ[1].value,dropdownQ[0].value,int.parse(fieldQ[2].value),int.parse(fieldQ[3].value),int.parse(dropdownQ[1].value));//TODO AGE
+  return ProfileInfo(fieldQ[0].value,fieldQ[1].value,dropdownQ[0].value,int.parse(fieldQ[3].value),int.parse(fieldQ[4].value),int.parse(dropdownQ[1].value),int.parse(fieldQ[2].value));//TODO AGE
 }
 class Field{
   final String header;

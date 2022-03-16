@@ -44,9 +44,8 @@ FoodRecipe.fromMap(Map<String,dynamic> data, QuerySnapshot<Map<String, dynamic>>
     {
       ingredients.add(Ingredient.fromMap(element.data()));
     }
-
   name=data["name"];
-  calories=data["calories"];
+  calories=data["calories"].toInt();
   photoPath=data["photoPath"];
   recipe=data["recipe"];
 }
@@ -75,12 +74,14 @@ async {
   }
   //printFoods();
 }
+/*
 Map<String,List<String>> personalMealList=
 {
   "breakfast":[],
   "lunch":[],
   "dinner":[],
 };
+*/
 Future<void> createPersonalMealList()//int dayNumber)
 async {
   int dayNumber=2;

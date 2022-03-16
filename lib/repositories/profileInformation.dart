@@ -11,10 +11,10 @@ class ProfileInfo{
   late int dailyActivity;
   late int age;
   late double dailyCal;
-/*sdada*/
+
   ProfileInfo(this.name,this.surname,this.gender,this.height,this.weight,this.dailyActivity,this.age)
   {
-      dailyCal=calculateDailyCaloryNeed(this);
+     dailyCal=calculateDailyCaloryNeed(weight,height,age,dailyActivity,gender);
   }
   ProfileInfo.fromMap(Map <String,dynamic> data)
   {
@@ -24,7 +24,8 @@ class ProfileInfo{
     height=data["height"];
     weight=data["weight"];
     dailyActivity=data["dailyActivity"];
-    dailyCal=calculateDailyCaloryNeed(this);
+    age=data["age"];
+   dailyCal=calculateDailyCaloryNeed(weight,height,age,dailyActivity,gender);
   }
 Map<String,dynamic> toMap()
 {
@@ -34,7 +35,8 @@ Map<String,dynamic> toMap()
     "gender":gender,
     "height":height,
     "weight":weight,
-    "dailyActivity":dailyActivity
+    "dailyActivity":dailyActivity,
+    "age":age
   };
   return data;
 }
@@ -58,14 +60,14 @@ async {
   USER =ProfileInfo.fromMap(snapshot.data()!);
   return;
 }
-double calculateDailyCaloryNeed(ProfileInfo person)
+double calculateDailyCaloryNeed(int weight,int height,int age,int dailyAct,String gender)
 {
-  if(person.gender=="Male")
+  if(gender=="Male")
     {
-      return 10*person.weight+6.25*person.height-5*person.age+5;
+      return (10*weight+6.25*height-5*age+5)*(1.025+dailyAct*0.175);
     }
   else
     {
-      return 10*person.weight+6.25*person.height-5*person.age-161;
+      return 10*weight+6.25*height-5*age-161*(1.025+dailyAct*0.175);
     }
 }

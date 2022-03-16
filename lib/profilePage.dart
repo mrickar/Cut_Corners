@@ -1,39 +1,67 @@
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'main.dart';
+
 
 var now = new DateTime.now();
 var formatter = new DateFormat('yyyy.MM.dd');
 String formattedDate = formatter.format(now);
 String weekDay = DateFormat('EEEE').format(now);
 
+Map<String,bool> isClicked={
+  "name":false,
+  "surname":false,
+  "height":false,
+  "weight":false,
+  "gender":false,
+  "dailyActivity":false,
+  "age":false
+};
+Map<String,TextEditingController> controllerTextEditMap={
+  "name":TextEditingController(text:USER.name),
+  "surname":TextEditingController(text:USER.surname),
+  "height":TextEditingController(text:USER.height.toString()),
+  "weight":TextEditingController(text:USER.weight.toString()),
+  "age":TextEditingController(text:USER.age.toString())
+};
+Map<String,GlobalKey<FormFieldState>> formStateMap={
+  "name":GlobalKey<FormFieldState>(),
+  "surname":GlobalKey<FormFieldState>(),
+  "height":GlobalKey<FormFieldState>(),
+  "weight":GlobalKey<FormFieldState>(),
+  "age":GlobalKey<FormFieldState>(),
+  "gender":GlobalKey<FormFieldState>(),
+  "dailyActivity":GlobalKey<FormFieldState>()
+};
+/*
 bool isClickedName=false;
 bool isClickedSurname=false;
 bool isClickedHeight=false;
 bool isClickedWeight=false;
 bool isClickedGender=false;
 bool isClickedDailyAct=false;
-
+bool isClickedAge=false;
+*/
 class ProfilePage extends StatefulWidget {
    ProfilePage({Key? key}) : super(key: key);
-  final _controllerTextEditName=TextEditingController(text:USER.name);
+   /*
+  final  _controllerTextEditName=TextEditingController(text:USER.name);
    final _controllerTextEditSurname=TextEditingController(text:USER.surname);
    final _controllerTextEditHeight=TextEditingController(text:USER.height.toString());
    final _controllerTextEditWeight=TextEditingController(text:USER.weight.toString());
+   final _controllerTextEditAge=TextEditingController(text:USER.age.toString());
    final _nameFormState=GlobalKey<FormFieldState>();
    final _surnameFormState=GlobalKey<FormFieldState>();
    final _heightFormState=GlobalKey<FormFieldState>();
    final _weightFormState=GlobalKey<FormFieldState>();
+   final _ageFormState=GlobalKey<FormFieldState>();
+   
    final _genderFormState=GlobalKey<FormFieldState>();
    final _activityFormState=GlobalKey<FormFieldState>();
+   */
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -107,10 +135,17 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: ListView(
         children: [
+          /*
           nameCart(),
           surnameCart(),
           heightCard(),
           weightCard(),
+          */
+          textFieldCart("name"),
+          textFieldCart("surname"),
+          textFieldCart("age"),
+          textFieldCart("height"),
+          textFieldCart("weight"),
           genderCard(),
           dailyActCard(),
           Container(
@@ -152,6 +187,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+  /*
   Container nameCart() {
     return Container(
       color: backgroundColor,
@@ -510,7 +546,7 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
+*/
   Container genderCard() {
     return Container(
       color: backgroundColor,
@@ -542,15 +578,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: iconColor,
                   onPressed:() {
                     setState(() {
-                      if(isClickedGender)
+                      if(isClicked["gender"]!)
                       {
-                        widget._genderFormState.currentState!.save();
+                        formStateMap["gender"]!.currentState!.save();
                       }
-                      isClickedGender=!isClickedGender;
+                      isClicked["gender"]=!isClicked["gender"]!;
                     });
 
                   },
-                  icon: isClickedGender? const Icon(Icons.save):const Icon(Icons.edit),
+                  icon: isClicked["gender"]!? const Icon(Icons.save):const Icon(Icons.edit),
                 ),
               ),
               Align(
@@ -573,9 +609,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                         ),
                         dropdownColor: itemBackgroundColor,
-                        key:widget._genderFormState,
+                        key:formStateMap["gender"]!,
                         value: USER.gender,
-                        onChanged:isClickedGender? (value) {
+                        onChanged:isClicked["gender"]!? (value) {
                         }:null,
                         onSaved:(value){
                           setState(() {
@@ -655,15 +691,15 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: iconColor,
                       onPressed:() {
                         setState(() {
-                          if(isClickedDailyAct)
+                          if(isClicked["dailyActivity"]!)
                           {
-                            widget._activityFormState.currentState!.save();
+                            formStateMap["dailyActivity"]!.currentState!.save();
                           }
-                          isClickedDailyAct=!isClickedDailyAct;
+                          isClicked["dailyActivity"]=!isClicked["dailyActivity"]!;
                         });
 
                       },
-                      icon: isClickedDailyAct? const Icon(Icons.save):const Icon(Icons.edit),
+                      icon: isClicked["dailyActivity"]!? const Icon(Icons.save):const Icon(Icons.edit),
                     ),
                   ),
                   Align(
@@ -686,14 +722,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             dropdownColor: itemBackgroundColor,
-                            key:widget._activityFormState,
+                            key:formStateMap["dailyActivity"]!,
                             value: USER.dailyActivity,
-                            onChanged:isClickedDailyAct? (value) {
+                            onChanged:isClicked["dailyActivity"]!? (value) {
                             }:null,
                             onSaved:(value){
                               setState(() {
-                                FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"dailyActivity":USER.dailyActivity});
                                 USER.dailyActivity=value!;
+                                FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({"dailyActivity":USER.dailyActivity});
                               });
                             },
                             items: [
@@ -753,4 +789,156 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
     );
   }
+  void changeValue(String question) {
+    if(isClicked[question]!) {
+      if (formStateMap[question]!.currentState!.validate()) {
+        if (question == "name") {
+          USER.name = controllerTextEditMap[question]!.value.text;
+          FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({question: USER.name});
+        }
+        else if (question == "surname") {
+          USER.surname = controllerTextEditMap[question]!.value.text;
+          FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({question: USER.surname});
+        }
+        else if (question == "weight") {
+          USER.weight = int.parse(controllerTextEditMap[question]!.value.text);
+          FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({question: USER.weight});
+        }
+        else if (question == "height") {
+          USER.height = int.parse(controllerTextEditMap[question]!.value.text);
+          FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({question: USER.height});
+        }
+        else if (question == "age") {
+          USER.age = int.parse(controllerTextEditMap[question]!.value.text);
+          FirebaseFirestore.instance.collection("Profiles").doc(curUid).update({question: USER.age});
+        }
+      }
+      else {
+          return;
+        }
+    }
+    isClicked[question]=!isClicked[question]!;
+
+  }
+  String? validateCheck(String question, String? value) {
+    if (question == "name") {
+      if (value == null || value.isEmpty) {
+        return 'Please enter your name';
+      }
+      return null;
+    }
+    else if (question == "surname") {
+      if (value == null || value.isEmpty) {
+        return 'Please enter your surname';
+      }
+      return null;
+    }
+    else if (question == "weight") {
+      int weight=int.parse(value!);
+      if (value.isEmpty) {
+        return 'Please enter your weight';
+      }
+      if(0>=weight)
+      {
+        return 'Your weight must be bigger than 0.';
+      }
+      return null;
+    }
+    else if (question == "height") {
+      int height=int.parse(value!);
+      if (value.isEmpty) {
+        return 'Please enter your height';
+      }
+      if(30>=height ||height>=250)
+      {
+        return 'Your height must be between 30-250.';
+      }
+      return null;
+    }
+    else if (question == "age") {
+      int height=int.parse(value!);
+      if (value.isEmpty) {
+        return 'Please enter your age';
+      }
+      if(5>=height ||height>=120)
+      {
+        return 'Your height must be between 5-120.';
+      }
+      return null;
+    }
+  }
+  Container textFieldCart(String question) {
+    return Container(
+      color: backgroundColor,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(25.0, 20.0, 25.0, 0),
+        child: Container(
+          height: 100,
+          decoration: BoxDecoration(
+            color:itemBackgroundColor,
+          ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  question,
+                  style: TextStyle(
+                    fontFamily: 'Lexend Peta',
+                    fontWeight: FontWeight.w400,
+                    color: featureColor,
+                    fontSize: 14.0,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  iconSize: 35,
+                  color: iconColor,
+                  onPressed:() {
+                    setState(() {
+                      changeValue(question);
+                    });
+                  },
+                  icon: isClicked[question]!? const Icon(Icons.save):const Icon(Icons.edit),
+                ),
+              ),
+              Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                    child: SizedBox(
+                      height: 70,
+                      width: 250,
+                      child: TextFormField(
+                        style: TextStyle(
+                          fontFamily: 'Lexend Peta',
+                          fontWeight: FontWeight.w400,
+                          color: featureColor,
+                          fontSize: 18.0,
+                        ),
+                        key: formStateMap[question],
+                        controller: controllerTextEditMap[question],
+                        keyboardType: question=="name" || question=="surname"?null:TextInputType.number,
+                        enabled: isClicked[question],
+                        decoration: InputDecoration(
+                          border: isClicked[question]!?const OutlineInputBorder():InputBorder.none,
+                        ),
+                        validator: (value) {
+                          return validateCheck(question,value);
+                        },
+                      ),
+                    ),
+                  )
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
+
+
+

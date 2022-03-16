@@ -1,6 +1,8 @@
 import 'dart:ui';
 
+import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cut_corners/profilePage.dart';
+import 'package:cut_corners/recipe_page.dart';
 import 'package:cut_corners/repositories/getFromAPI.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -85,12 +87,14 @@ class _HomeFilledState extends State<HomeFilled> {
       ),
       body: Column(
         children: [
-          Align(
+          const Align(
             alignment: Alignment.topRight,
           ),
           const SizedBox(height: 30.0,),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[0/*kacinci gün*/].meals[0/*[kahvalti,lunch,dinner]*/],)));
+            },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Stack(
