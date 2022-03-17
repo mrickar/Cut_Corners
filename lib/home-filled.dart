@@ -110,6 +110,7 @@ class _HomeFilledState extends State<HomeFilled> {
           const SizedBox(height: 30.0,),
           GestureDetector(
             onTap: () {
+              getTodayMealIndex();
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[todayMealIndex].meals[mealTimes.breakfast.index],)));
             },
             child: Padding(
@@ -280,6 +281,10 @@ async {
   var firstCreatedTimeTS=documentSnapshot.data()!["mealListCreated"] as Timestamp;
   var firstCreatedTime = firstCreatedTimeTS.toDate();
   var now =DateTime.now();
+
+  //todo firstCreatedTime yanlis geliyor.
+  //bu yuzden invalid range donuyor.
+
   todayMealIndex=(now.day-firstCreatedTime.day)%monthsDays[firstCreatedTime.month];
   return;
 }
