@@ -48,7 +48,7 @@ class FoodRecipe{
   late List<Ingredient> ingredients=[];
   late String name;
   late int calories;
-  late String photoPath;
+  late String? photoPath;
   String instructions="";
   int? cookTime;
   late Nutrition nutrition;
@@ -59,12 +59,12 @@ class FoodRecipe{
     {
       ingredients.add(Ingredient.fromMap(element.data()));
     }
-  //TODO nutrition
   name=data["name"];
   calories=data["calories"].toInt();
   photoPath=data["photoPath"];
-  instructions=data["recipe"];
+  instructions=data["instructions"];
   nutrition=nutData;
+
 }
   FoodRecipe.fromAPI(Map<String,dynamic> data){
     name=data["name"];
@@ -162,8 +162,7 @@ class FoodRecipe{
     }
     print(instructions);
     print("cook time: "+cookTime.toString());
-
-    print("photoPath: "+ photoPath);
+    if(photoPath!=null)print("photoPath: "+ photoPath!);
     nutrition.printNutrition();
   }
 }
@@ -171,12 +170,12 @@ class FoodRecipe{
 late Map<String,FoodRecipe>foodRecipeRep={};
 Future<void> getAllFoodRecipes()
 async {
-  QuerySnapshot<Map<String, dynamic>> foodRecipeCol = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipe").get();
+  QuerySnapshot<Map<String, dynamic>> foodRecipeCol = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
 
   for(QueryDocumentSnapshot<Map<String, dynamic>> food in foodRecipeCol.docs)
   {
-    QuerySnapshot<Map<String, dynamic>> ingQSnap = await FirebaseFirestore.instance.collection("food_recipe").doc(food.id).collection("ingredients").get();
-    DocumentSnapshot<Map<String, dynamic>> nutritionSnapshot = await FirebaseFirestore.instance.collection("food_recipe").doc(food.id).collection("nutrition").doc("nutrition").get();
+    QuerySnapshot<Map<String, dynamic>> ingQSnap = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("ingredients").get();
+    DocumentSnapshot<Map<String, dynamic>> nutritionSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("nutrition").doc("nutrition").get();
     var nutMap = nutritionSnapshot.data();
     Nutrition nutData=Nutrition.fromMap(nutMap!);
     Map<String, dynamic> data = food.data();

@@ -55,7 +55,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child:Image.asset(
-                      recipeOfFood!.photoPath,
+                      recipeOfFood!.photoPath!=null? recipeOfFood.photoPath!:"TODO",//TODO
                       fit: BoxFit.fill,
                     ),
                   ),

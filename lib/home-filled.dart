@@ -94,6 +94,7 @@ class _HomeFilledState extends State<HomeFilled> {
           const SizedBox(height: 30.0,),
           GestureDetector(
             onTap: () {
+              print(mealList[0/*kacinci gün*/].meals[0/*[kahvalti,lunch,dinner]*/]);
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[0/*kacinci gün*/].meals[0/*[kahvalti,lunch,dinner]*/],)));
             },
             child: Padding(
