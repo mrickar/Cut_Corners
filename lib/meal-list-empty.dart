@@ -16,6 +16,7 @@ final dropdownbackground = Color(0xff9bc0c3);
 final dropdownTextColor = Color(0xffffffff);
 final recreateButtonColor = Color(0xffff6b00);
 final recreateTextColor = Color(0xffffffff);
+final bacgroundColor = Color(0xfff4eae6);
 
 class _MealListEmptyState extends State<MealListEmpty> {
 
@@ -36,86 +37,93 @@ class _MealListEmptyState extends State<MealListEmpty> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 180,),
-        SizedBox(
-          width: 289.0,
-          height: 99.0,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: questionBackground,
-            ),
-            child: Center(
-              child: Text(
-                "Choose How Many Days You Want to Plan",
-                style: TextStyle(
-                  color: questionTextColor,
-                  fontSize: 20.0,
-                  fontFamily: 'Lexend Peta',
-                  fontWeight: FontWeight.w400,
-                  //fontFamily:
+    return SizedBox.expand(
+      child: Container(
+        color: bacgroundColor,
+        child: Column(
+          children: [
+            const SizedBox(height: 180,),
+            SizedBox(
+              width: 289.0,
+              height: 99.0,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: questionBackground,
                 ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 50,),
-        Container(
-          color: dropdownbackground,
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: DropdownButton<String>(
-              isExpanded: false,
-              value: dropdownDayValue,
-              icon: const Icon(Icons.arrow_drop_down_circle_rounded),
-              elevation: 16,
-              style: TextStyle(
-                  color: dropdownTextColor,
-                  fontFamily: 'Lexend Peta',
-                  fontWeight: FontWeight.w400,
-              ),
-              dropdownColor: dropdownbackground,
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownDayValue = newValue!;
-                  dayNumber = int.parse(dropdownDayValue.split(" ")[0]);
-                });
-              },
-              items: <String>['Enter Day Number', '5 days', '10 days', '15 days']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-        const SizedBox(height: 130,),
-        Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Container(
-            color: recreateButtonColor,
-            height: 47.0,
-            width: 197.0,
-            child: TextButton(
-              child: Text(
-                "Make a Meal List",
-                style: TextStyle(
-                  color: recreateTextColor,
-                  fontSize: 14.0,
-                  fontFamily: 'Krona One',
-                  fontWeight: FontWeight.w400,
+                child: Center(
+                  child: Text(
+                    "Choose How Many Days You Want to Plan",
+                    style: TextStyle(
+                      color: questionTextColor,
+                      fontSize: 20.0,
+                      fontFamily: 'Lexend Peta',
+                      fontWeight: FontWeight.w400,
+                      //fontFamily:
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
-              onPressed: () {},
             ),
-          ),
+            SizedBox(height: 50,),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 80.0),
+              child: Container(
+                color: dropdownbackground,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: DropdownButton<String>(
+                    isExpanded: false,
+                    value: dropdownDayValue,
+                    icon: const Icon(Icons.arrow_drop_down_circle_rounded),
+                    elevation: 16,
+                    style: TextStyle(
+                        color: dropdownTextColor,
+                        fontFamily: 'Lexend Peta',
+                        fontWeight: FontWeight.w400,
+                    ),
+                    dropdownColor: dropdownbackground,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownDayValue = newValue!;
+                        dayNumber = int.parse(dropdownDayValue.split(" ")[0]);
+                      });
+                    },
+                    items: <String>['Enter Day Number', '5 days', '10 days', '15 days']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Container(
+                color: recreateButtonColor,
+                height: 47.0,
+                width: 197.0,
+                child: TextButton(
+                  child: Text(
+                    "Make a Meal List",
+                    style: TextStyle(
+                      color: recreateTextColor,
+                      fontSize: 14.0,
+                      fontFamily: 'Krona One',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
