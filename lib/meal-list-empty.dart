@@ -1,4 +1,6 @@
+import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:flutter/material.dart';
+import 'main.dart';
 
 class MealListEmpty extends StatefulWidget {
   const MealListEmpty({Key? key}) : super(key: key);
@@ -117,7 +119,12 @@ class _MealListEmptyState extends State<MealListEmpty> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await createPersonalMealList(dayNumber,false,false);
+                    print("**********create sonra********");
+                    x = false;
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
+                  },
                 ),
               ),
             ),

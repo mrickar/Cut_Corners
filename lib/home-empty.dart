@@ -5,6 +5,9 @@ import 'package:cut_corners/profilePage.dart';
 import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'meal-list-empty.dart';
+
+
 
 
 var now = new DateTime.now();
@@ -100,8 +103,7 @@ class _HomeEmptyState extends State<HomeEmpty> {
                     ),
                   ),
                   onPressed: () async {
-                  await createPersonalMealList(10,false,false);
-                  print("**********create sonra********");
+                  x = true;
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                 },
               ),

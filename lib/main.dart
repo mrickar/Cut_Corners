@@ -17,6 +17,7 @@ import 'meal-list-filled.dart';
 import 'questionnaire.dart';
 
 
+bool x = false;
 
 void main() => runApp(const ProviderScope(child: MaterialApp(home: SigninScreen())));
 
@@ -38,7 +39,7 @@ class _HomeState extends State<Home> {
 
   static List<Widget> pages = <Widget>[
     const ShoppingList(),//const tempPage(),
-    mealList.isEmpty ? HomeEmpty() : HomeFilled(),
+    x ? MealListEmpty() : mealList.isEmpty ? HomeEmpty() :  HomeFilled(),
     mealList.isEmpty ? MealListEmpty() : MealListFilled(),
   ];
 
@@ -136,7 +137,7 @@ class _HomeState extends State<Home> {
   {
     pages=<Widget>[
       const ShoppingList(),//const tempPage(),
-      mealList.isEmpty ? HomeEmpty() : HomeFilled(),
+      x ? MealListEmpty() : mealList.isEmpty ? HomeEmpty() :  HomeFilled(),
       mealList.isEmpty ? MealListEmpty() : MealListFilled(),
     ];
   }
