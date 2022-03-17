@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cut_corners/home-empty.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
@@ -202,35 +203,8 @@ async {
   print("***************dinner**********");
   await getIDsFromAPI(dailyNeed, "dinner",dayNumber);
   print("***************bitti**********");
-  /*
-  List<String> food700=[];
-  var querySnapshot = await FirebaseFirestore.instance.collection("calorieList").doc("700-1000").collection("foodNames").get();
-  for(var doc in querySnapshot.docs)
-    {
-      food700.add(doc.data()["name"]);
-    }
-  List<String> food1000=[];
-  querySnapshot = await FirebaseFirestore.instance.collection("calorieList").doc("1000-1300").collection("foodNames").get();
-  for(var doc in querySnapshot.docs)
-  {
-    food1000.add(doc.data()["name"]);
-  }
-  List<String> food1300=[];
-  querySnapshot = await FirebaseFirestore.instance.collection("calorieList").doc("1300-1600").collection("foodNames").get();
-  for(var doc in querySnapshot.docs)
-  {
-    food1300.add(doc.data()["name"]);
-  }
-*/
-  //var randomChoose=Random();
   for(int i=0;i<dayNumber;i++)
     {
-      /*personalMealList["breakfast"]!.add(food700[randomChoose.nextInt(food700.length)]);
-      personalMealList["lunch"]!.add(food1000[randomChoose.nextInt(food1000.length)]);
-      personalMealList["dinner"]!.add(food1300[randomChoose.nextInt(food1300.length)]);*/
-      /*var breakfast=food700[randomChoose.nextInt(food700.length)];
-      var lunch = food1000[randomChoose.nextInt(food1000.length)];
-      var dinner = food1300[randomChoose.nextInt(food1300.length)];*/
       print("*******for ici*******");
       Map<String,String> data={
         "breakfast":personalMealList["breakfast"]![i],
@@ -243,6 +217,7 @@ async {
       uploadFood();
       print("********firebase sonra*********");
     }
+  FirebaseFirestore.instance.collection("Profiles").doc(getUid()).update({"mealListCreated":DateTime.now()});
   await createShoppingList(true);
   return;
 }

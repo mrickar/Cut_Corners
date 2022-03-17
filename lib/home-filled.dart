@@ -5,8 +5,11 @@ import 'package:cut_corners/profilePage.dart';
 import 'package:cut_corners/recipe_page.dart';
 import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/getFromAPI.dart';
+import 'package:cut_corners/repositories/googleSign.dart';
+import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 var now = new DateTime.now();
@@ -257,3 +260,13 @@ class _HomeFilledState extends State<HomeFilled> {
     );
   }
 }
+/*
+getTodayMealIndex()
+async {
+
+  var firstCreated=await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).get();
+  var now =DateTime.now();
+
+  var y=now.difference(firstCreated).inDays;
+}
+ */

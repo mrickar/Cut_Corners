@@ -52,7 +52,7 @@ void printValues(){
 }
 ProfileInfo createProfile()
 {
-  return ProfileInfo(fieldQ[0].value,fieldQ[1].value,dropdownQ[0].value,int.parse(fieldQ[3].value),int.parse(fieldQ[4].value),int.parse(dropdownQ[1].value),int.parse(fieldQ[2].value));//TODO AGE
+  return ProfileInfo(fieldQ[0].value,fieldQ[1].value,dropdownQ[0].value,int.parse(fieldQ[3].value),int.parse(fieldQ[4].value),int.parse(dropdownQ[1].value),int.parse(fieldQ[2].value));
 }
 class Field{
   final String header;
@@ -218,7 +218,6 @@ class _QuestionnaireState extends State<Questionnaire> {
                   padding: const EdgeInsets.all(18.0),
                   child: GestureDetector(
                     onTap: () {
-                      //printValues();
                       saveUser(createProfile().toMap());
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(

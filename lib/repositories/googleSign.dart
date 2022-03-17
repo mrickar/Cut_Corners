@@ -32,6 +32,7 @@ async {
 void saveUser(Map<String,dynamic> data)
 {
   String uid = FirebaseAuth.instance.currentUser!.uid;
+  data["mealListCreated"]=DateTime.now();
   FirebaseFirestore.instance.collection("Profiles").doc(uid).set(data);
 }
 
