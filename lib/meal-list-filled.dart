@@ -54,14 +54,17 @@ Widget dailyMealTemplate(Daily daily, int i) {
             alignment: Alignment.centerLeft,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: daily.meals.map((meal) => Text(
-                  "$meal",
-                  style: TextStyle(
-                    color: mealTextColor,
-                    fontSize: 16.0,
-                    fontFamily: 'Lexend Peta',
-                    fontWeight: FontWeight.w400,
-                  ),
+              children: daily.meals.map((meal) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2.0),
+                child: Text(
+                    "-$meal",
+                    style: TextStyle(
+                      color: mealTextColor,
+                      fontSize: 16.0,
+                      fontFamily: 'Lexend Peta',
+                      fontWeight: FontWeight.w400,
+                    ),
+                ),
               )).toList(),
             ),
           ),
