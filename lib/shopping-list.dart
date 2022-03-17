@@ -75,6 +75,7 @@ class _ShoppingListState extends State<ShoppingList> {
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: ListTile(
+                        /*
                         leading: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
                           child: Text(
@@ -85,17 +86,41 @@ class _ShoppingListState extends State<ShoppingList> {
                                 fontWeight: FontWeight.w400,
                               ),
                           ),
-                        ),
-                        title: Text(
-                            _all[i].name,
-                            style: TextStyle(
-                              color: itemTextColor,
-                              fontFamily: 'Lexend Peta',
-                              fontWeight: FontWeight.w400,
+                        ),*/
+                        title: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                                child: Text(
+                                  _all[i].amountNum.toString() + " " + _all[i].amountType,
+                                  style: TextStyle(
+                                    color: itemTextColor,
+                                    fontFamily: 'Lexend Peta',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ),
                             ),
-                        ),
-                        trailing: Icon(
-                          !_needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
+                            Expanded(
+                              flex: 3,
+                              child: Text(
+                                  _all[i].name,
+                                  style: TextStyle(
+                                    color: itemTextColor,
+                                    fontFamily: 'Lexend Peta',
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Icon(
+                                !_needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
+                              ),
+                            ),
+                          ],
                         ),
                         onTap: () {
                           setState(() {
