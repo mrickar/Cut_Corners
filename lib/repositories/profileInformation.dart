@@ -66,6 +66,10 @@ double calculateDailyCaloryNeed(int weight,int height,int age,int dailyAct,Strin
     {
       return (10*weight+6.25*height-5*age+5)*(1.025+dailyAct*0.175);
     }
+  else if(gender=="Female")
+    {
+      return 10*weight+6.25*height-5*age-161*(1.025+dailyAct*0.175);
+    }
   else
     {
       return 10*weight+6.25*height-5*age-161*(1.025+dailyAct*0.175);

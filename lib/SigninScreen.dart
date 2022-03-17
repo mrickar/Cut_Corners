@@ -28,10 +28,19 @@ class _SigninScreenState extends State<SigninScreen> {
           child: isFirebaseInit?
           ElevatedButton(onPressed: () async {
             await signInWithGoogle();
-            //bool isExistsCheck=await isExists();
-              await Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const Questionnaire(),));
+            bool isExistsCheck=await isExists();
+            if(isExistsCheck)
+              {
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),));
+              }
+            else
+              {
+                await Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const Questionnaire(),));
+              }
           },
               child: const Text("Sign In with Google"))
               :const CircularProgressIndicator()),
