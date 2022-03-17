@@ -42,6 +42,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
   Widget build(BuildContext context) {
     final recipeOfFood=foodRecipeRep[widget.foodName];
     final colorProv = ref.watch(colorChangeforPageProvider);
+    var nutMap = recipeOfFood!.nutrition.toMap();
     return Scaffold(
           backgroundColor: Colors.grey.shade400,
           body: Column(
@@ -54,10 +55,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                   height: 150,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child:Image.asset(
-                      recipeOfFood!.photoPath!=null? recipeOfFood.photoPath!:"TODO",//TODO
-                      fit: BoxFit.fill,
-                    ),
+                    child:recipeOfFood.photoPath!=null?Image.network(recipeOfFood.photoPath!,fit: BoxFit.fill):const Text("No Photo"),
                   ),
                 ),
               ),
@@ -92,17 +90,68 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                                   },
                                   controller: pageController,
                                   children:[
-                                    ListView.builder(
-                                      itemCount: recipeOfFood.ingredients.length,
-                                      itemBuilder: (BuildContext context, int index) {
-                                        //todo Bullet koy başına
-                                        String ingItem=recipeOfFood.ingredients[index].amountName;
-                                        return Text(ingItem);
-                                      },
+                                    Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 30,
+                                            width: 300,
+                                            child: Text("Ingredients")
+                                        ),
+                                        SizedBox(
+                                          height: 244,
+                                          width: 300,
+                                          child: ListView.builder(
+                                            itemCount: recipeOfFood.cookTime!=null?recipeOfFood.ingredients.length+1:recipeOfFood.ingredients.length,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              if(index==0&&recipeOfFood.cookTime!=null)
+                                                {
+                                                  return Text(recipeOfFood.cookTime.toString());
+                                                }
+                                              String ingItem=recipeOfFood.ingredients[index].amountName;
+                                              return Text(ingItem);
+                                            },
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    SingleChildScrollView(
-                                      child: Text(recipeOfFood.instructions),
-                                    )
+                                    Column(
+                                      children: [
+                                        const SizedBox(
+                                            height: 30,
+                                            width: 300,
+                                            child: Text("Instructions")
+                                        ),
+                                        SizedBox(
+                                          height: 244,
+                                          width: 300,
+                                          child: SingleChildScrollView(
+                                            child: Text(recipeOfFood.instructions),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                Column(
+                                  children: [
+                                    const SizedBox(
+                                        height: 30,
+                                        width: 300,
+                                        child: Text("Nutrition")
+                                    ),
+                                    SizedBox(
+                                      height: 244,
+                                      width: 300,
+                                      child: ListView.builder(
+                                        itemCount:6,//number of nutrition type,
+                                        itemBuilder: (BuildContext context, int index) {
+                                          var nutType = nutMap.keys.elementAt(index);
+                                          var nutAmount = nutMap.values.elementAt(index).toString();
+                                          String nutItem=nutType+" : "+nutAmount;
+                                          return Text(nutItem);
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                )
                                   ],
                                 ),
                               ),
@@ -115,7 +164,7 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                                     height: 10,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: colorProv.colors[colorProv.colorIndex],
+                                        color: colorProv.colorIndex==0?colorProv.colors[0]:colorProv.colors[1],
                                         border: Border.all(color: Colors.black)
                                     ),
                                   ),
@@ -127,8 +176,20 @@ class _RecipePageState extends ConsumerState<RecipePage> {
                                     height: 10,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: colorProv.colors[1-colorProv.colorIndex],
+                                      color: colorProv.colorIndex==1?colorProv.colors[0]:colorProv.colors[1],
                                       border: Border.all(color: Colors.black)
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width: 10,
+                                    height: 10,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: colorProv.colorIndex==2?colorProv.colors[0]:colorProv.colors[1],
+                                        border: Border.all(color: Colors.black)
                                     ),
                                   ),
                                 ],
