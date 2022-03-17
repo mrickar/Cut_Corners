@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 
-var now = new DateTime.now();
-var formatter = new DateFormat('yyyy.MM.dd');
+var now = DateTime.now();
+var formatter = DateFormat('yyyy.MM.dd');
 String formattedDate = formatter.format(now);
 String weekDay = DateFormat('EEEE').format(now);
 
@@ -46,7 +46,7 @@ bool isClickedDailyAct=false;
 bool isClickedAge=false;
 */
 class ProfilePage extends StatefulWidget {
-   ProfilePage({Key? key}) : super(key: key);
+   const ProfilePage({Key? key}) : super(key: key);
   @override
   State<ProfilePage> createState() => _ProfilePageState();
 }
@@ -54,15 +54,15 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String curUid=getUid();
 
-  final profileColor = Color(0xff4297a0);
-  final backgroundColor = Color(0xfff4eae6);
-  final profilePersonColor = Color(0xffffffff);
-  final dateColor = Color(0xff41aeba);
-  final iconColor = Color(0xffffffff);
-  final featureColor = Color(0xffffffff);
-  final itemBackgroundColor = Color(0xff9bc0c3);
-  final signOutButtonColor = Color(0xffff6b00);
-  final signOutTextColor = Color(0xffffffff);
+  final profileColor = const Color(0xff4297a0);
+  final backgroundColor = const Color(0xfff4eae6);
+  final profilePersonColor = const Color(0xffffffff);
+  final dateColor = const Color(0xff41aeba);
+  final iconColor = const Color(0xffffffff);
+  final featureColor = const Color(0xffffffff);
+  final itemBackgroundColor = const Color(0xff9bc0c3);
+  final signOutButtonColor = const Color(0xffff6b00);
+  final signOutTextColor = const Color(0xffffffff);
 
 
   @override
@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: Colors.grey.shade400,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
+        preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
           iconTheme: const IconThemeData(
             color: Colors.black,
@@ -85,14 +85,14 @@ class _ProfilePageState extends State<ProfilePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "$formattedDate",
+                  formattedDate,
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
                   ),
                 ),
                 Text(
-                  "$weekDay",
+                  weekDay,
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
@@ -485,6 +485,7 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       return null;
     }
+    return null;
   }
   Container textFieldCart(String question) {
     return Container(
@@ -499,7 +500,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text(
                   question,
                   style: TextStyle(

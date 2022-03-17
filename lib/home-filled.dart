@@ -1,12 +1,7 @@
-import 'dart:ui';
-
 import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cut_corners/profilePage.dart';
 import 'package:cut_corners/recipe_page.dart';
-import 'package:cut_corners/repositories/food_recipe_repository.dart';
-import 'package:cut_corners/repositories/getFromAPI.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
-import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -43,6 +38,18 @@ class _HomeFilledState extends State<HomeFilled> {
   final dateColor = const Color(0xff41aeba);
   final addMealColor = const Color(0xff595959);
   final rectangularContainerColor = const Color(0xfff7ac32);
+
+  @override
+  void initState() {
+
+    if(todayMealIndex>=mealList.length)
+    {
+      //TODO UNCOMMENT TO DELETE DATA WHEN DAY IS UP
+      //deleteMealList_FoodRecipes_ShoppingListFB();
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +95,7 @@ class _HomeFilledState extends State<HomeFilled> {
                   size: 24.0,
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfilePage()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfilePage()));
                   },
               ),
             ),
@@ -103,7 +110,6 @@ class _HomeFilledState extends State<HomeFilled> {
           const SizedBox(height: 30.0,),
           GestureDetector(
             onTap: () {
-              print(mealList[0/*kacinci gün*/].meals[0/*[kahvalti,lunch,dinner]*/]);
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[todayMealIndex].meals[mealTimes.breakfast.index],)));
             },
             child: Padding(
@@ -196,7 +202,7 @@ class _HomeFilledState extends State<HomeFilled> {
                         width: 120, height: 120,
                         decoration: const BoxDecoration(
                             color: Colors.transparent,
-                            borderRadius: const BorderRadius.all(
+                            borderRadius: BorderRadius.all(
                               Radius.circular(60),
                             )
                         ),
@@ -250,7 +256,7 @@ class _HomeFilledState extends State<HomeFilled> {
                         decoration: const BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.all(
-                              const Radius.circular(60),
+                              Radius.circular(60),
                             )
                         ),
                         child: Image.asset('images/dinner-icon.png', fit: BoxFit.cover,),

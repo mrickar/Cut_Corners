@@ -6,7 +6,6 @@ import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:cut_corners/repositories/shoppingList_repository.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'home-empty.dart';
@@ -14,13 +13,12 @@ import 'home-filled.dart';
 import 'shopping-list.dart';
 import 'meal-list-empty.dart';
 import 'meal-list-filled.dart';
-import 'questionnaire.dart';
+
 
 
 bool x = false;
 late int todayMealIndex;
 void main() => runApp(const ProviderScope(child: MaterialApp(home: SigninScreen())));
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -121,8 +119,8 @@ class _HomeState extends State<Home> {
     for(int i=1;i<querySnapshot.docs.length+1;i++)
     {
       var documentSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day$i").get();
-      Map<String, dynamic>? map = documentSnapshot.data();
-      List<String> dailyMeal=[documentSnapshot.data()!["breakfast"],documentSnapshot.data()!["lunch"],documentSnapshot.data()!["dinner"]];
+      Map<String, dynamic>? mealOfDay = documentSnapshot.data();
+      List<String> dailyMeal=[mealOfDay!["breakfast"],mealOfDay["lunch"],mealOfDay["dinner"]];
       mealList.add(Daily(meals: dailyMeal));
     }
     setState(() {

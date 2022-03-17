@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cut_corners/home-empty.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
@@ -156,7 +155,7 @@ class FoodRecipe{
     }
   }
   void printFood() {
-    print("name:${name}");
+    print("name:$name");
     for(var i in ingredients)
     {
       print(i.amountName);
@@ -182,7 +181,7 @@ async {
     Map<String, dynamic> data = food.data();
     foodRecipeRep[food.id]=FoodRecipe.fromMap(data,ingQSnap,nutData);
   }
-  printAllFoodNames();
+  //printAllFoodNames();
 }
 
 Map<String,List<String>> personalMealList=
@@ -245,8 +244,8 @@ void printAllFoodNames()
   }
   print("******DONE*****");
 }
-void deleteMealList_FoodRecipesFB()
-{
+Future<void> deleteMealList_FoodRecipes_ShoppingListFB()
+async {
   var documentReference = FirebaseFirestore.instance.collection("Profiles").doc(getUid());
   documentReference.collection("personalMealList").snapshots().forEach((element) {
     for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
@@ -260,22 +259,34 @@ void deleteMealList_FoodRecipesFB()
       docSnapshot .reference.delete();
     }
   });
-  /*
-  FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").d;
-  documentReference.collection("food_recipes").snapshots().forEach((element) {
-    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
-      docSnapshot .reference.delete();
+  var snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
+  for(var doc in snapshot.docs)
+    {
+      await doc.reference.delete();
     }
-  );
-   */
+  snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").get();
+  for(var doc in snapshot.docs)
+  {
+    await doc.reference.delete();
+  }
+  for(var food in foodRecipeRep.keys)
+    {
+      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food).collection("ingredients").get();
+      for(var doc in snapshot.docs)
+      {
+        await doc.reference.delete();
+      }
+      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food).collection("nutrition").get();
+      for(var doc in snapshot.docs)
+      {
+        await doc.reference.delete();
+      }
+    }
+  FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes");
+  snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
+  for(var doc in snapshot.docs)
+  {
+    await doc.reference.delete();
+  }
 }
-/*
-List<FoodRecipe>exampleFoods=[
-FoodRecipe(IngList,"yemek1",1000,"images/yemek2.jpg","pişir1"),
-FoodRecipe(IngList2,"yemek2",2000,"images/yemek2.jpg","pişir2"),
-FoodRecipe(IngList3,"yemek3",3000,"images/yemek2.jpg","pisir3"),
-FoodRecipe(IngList4,"yemek4",4000,"images/yemek2.jpg","pisir4"),
-FoodRecipe(IngList5,"yemek5",5000,"images/yemek2.jpg","pisir5")
-];
-*/
 
