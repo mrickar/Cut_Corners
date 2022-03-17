@@ -11,7 +11,7 @@ class shoppingListRep{
 
 Map<String,Ingredient> all={};
 
-Future<void> createShoppingList()
+Future<void> createShoppingList(bool createCheck)
 async {
 
   for(var dailyMeal in mealList)
@@ -33,10 +33,12 @@ async {
             }
         }
     }
-  for(var key in all.keys)
+  if(createCheck)
     {
-      var item=all[key];
-      FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(item!.name).set(item.toMap());
+      for(var key in all.keys)
+      {
+        var item=all[key];
+        FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(item!.name).set(item.toMap());
+      }
     }
-
 }

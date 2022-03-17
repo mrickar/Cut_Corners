@@ -243,7 +243,7 @@ async {
       uploadFood();
       print("********firebase sonra*********");
     }
-  await createShoppingList();
+  await createShoppingList(true);
   return;
 }
 void uploadFood() {

@@ -128,7 +128,7 @@ class _HomeState extends State<Home> {
       checkPages();
       if(mealList.isNotEmpty)
         {
-          createShoppingList();
+          createShoppingList(false);
         }
     });
   }
