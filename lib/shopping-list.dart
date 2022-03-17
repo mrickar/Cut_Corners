@@ -75,18 +75,6 @@ class _ShoppingListState extends State<ShoppingList> {
                         borderRadius: BorderRadius.circular(50),
                       ),
                       child: ListTile(
-                        /*
-                        leading: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
-                          child: Text(
-                              _all[i].amountNum.toString() + " " + _all[i].amountType,
-                              style: TextStyle(
-                                color: itemTextColor,
-                                fontFamily: 'Lexend Peta',
-                                fontWeight: FontWeight.w400,
-                              ),
-                          ),
-                        ),*/
                         title: Row(
                           children: [
                             Expanded(
@@ -105,13 +93,16 @@ class _ShoppingListState extends State<ShoppingList> {
                             ),
                             Expanded(
                               flex: 3,
-                              child: Text(
-                                  _all[i].name,
-                                  style: TextStyle(
-                                    color: itemTextColor,
-                                    fontFamily: 'Lexend Peta',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Text(
+                                    _all[i].name,
+                                    style: TextStyle(
+                                      color: itemTextColor,
+                                      fontFamily: 'Lexend Peta',
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                ),
                               ),
                             ),
                             Expanded(
