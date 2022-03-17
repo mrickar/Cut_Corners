@@ -11,12 +11,18 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'main.dart';
 
-var now = new DateTime.now();
-var formatter = new DateFormat('yyyy.MM.dd');
+
+var now = DateTime.now();
+var formatter = DateFormat('yyyy.MM.dd');
 String formattedDate = formatter.format(now);
 String weekDay = DateFormat('EEEE').format(now);
-
+enum mealTimes{
+  breakfast,
+  lunch,
+  dinner,
+}
 
 class HomeFilled extends StatefulWidget {
   const HomeFilled({Key? key}) : super(key: key);
@@ -30,20 +36,20 @@ class _HomeFilledState extends State<HomeFilled> {
   final background = Colors.grey.shade300;
   final mealCard = Colors.grey.shade600;
   final textColor = Colors.white;
-  final addListColor = Color(0xfff7ac32);
-  final profileColor = Color(0xff4297a0);
-  final backgroundColor = Color(0xfff4eae6);
-  final profilePersonColor = Color(0xffffffff);
-  final dateColor = Color(0xff41aeba);
-  final addMealColor = Color(0xff595959);
-  final rectangularContainerColor = Color(0xfff7ac32);
+  final addListColor = const Color(0xfff7ac32);
+  final profileColor = const Color(0xff4297a0);
+  final backgroundColor = const Color(0xfff4eae6);
+  final profilePersonColor = const Color(0xffffffff);
+  final dateColor = const Color(0xff41aeba);
+  final addMealColor = const Color(0xff595959);
+  final rectangularContainerColor = const Color(0xfff7ac32);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
+        preferredSize: const Size.fromHeight(60.0),
         child: AppBar(
           backgroundColor: backgroundColor,
           elevation: 0.0,
@@ -54,14 +60,14 @@ class _HomeFilledState extends State<HomeFilled> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "$formattedDate",
+                  formattedDate,
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
                   ),
                 ),
                 Text(
-                  "$weekDay",
+                  weekDay,
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,
@@ -98,7 +104,7 @@ class _HomeFilledState extends State<HomeFilled> {
           GestureDetector(
             onTap: () {
               print(mealList[0/*kacinci gün*/].meals[0/*[kahvalti,lunch,dinner]*/]);
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[0/*kacinci gün*/].meals[0/*[kahvalti,lunch,dinner]*/],)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[todayMealIndex].meals[mealTimes.breakfast.index],)));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -151,7 +157,7 @@ class _HomeFilledState extends State<HomeFilled> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[0/*kacinci gün*/].meals[1/*[kahvalti,lunch,dinner]*/],)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[todayMealIndex].meals[mealTimes.lunch.index],)));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -188,9 +194,9 @@ class _HomeFilledState extends State<HomeFilled> {
                       padding: const EdgeInsets.fromLTRB(0, 6.0, 65.0, 0),
                       child: Container(
                         width: 120, height: 120,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.transparent,
-                            borderRadius: BorderRadius.all(
+                            borderRadius: const BorderRadius.all(
                               Radius.circular(60),
                             )
                         ),
@@ -204,7 +210,7 @@ class _HomeFilledState extends State<HomeFilled> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[0/*kacinci gün*/].meals[2/*[kahvalti,lunch,dinner]*/],)));
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[todayMealIndex].meals[mealTimes.dinner.index],)));
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -241,10 +247,10 @@ class _HomeFilledState extends State<HomeFilled> {
                       padding: const EdgeInsets.fromLTRB(65.0, 6.0, 0, 0),
                       child: Container(
                         width: 120, height: 120,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.all(
-                              Radius.circular(60),
+                              const Radius.circular(60),
                             )
                         ),
                         child: Image.asset('images/dinner-icon.png', fit: BoxFit.cover,),
@@ -260,13 +266,14 @@ class _HomeFilledState extends State<HomeFilled> {
     );
   }
 }
-/*
-getTodayMealIndex()
+
+void getTodayMealIndex()
 async {
-
-  var firstCreated=await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).get();
+  List<int>monthsDays=[0,31,28,31,30,31,30,31,31,30,31,30,31];
+  var documentSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).get();
+  var firstCreatedTimeTS=documentSnapshot.data()!["mealListCreated"] as Timestamp;
+  var firstCreatedTime = firstCreatedTimeTS.toDate();
   var now =DateTime.now();
-
-  var y=now.difference(firstCreated).inDays;
+  todayMealIndex=(now.day-firstCreatedTime.day)%monthsDays[firstCreatedTime.month];
+  return;
 }
- */

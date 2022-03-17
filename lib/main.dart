@@ -18,7 +18,7 @@ import 'questionnaire.dart';
 
 
 bool x = false;
-
+late int todayMealIndex;
 void main() => runApp(const ProviderScope(child: MaterialApp(home: SigninScreen())));
 
 class Home extends StatefulWidget {
@@ -55,6 +55,7 @@ class _HomeState extends State<Home> {
       getUser();
       getAllFoodRecipes();
       getPersonalMealList();
+      getTodayMealIndex();
     });
     super.initState();
   }
