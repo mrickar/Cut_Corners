@@ -110,7 +110,6 @@ class _HomeFilledState extends State<HomeFilled> {
           const SizedBox(height: 30.0,),
           GestureDetector(
             onTap: () {
-              getTodayMealIndex();
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[todayMealIndex].meals[mealTimes.breakfast.index],)));
             },
             child: Padding(
