@@ -10,6 +10,8 @@ class Ingredient{
   }*/
   Ingredient({required this.name, required this.amountNum, required this.amountType})
   {
+    if(amountType=="milliliter") amountType="ml";
+    if(amountType=="gram") amountType="gr";
     amountName=amountNum.toString()+" "+amountType+" "+name;
   }
   Ingredient.fromMap(Map<String,dynamic> data)
@@ -17,6 +19,8 @@ class Ingredient{
     name=data["name"];
     amountType=data["amountType"];
     amountNum=data["amountNum"].toDouble();
+    if(amountType=="milliliter") amountType="ml";
+    if(amountType=="gram") amountType="gr";
     amountName=amountNum.toString()+" "+amountType+" "+name;
   }
   Map<String,dynamic> toMap()

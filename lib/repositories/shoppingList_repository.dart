@@ -23,12 +23,20 @@ async {
             {
               if(!all.containsKey(doc.data()["name"]))
                 {
+                  if(doc.data()["amountNum"]==0) continue;
                   all[doc.data()["name"]]=Ingredient.fromMap(doc.data());
                 }
               else
                 {
                   //TODO amountType farkliysa patliyor
-                  all[doc.data()["name"]]!.amountNum+=doc.data()["amountNum"].toDouble();
+                  if(all[doc.data()["name"]]!.amountType==doc.data()["amountType"])
+                    {
+                      all[doc.data()["name"]]!.amountNum+=doc.data()["amountNum"].toDouble();
+                    }
+                  else
+                    {
+
+                    }
                 }
             }
         }
