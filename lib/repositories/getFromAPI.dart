@@ -127,10 +127,8 @@ class FoodRecipeDeneme{
   }
 }
 */
-Future<void> getIDsFromAPI(double dailyNeed,String mealTime,int numberOfMealDay/*,bool isVegan,bool isVegetarian*/) //tastyfood
+Future<void> getIDsFromAPI(double dailyNeed,String mealTime,int numberOfMealDay,bool isVegan,bool isVegetarian) //tastyfood
 async {
-  bool isVegan=false;
-  bool isVegetarian=false;
   //String mealTime="breakfast";//"lunch", "dinner"
   //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
@@ -140,7 +138,7 @@ async {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
     'x-rapidapi-key': "abdfe6c526mshf5c007112e717ddp177098jsna9a7886fd33c"//"d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
   };
-  String tags=mealTime+",healthy" ;
+  String tags=mealTime; //healthy ekle ;
   if(isVegan) {
     tags+=",vegan";
   }

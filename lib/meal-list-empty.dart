@@ -163,9 +163,7 @@ class _MealListEmptyState extends State<MealListEmpty> {
                     ),
                   ),
                   onPressed: (dayNumber < 1) ? null:() async {
-                    //await createPersonalMealList(dayNumber,isVegan,isVegetarian);
-                    Future sil = Future.delayed(const Duration(seconds: 4));
-                    sil.then((value) {
+                    createPersonalMealList(dayNumber,isVegan,isVegetarian).then((value) {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                       },);
                     showDialog(context: context, builder:(context) => const Center(child: CircularProgressIndicator()), );

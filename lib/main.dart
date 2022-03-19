@@ -176,7 +176,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     setState(() {
-      futFunc=Future.wait([getUser(), getAllFoodRecipes(),getPersonalMealList(),getTodayMealIndex()]);
+      futFunc=Future.wait([getUser(),getPersonalMealList(),getAllFoodRecipes(),getTodayMealIndex()]);
     });
 
     super.initState();
@@ -260,10 +260,7 @@ class _HomeState extends State<Home> {
     setState(() {
       isMealListReady=true;
       checkPages();
-      if(mealList.isNotEmpty)
-      {
-        createShoppingList(false);
-      }
+      createShoppingList(personalListNewCreated);
     });
   }
   void checkPages()

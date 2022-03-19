@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
 import 'package:cut_corners/repositories/shoppingList_repository.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +19,8 @@ import 'package:flutter/material.dart';
   Ingredient(name: "olive oil", amountNum: 1, amountType: "L"),
 ];*/
 List<Ingredient> _all = all.values.toList();
-List<Ingredient> _needs = [];
-List<Ingredient> _owned = [];
+List<Ingredient> needs = [];
+List<Ingredient> owned = [];
 
 class ShoppingList extends StatefulWidget {
   const ShoppingList({Key? key}) : super(key: key);
@@ -108,20 +110,22 @@ class _ShoppingListState extends State<ShoppingList> {
                             Expanded(
                               flex: 1,
                               child: Icon(
-                                !_needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
+                                !needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
                               ),
                             ),
                           ],
                         ),
                         onTap: () {
                           setState(() {
-                            if(_needs.contains(_all[i])) {
-                              _needs.remove(_all[i]);
-                              _owned.add(_all[i]);
+                            if(needs.contains(_all[i])) {
+                              needs.remove(_all[i]);
+                              owned.add(_all[i]);
+                              FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(_all[i].name).update({"owned":true});
                             }
                             else {
-                              _owned.remove(_all[i]);
-                              _needs.add(_all[i]);
+                              owned.remove(_all[i]);
+                              needs.add(_all[i]);
+                              FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(_all[i].name).update({"owned":false});
                             }
                           });
                         },

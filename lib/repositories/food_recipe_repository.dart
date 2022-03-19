@@ -190,17 +190,17 @@ Map<String,List<String>> personalMealList=
   "lunch":[],
   "dinner":[],
 };
-
+bool personalListNewCreated=false;
 Future<void> createPersonalMealList(int dayNumber,bool isVegan,bool isVegetarian)
 async {
-  dayNumber=2; //todo delete this at the end
+  dayNumber=1; //todo delete this at the end
   double dailyNeed=USER.dailyCal;
   print("***************breakfast**********");
-  await getIDsFromAPI(dailyNeed, "breakfast",dayNumber);
+  await getIDsFromAPI(dailyNeed, "breakfast",dayNumber,isVegan,isVegetarian);
   print("***************lunch**********");
-  await getIDsFromAPI(dailyNeed, "lunch",dayNumber);
+  await getIDsFromAPI(dailyNeed, "lunch",dayNumber,isVegan,isVegetarian);
   print("***************dinner**********");
-  await getIDsFromAPI(dailyNeed, "dinner",dayNumber);
+  await getIDsFromAPI(dailyNeed, "dinner",dayNumber,isVegan,isVegetarian);
   print("***************bitti**********");
   for(int i=0;i<dayNumber;i++)
     {
@@ -217,7 +217,7 @@ async {
       print("********firebase sonra*********");
     }
   FirebaseFirestore.instance.collection("Profiles").doc(getUid()).update({"mealListCreated":DateTime.now()});
-  await createShoppingList(true);
+  personalListNewCreated=true;
   return;
 }
 void uploadFood() {
@@ -250,13 +250,13 @@ async {
   documentReference.collection("personalMealList").snapshots().forEach((element) {
     for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
     {
-      docSnapshot .reference.delete();
+      docSnapshot.reference.delete();
     }
   });
   documentReference.collection("shoppingList").snapshots().forEach((element) {
     for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
     {
-      docSnapshot .reference.delete();
+      docSnapshot.reference.delete();
     }
   });
   var snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
@@ -282,11 +282,12 @@ async {
         await doc.reference.delete();
       }
     }
-  FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes");
   snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
   for(var doc in snapshot.docs)
   {
     await doc.reference.delete();
   }
+  personalMealList.clear();
+  foodRecipeRep.clear();
 }
 
