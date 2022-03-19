@@ -54,7 +54,7 @@ Map<String,dynamic> toMap()
   }
 }
 late ProfileInfo USER;
-void getUser()
+Future <void> getUser()
 async {
   DocumentSnapshot<Map<String, dynamic>> snapshot =  await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).get();
   USER =ProfileInfo.fromMap(snapshot.data()!);

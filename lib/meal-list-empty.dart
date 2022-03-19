@@ -15,13 +15,13 @@ bool isVegetarian = false;
 String dropdownDayValue = 'Choose Day Number';
 String dropdownChoiceValue = 'Choose Your Eating Habits';
 final selectionColor = Colors.amber;
-final questionBackground = Color(0xfff7ac32);
-final questionTextColor = Color(0xffffffff);
-final dropdownbackground = Color(0xff9bc0c3);
-final dropdownTextColor = Color(0xffffffff);
-final recreateButtonColor = Color(0xffff6b00);
-final recreateTextColor = Color(0xffffffff);
-final bacgroundColor = Color(0xfff4eae6);
+final questionBackground = const Color(0xfff7ac32);
+final questionTextColor = const Color(0xffffffff);
+final dropdownbackground = const Color(0xff9bc0c3);
+final dropdownTextColor = const Color(0xffffffff);
+final recreateButtonColor = const Color(0xffff6b00);
+final recreateTextColor = const Color(0xffffffff);
+final bacgroundColor = const Color(0xfff4eae6);
 
 class _MealListEmptyState extends State<MealListEmpty> {
 
@@ -71,7 +71,7 @@ class _MealListEmptyState extends State<MealListEmpty> {
                 ),
               ),
             ),
-            SizedBox(height: 50,),
+            const SizedBox(height: 50,),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 10.0),
               child: Container(
@@ -164,9 +164,13 @@ class _MealListEmptyState extends State<MealListEmpty> {
                   ),
                   onPressed: (dayNumber < 1) ? null:() async {
                     //await createPersonalMealList(dayNumber,isVegan,isVegetarian);
-                    print("**********create sonra********");
-                    x = false;
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
+                    Future sil = Future.delayed(const Duration(seconds: 4));
+                    sil.then((value) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
+                      },);
+                    showDialog(context: context, builder:(context) => const Center(child: CircularProgressIndicator()), );
+                    mealListCheck = false;
+                    //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                   },
                 ),
               ),
@@ -188,7 +192,7 @@ class _MealListEmptyState extends State<MealListEmpty> {
                     ),
                   ),
                   onPressed: () async {
-                    x = false;
+                    mealListCheck = false;
                     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                   },
                 ),

@@ -103,7 +103,7 @@ class _HomeEmptyState extends State<HomeEmpty> {
                     ),
                   ),
                   onPressed: () async {
-                  x = true;
+                  mealListCheck = true;
                   Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                 },
               ),

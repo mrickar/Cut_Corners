@@ -273,16 +273,13 @@ class _HomeFilledState extends State<HomeFilled> {
   }
 }
 
-void getTodayMealIndex()
+Future<void> getTodayMealIndex()
 async {
   List<int>monthsDays=[0,31,28,31,30,31,30,31,31,30,31,30,31];
   var documentSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).get();
   var firstCreatedTimeTS=documentSnapshot.data()!["mealListCreated"] as Timestamp;
   var firstCreatedTime = firstCreatedTimeTS.toDate();
   var now =DateTime.now();
-
-  //todo firstCreatedTime yanlis geliyor.
-  //bu yuzden invalid range donuyor.
 
   todayMealIndex=(now.day-firstCreatedTime.day)%monthsDays[firstCreatedTime.month];
   return;
