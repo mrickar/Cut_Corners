@@ -140,7 +140,7 @@ async {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
     'x-rapidapi-key': "abdfe6c526mshf5c007112e717ddp177098jsna9a7886fd33c"//"d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
   };
-  String tags=mealTime;
+  String tags=mealTime+",healthy" ;
   if(isVegan) {
     tags+=",vegan";
   }

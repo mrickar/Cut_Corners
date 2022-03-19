@@ -4,11 +4,6 @@ import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 
 import 'ingredients.dart';
-
-class shoppingListRep{
-
-}
-
 Map<String,Ingredient> all={};
 
 Future<void> createShoppingList(bool createCheck)
@@ -21,21 +16,23 @@ async {
           var querySnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(mealName).collection("ingredients").get();
           for(var doc in querySnapshot.docs)
             {
+              Ingredient newIng=Ingredient.fromMap(doc.data());
               if(!all.containsKey(doc.data()["name"]))
                 {
                   if(doc.data()["amountNum"]==0) continue;
-                  all[doc.data()["name"]]=Ingredient.fromMap(doc.data());
+                  all[doc.data()["name"]]=newIng;
                 }
               else
                 {
                   //TODO amountType farkliysa patliyor
-                  if(all[doc.data()["name"]]!.amountType==doc.data()["amountType"])
+                  if(all[doc.data()["name"]]!.amountType==newIng.amountType)
                     {
-                      all[doc.data()["name"]]!.amountNum+=doc.data()["amountNum"].toDouble();
+                      all[doc.data()["name"]]!.amountNum+=newIng.amountNum;
                     }
                   else
                     {
-
+                        //TODO
+                      print(all[doc.data()["name"]]!.name+ " icin\n " + all[doc.data()["name"]]!.amountType+ " , "+doc.data()["amountType"]);
                     }
                 }
             }
