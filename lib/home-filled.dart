@@ -106,9 +106,6 @@ class _HomeFilledState extends State<HomeFilled> {
       ),
       body: Column(
         children: [
-          const Align(
-            alignment: Alignment.topRight,
-          ),
           const SizedBox(height: 30.0,),
           GestureDetector(
             onTap: () {
