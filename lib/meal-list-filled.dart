@@ -41,6 +41,7 @@ List<Daily> mealList = [];
 var now = DateTime.now();
 var formatter = DateFormat('yyyy.MM.dd');
 String formattedDate = formatter.format(now);
+String weekDay = DateFormat('EEEE').format(now);
 
 Widget dailyMealTemplate(Daily daily, int i) {
 
@@ -74,6 +75,8 @@ Widget dailyMealTemplate(Daily daily, int i) {
                   padding: const EdgeInsets.symmetric(vertical: 2.0),
                   child: Text(
                       "-$meal",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: mealTextColor,
                         fontSize: 16.0,
@@ -110,7 +113,7 @@ class _MealListFilledState extends State<MealListFilled> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text(
-                                "Day ${i+1} " + "(" + formattedDate + ")",
+                                "Day ${i+1}\n" + formattedDate + " " + weekDay,
                                 style: TextStyle(
                                   fontFamily: 'Lexend Peta',
                                   fontWeight: FontWeight.w400,
