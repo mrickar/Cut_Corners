@@ -110,7 +110,7 @@ class _ShoppingListState extends State<ShoppingList> {
                             Expanded(
                               flex: 1,
                               child: Icon(
-                                !needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
+                                needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
                               ),
                             ),
                           ],

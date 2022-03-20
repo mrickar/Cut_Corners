@@ -61,6 +61,7 @@ flutter:
      - family: Lexend Peta
        fonts:
          - asset: font-families/Lexend_Peta/static/LexendPeta-Medium.ttf
+         #- asset: font-families/Open_Sans/static/OpenSans/OpenSans-Medium.ttf
 
      - family: Krona One
        fonts:

@@ -193,7 +193,7 @@ Map<String,List<String>> personalMealList=
 bool personalListNewCreated=false;
 Future<void> createPersonalMealList(int dayNumber,bool isVegan,bool isVegetarian)
 async {
-  dayNumber=1; //todo delete this at the end
+  dayNumber=2; //todo delete this at the end
   double dailyNeed=USER.dailyCal;
   print("***************breakfast**********");
   await getIDsFromAPI(dailyNeed, "breakfast",dayNumber,isVegan,isVegetarian);

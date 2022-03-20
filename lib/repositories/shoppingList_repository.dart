@@ -3,8 +3,8 @@ import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/shopping-list.dart';
+import 'package:cut_corners/repositories/ingredients.dart';
 
-import 'ingredients.dart';
 Map<String,Ingredient> all={};
 
 Future<void> createShoppingList(bool createCheck) async {
