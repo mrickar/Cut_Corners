@@ -5,7 +5,7 @@ import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/shopping-list.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
 
-Map<String,Ingredient> all={};
+Map<String,Ingredient> allIngMap={};
 
 Future<void> createShoppingList(bool createCheck) async {
   if (createCheck) {
@@ -19,28 +19,28 @@ Future<void> createShoppingList(bool createCheck) async {
             .get();
         for (var doc in querySnapshot.docs) {
           Ingredient newIng = Ingredient.fromMap(doc.data());
-          if (!all.containsKey(doc.data()["name"])) {
+          if (!allIngMap.containsKey(doc.data()["name"])) {
             if (doc.data()["amountNum"] == 0) continue;
-            all[doc.data()["name"]] = newIng;
+            allIngMap[doc.data()["name"]] = newIng;
             needs.add(newIng);
           }
           else {
             //TODO amountType farkliysa patliyor
-            if (all[doc.data()["name"]]!.amountType == newIng.amountType) {
-              all[doc.data()["name"]]!.amountNum += newIng.amountNum;
+            if (allIngMap[doc.data()["name"]]!.amountType == newIng.amountType) {
+              allIngMap[doc.data()["name"]]!.amountNum += newIng.amountNum;
             }
             else {
               //TODO
-              print(all[doc.data()["name"]]!.name + " icin\n " +
-                  all[doc.data()["name"]]!.amountType + " , " +
+              print(allIngMap[doc.data()["name"]]!.name + " icin\n " +
+                  allIngMap[doc.data()["name"]]!.amountType + " , " +
                   doc.data()["amountType"]);
             }
           }
         }
       }
     }
-    for (var key in all.keys) {
-      var item = all[key];
+    for (var key in allIngMap.keys) {
+      var item = allIngMap[key];
       var newItem = item!.toMap();
       newItem["owned"] = false;
       FirebaseFirestore.instance.collection("Profiles").doc(getUid())
@@ -55,9 +55,9 @@ Future<void> createShoppingList(bool createCheck) async {
         .get();
     for (var doc in querySnapshot.docs) {
       Ingredient newIng = Ingredient.fromMap(doc.data());
-      if (!all.containsKey(doc.data()["name"])) {
+      if (!allIngMap.containsKey(doc.data()["name"])) {
         if (doc.data()["amountNum"] == 0) continue;
-        all[doc.data()["name"]] = newIng;
+        allIngMap[doc.data()["name"]] = newIng;
         if (doc.data()["owned"] == true) {
           owned.add(newIng);
         }
@@ -68,13 +68,13 @@ Future<void> createShoppingList(bool createCheck) async {
       }
       else {
         //TODO amountType farkliysa patliyor
-        if (all[doc.data()["name"]]!.amountType == newIng.amountType) {
-          all[doc.data()["name"]]!.amountNum += newIng.amountNum;
+        if (allIngMap[doc.data()["name"]]!.amountType == newIng.amountType) {
+          allIngMap[doc.data()["name"]]!.amountNum += newIng.amountNum;
         }
         else {
           //TODO
-          print(all[doc.data()["name"]]!.name + " icin\n " +
-              all[doc.data()["name"]]!.amountType + " , " +
+          print(allIngMap[doc.data()["name"]]!.name + " icin\n " +
+              allIngMap[doc.data()["name"]]!.amountType + " , " +
               doc.data()["amountType"]);
         }
       }

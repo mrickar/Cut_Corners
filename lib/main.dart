@@ -144,7 +144,19 @@ class _HomeState extends State<Home> {
 }
 
 */
-
+List<Widget> pages = <Widget>[
+  const ShoppingList(),//const tempPage(),
+  mealListCheck ? MealListEmpty() : mealList.isEmpty ? HomeEmpty() :  HomeFilled(),
+  mealList.isEmpty ? MealListEmpty() : MealListFilled(),
+];
+void checkPages()
+{
+  pages=<Widget>[
+    const ShoppingList(),//const tempPage(),
+    mealListCheck ? MealListEmpty() : mealList.isEmpty ? HomeEmpty() :  HomeFilled(),
+    mealList.isEmpty ? MealListEmpty() : MealListFilled(),
+  ];
+}
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -161,11 +173,7 @@ class _HomeState extends State<Home> {
   bool isMealListReady=false;
   late var futFunc;
 
-  static List<Widget> pages = <Widget>[
-    const ShoppingList(),//const tempPage(),
-    mealListCheck ? MealListEmpty() : mealList.isEmpty ? HomeEmpty() :  HomeFilled(),
-    mealList.isEmpty ? MealListEmpty() : MealListFilled(),
-  ];
+
 
   void onTabTapped(int index) {
     setState(() {
@@ -263,12 +271,5 @@ class _HomeState extends State<Home> {
       createShoppingList(personalListNewCreated);
     });
   }
-  void checkPages()
-  {
-    pages=<Widget>[
-      const ShoppingList(),//const tempPage(),
-      mealListCheck ? MealListEmpty() : mealList.isEmpty ? HomeEmpty() :  HomeFilled(),
-      mealList.isEmpty ? MealListEmpty() : MealListFilled(),
-    ];
-  }
+
 }

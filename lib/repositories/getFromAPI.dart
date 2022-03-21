@@ -180,7 +180,7 @@ Future<void> getInformationsFromAPI(List<int> idList,int numberOfMealDay,double 
     http.Response response = await http.get(uri,headers: headers);
     final mealData=await jsonDecode(response.body);
     print("********"+id.toString()+"**********");
-    if(mealData["nutrition"].length==0||mealData["nutrition"]["calories"]>mealCalMax||mealData["nutrition"]["calories"]<mealCalMin )
+    if(mealData["nutrition"].length==0/*||mealData["nutrition"]["calories"]>mealCalMax||mealData["nutrition"]["calories"]<mealCalMin */)
     {
       print("length "+mealData["nutrition"].length.toString()+" "+mealData["nutrition"]["calories"].toString());
       print("CONTINUE");

@@ -19,7 +19,7 @@ import 'package:marquee/marquee.dart';
   Ingredient(name: "rice", amountNum: 2, amountType: "kg"),
   Ingredient(name: "olive oil", amountNum: 1, amountType: "L"),
 ];*/
-List<Ingredient> _all = all.values.toList();
+List<Ingredient> all = allIngMap.values.toList();
 List<Ingredient> needs = [];
 List<Ingredient> owned = [];
 
@@ -69,7 +69,7 @@ class _ShoppingListState extends State<ShoppingList> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: _all.length,
+                  itemCount: all.length,
                   itemExtent: 70,
                   itemBuilder: (context, i) {
                     return Card(
@@ -86,7 +86,7 @@ class _ShoppingListState extends State<ShoppingList> {
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
                                 child: Text(
-                                    (isInteger(_all[i].amountNum)?(_all[i].amountNum.toInt().toString()):_all[i].amountNum.toString()) + " " + _all[i].amountType,
+                                    (isInteger(all[i].amountNum)?(all[i].amountNum.toInt().toString()):all[i].amountNum.toString()) + " " + all[i].amountType,
                                   style: TextStyle(
                                     color: itemTextColor,
                                     fontFamily: 'Lexend Peta',
@@ -99,28 +99,28 @@ class _ShoppingListState extends State<ShoppingList> {
                               flex: 3,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                                child: nameOfFoodTextWidget(_all[i].name),
+                                child: nameOfFoodTextWidget(all[i].name),
                               ),
                             ),
                             Expanded(
                               flex: 1,
                               child: Icon(
-                                needs.contains(_all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
+                                needs.contains(all[i]) ? Icons.check_box_outline_blank : Icons.check_box,
                               ),
                             ),
                           ],
                         ),
                         onTap: () {
                           setState(() {
-                            if(needs.contains(_all[i])) {
-                              needs.remove(_all[i]);
-                              owned.add(_all[i]);
-                              FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(_all[i].name).update({"owned":true});
+                            if(needs.contains(all[i])) {
+                              needs.remove(all[i]);
+                              owned.add(all[i]);
+                              FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(all[i].name).update({"owned":true});
                             }
                             else {
-                              owned.remove(_all[i]);
-                              needs.add(_all[i]);
-                              FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(_all[i].name).update({"owned":false});
+                              owned.remove(all[i]);
+                              needs.add(all[i]);
+                              FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").doc(all[i].name).update({"owned":false});
                             }
                           });
                         },
