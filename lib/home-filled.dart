@@ -302,14 +302,15 @@ class _HomeFilledState extends State<HomeFilled> {
     {
       doc.reference.delete();
     }
-    for(var food in foodRecipeRep.keys)
+    var snapshot2 = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
+    for(var food in snapshot2.docs)
     {
-      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food).collection("ingredients").get();
+      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("ingredients").get();
       for(var doc in snapshot.docs)
       {
         doc.reference.delete();
       }
-      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food).collection("nutrition").get();
+      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("nutrition").get();
       for(var doc in snapshot.docs)
       {
         doc.reference.delete();
