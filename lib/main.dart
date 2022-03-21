@@ -18,6 +18,7 @@ import 'meal-list-filled.dart';
 
 bool mealListCheck = false;
 late int todayMealIndex;
+late int totalDay;
 void main() => runApp(const ProviderScope(child: MaterialApp(home: SigninScreen())));
 /*
 class Home extends StatefulWidget {
@@ -151,14 +152,14 @@ class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
-
+bool isMealListReady=false;
 class _HomeState extends State<Home> {
 
   final bottomNavigatorBack = Color(0xff9bc0c3);
   final bottomNavigatorIconBack = Color(0xfff7ac32);
   final bottomNavigatorIconFront = Color(0xffffffff);
   int _currentIndex = 1;
-  bool isMealListReady=false;
+
   late var futFunc;
   List<Widget> pages = <Widget>[
     const ShoppingList(),//const tempPage(),
@@ -183,93 +184,68 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    setState(() {
-      futFunc=Future.wait([getUser(),getPersonalMealList(),getAllFoodRecipes(),getTodayMealIndex()]);
-    });
 
+    setState(() {
+      checkPages();
+      print("meallist.isEmpty main.dart initstate "+mealList.isEmpty.toString());
+      //futFunc=Future.wait([getUser(),getPersonalMealList(),getAllFoodRecipes(),getTodayMealIndex()]);
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: futFunc,
-      builder: (context,data) {
-        if(data.hasData)
-          {
-            return Scaffold(
-              body: Center(
-                child: pages.elementAt(_currentIndex),
+    return Scaffold(
+      body: Center(
+        child: pages.elementAt(_currentIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: bottomNavigatorBack,
+        elevation: 0.0,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        //selectedIconTheme: const IconThemeData(size: 32),
+        //unselectedIconTheme: const IconThemeData(size: 24),
+        currentIndex: _currentIndex,
+        onTap: onTabTapped,
+        items: [
+          BottomNavigationBarItem(
+            icon: CircleAvatar(
+              backgroundColor: bottomNavigatorIconBack,
+              radius: 25,
+              child: Icon(
+                CustomIcons.shopping_list_icon,
+                color: bottomNavigatorIconFront,
+                size: 50,
               ),
-              bottomNavigationBar: BottomNavigationBar(
-                backgroundColor: bottomNavigatorBack,
-                elevation: 0.0,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                //selectedIconTheme: const IconThemeData(size: 32),
-                //unselectedIconTheme: const IconThemeData(size: 24),
-                currentIndex: _currentIndex,
-                onTap: onTabTapped,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: CircleAvatar(
-                      backgroundColor: bottomNavigatorIconBack,
-                      radius: 25,
-                      child: Icon(
-                        CustomIcons.shopping_list_icon,
-                        color: bottomNavigatorIconFront,
-                        size: 50,
-                      ),
-                    ),
-                    label: "Shop list",
+            ),
+            label: "Shop list",
 
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(
-                      CustomIcons.home_icon,
-                      color: bottomNavigatorIconFront,
-                      size: 50,
-                    ),
-                    label: "Home",
-                  ),
-                  BottomNavigationBarItem(
-                    icon: CircleAvatar(
-                      backgroundColor: bottomNavigatorIconBack,
-                      radius: 25,
-                      child: Icon(
-                        CustomIcons.meal_icon,
-                        color: bottomNavigatorIconFront,
-                        size: 50,
-                      ),
-                    ),
-                    label: "Meal list",
-                  ),
-                ],
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              CustomIcons.home_icon,
+              color: bottomNavigatorIconFront,
+              size: 50,
+            ),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: CircleAvatar(
+              backgroundColor: bottomNavigatorIconBack,
+              radius: 25,
+              child: Icon(
+                CustomIcons.meal_icon,
+                color: bottomNavigatorIconFront,
+                size: 50,
               ),
-            );
-          }
-        else
-          {
-            return const Center(child: CircularProgressIndicator());
-          }
-      },
+            ),
+            label: "Meal list",
+          ),
+        ],
+      ),
     );
   }
-  Future<void> getPersonalMealList()
-  async {
-    var querySnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
-    for(int i=1;i<querySnapshot.docs.length+1;i++)
-    {
-      var documentSnapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day$i").get();
-      Map<String, dynamic>? mealOfDay = documentSnapshot.data();
-      List<String> dailyMeal=[mealOfDay!["breakfast"],mealOfDay["lunch"],mealOfDay["dinner"]];
-      mealList.add(Daily(meals: dailyMeal));
-    }
-    setState(() {
-      isMealListReady=true;
-      checkPages();
-      createShoppingList(personalListNewCreated);
-    });
+
   }
 
-}

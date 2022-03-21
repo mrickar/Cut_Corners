@@ -277,62 +277,6 @@ class _HomeFilledState extends State<HomeFilled> {
           ),
         );
   }
-  Future<void> deleteMealList_FoodRecipes_ShoppingListFB()
-  async {
-    var documentReference = FirebaseFirestore.instance.collection("Profiles").doc(getUid());
-    documentReference.collection("personalMealList").snapshots().forEach((element) async {
-      for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
-      {
-        docSnapshot.reference.delete();
-      }
-    });
-    documentReference.collection("shoppingList").snapshots().forEach((element) async {
-      for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
-      {
-        docSnapshot.reference.delete();
-      }
-    });
-    var snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
-    for(var doc in snapshot.docs)
-    {
-      doc.reference.delete();
-    }
-    snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").get();
-    for(var doc in snapshot.docs)
-    {
-      doc.reference.delete();
-    }
-    var snapshot2 = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
-    for(var food in snapshot2.docs)
-    {
-      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("ingredients").get();
-      for(var doc in snapshot.docs)
-      {
-        doc.reference.delete();
-      }
-      snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("nutrition").get();
-      for(var doc in snapshot.docs)
-      {
-        doc.reference.delete();
-      }
-    }
-    snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
-    for(var doc in snapshot.docs)
-    {
-      doc.reference.delete();
-    }
-    setState(() {
-      personalMealList.clear();
-      foodRecipeRep.clear();
-      mealList.clear();
-      allIngMap.clear();
-      all.clear();
-      needs.clear();
-      owned.clear();
-      deleteMealList=false;
-      //checkPages();
-    });
-  }
 }
 
 Future<void> getTodayMealIndex()
@@ -345,4 +289,51 @@ async {
 
   todayMealIndex=(now.day-firstCreatedTime.day)%monthsDays[firstCreatedTime.month];
   return;
+}
+Future<void> deleteMealList_FoodRecipes_ShoppingListFB()
+async {
+  var documentReference = FirebaseFirestore.instance.collection("Profiles").doc(getUid());
+  documentReference.collection("personalMealList").snapshots().forEach((element) async {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+    {
+      docSnapshot.reference.delete();
+    }
+  });
+  documentReference.collection("shoppingList").snapshots().forEach((element) async {
+    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
+    {
+      docSnapshot.reference.delete();
+    }
+  });
+  var snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
+  for(var doc in snapshot.docs)
+  {
+    doc.reference.delete();
+  }
+  snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("shoppingList").get();
+  for(var doc in snapshot.docs)
+  {
+    doc.reference.delete();
+  }
+  var snapshot2 = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
+  for(var food in snapshot2.docs)
+  {
+    snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("ingredients").get();
+    for(var doc in snapshot.docs)
+    {
+      doc.reference.delete();
+    }
+    snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food.id).collection("nutrition").get();
+    for(var doc in snapshot.docs)
+    {
+      doc.reference.delete();
+    }
+  }
+  snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
+  for(var doc in snapshot.docs)
+  {
+    doc.reference.delete();
+  }
+    deleteMealList=false;
+    //checkPages();
 }

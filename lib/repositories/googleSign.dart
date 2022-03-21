@@ -24,7 +24,7 @@ Future<void> signOutwitGoogle() async {
 Future<bool> isExists()
 async {
  // return FirebaseAuth.instance.currentUser!=null;
-  String uid = FirebaseAuth.instance.currentUser!.uid;
+  String? uid = FirebaseAuth.instance.currentUser?.uid;
   var doc = await FirebaseFirestore.instance.collection("Profiles").doc(uid).get();
   return doc.exists;
 }
@@ -36,7 +36,7 @@ void saveUser(Map<String,dynamic> data)
   FirebaseFirestore.instance.collection("Profiles").doc(uid).set(data);
 }
 
-String getUid()
+String? getUid()
 {
-  return FirebaseAuth.instance.currentUser!.uid;
+  return FirebaseAuth.instance.currentUser?.uid;
 }

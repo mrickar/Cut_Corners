@@ -164,10 +164,12 @@ class _MealListEmptyState extends State<MealListEmpty> {
                   ),
                   onPressed: (dayNumber < 1) ? null:() async {
                     createPersonalMealList(dayNumber,isVegan,isVegetarian).then((value) {
+                      mealListCheck = false;
+                      Navigator.of(context).pop();
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                       },);
                     showDialog(context: context, builder:(context) => const Center(child: CircularProgressIndicator()), );
-                    mealListCheck = false;
+
                     //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                   },
                 ),

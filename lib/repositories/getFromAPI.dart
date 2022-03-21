@@ -136,7 +136,7 @@ async {
   //const url = "https://tasty.p.rapidapi.com/recipes/list";
   const headers = {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
-    'x-rapidapi-key': "abdfe6c526mshf5c007112e717ddp177098jsna9a7886fd33c"//"d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
+    'x-rapidapi-key': "8b5cdddc07msh524ae782e28529bp10ef40jsnc1bb01ea05da"
   };
   String tags=mealTime; //healthy ekle ;
   if(isVegan) {
@@ -164,7 +164,7 @@ Future<void> getInformationsFromAPI(List<int> idList,int numberOfMealDay,double 
   String unencodedPath="/recipes/get-more-info";
   const headers = {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
-    'x-rapidapi-key': 'abdfe6c526mshf5c007112e717ddp177098jsna9a7886fd33c'// eski key"d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f"
+    'x-rapidapi-key': '8b5cdddc07msh524ae782e28529bp10ef40jsnc1bb01ea05da'
   };
   double mealCalMax=(12*dailyNeed)/30;
   double mealCalMin=(8*dailyNeed)/30;

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cut_corners/SigninScreen.dart';
 import 'package:cut_corners/home-filled.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
@@ -215,6 +216,10 @@ async {
     };
   FirebaseFirestore.instance.collection("Profiles").doc(getUid()).update({"mealListCreated":DateTime.now()});
   personalListNewCreated=true;
+  await getPersonalMealList();
+  await getAllFoodRecipes();
+  await getTodayMealIndex();
+
   return;
 }
 void uploadFood() {

@@ -52,7 +52,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  String curUid=getUid();
+  String curUid=getUid()!;
 
   final profileColor = const Color(0xff4297a0);
   final backgroundColor = const Color(0xfff4eae6);

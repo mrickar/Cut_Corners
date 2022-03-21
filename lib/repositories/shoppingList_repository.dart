@@ -7,9 +7,9 @@ import 'package:cut_corners/repositories/ingredients.dart';
 
 Map<String,Ingredient> allIngMap={};
 
-Future<void> createShoppingList(bool createCheck) async {
-  if (createCheck) {
-    print(mealList.length);
+Future<void> createShoppingList() async {
+  if (personalListNewCreated) {
+    print("meal list length in createshopping list shoppinglistrep " + mealList.length.toString());
     for (var dailyMeal in mealList) {
       for (var mealName in dailyMeal.meals) {
         var querySnapshot = await FirebaseFirestore.instance.collection(
@@ -47,9 +47,9 @@ Future<void> createShoppingList(bool createCheck) async {
           .collection("shoppingList").doc(item.name)
           .set(newItem);
     }
+    personalListNewCreated=false;
   }
   else {
-    //todo owned ters çalışıyo
     var querySnapshot = await FirebaseFirestore.instance.collection("Profiles")
         .doc(getUid()).collection("shoppingList")
         .get();
@@ -65,6 +65,7 @@ Future<void> createShoppingList(bool createCheck) async {
           {
             needs.add(newIng);
           }
+
       }
       else {
         //TODO amountType farkliysa patliyor
