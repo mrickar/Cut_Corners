@@ -205,18 +205,14 @@ async {
   print("***************bitti**********");
   for(int i=0;i<dayNumber;i++)
     {
-      print("*******for ici*******");
       Map<String,String> data={
         "breakfast":personalMealList["breakfast"]![i],
         "lunch":personalMealList["lunch"]![i],
         "dinner":personalMealList["dinner"]![i]
       };
-      print("********firebase once*********");
       FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i+1}").set(data);
-      print("********firebase ara*********");
       uploadFood();
-      print("********firebase sonra*********");
-    }
+    };
   FirebaseFirestore.instance.collection("Profiles").doc(getUid()).update({"mealListCreated":DateTime.now()});
   personalListNewCreated=true;
   return;

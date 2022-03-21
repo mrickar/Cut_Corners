@@ -283,13 +283,13 @@ class _HomeFilledState extends State<HomeFilled> {
     documentReference.collection("personalMealList").snapshots().forEach((element) async {
       for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
       {
-        await docSnapshot.reference.delete();
+        docSnapshot.reference.delete();
       }
     });
     documentReference.collection("shoppingList").snapshots().forEach((element) async {
       for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
       {
-        await docSnapshot.reference.delete();
+        docSnapshot.reference.delete();
       }
     });
     var snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
@@ -307,12 +307,12 @@ class _HomeFilledState extends State<HomeFilled> {
       snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food).collection("ingredients").get();
       for(var doc in snapshot.docs)
       {
-        await doc.reference.delete();
+        doc.reference.delete();
       }
       snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(food).collection("nutrition").get();
       for(var doc in snapshot.docs)
       {
-        await doc.reference.delete();
+        doc.reference.delete();
       }
     }
     snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").get();
@@ -329,7 +329,7 @@ class _HomeFilledState extends State<HomeFilled> {
       needs.clear();
       owned.clear();
       deleteMealList=false;
-      checkPages();
+      //checkPages();
     });
   }
 }
