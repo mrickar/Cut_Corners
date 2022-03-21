@@ -83,15 +83,13 @@ class _ShoppingListState extends State<ShoppingList> {
                           children: [
                             Expanded(
                               flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
-                                child: Text(
-                                    (isInteger(all[i].amountNum)?(all[i].amountNum.toInt().toString()):all[i].amountNum.toString()) + " " + all[i].amountType,
+                              child:Text(
+                                  (isInteger(all[i].amountNum)?(all[i].amountNum.toInt().toString()):all[i].amountNum.toString()) + " " + all[i].amountType,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    color: itemTextColor,
-                                    fontFamily: 'Lexend Peta',
-                                    fontWeight: FontWeight.w400,
-                                  ),
+                                  color: itemTextColor,
+                                  fontFamily: 'Lexend Peta',
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
