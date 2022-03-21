@@ -4,7 +4,6 @@ Map<String,double>measurementConvert_gr=
 {
   tbsp:13,
   tsp:4,
-
 };
 Map<String,double>measurementConvert_ml=
 {
@@ -47,7 +46,7 @@ class Ingredient{
     if(amountType=="milliliter") {
       amountType="ml";
     }
-    else if(amountType=="gram") {
+    else if(amountType=="gram" || amountType=="gr") {
       amountType="g";
     }
     else if(amountType=="liter") {

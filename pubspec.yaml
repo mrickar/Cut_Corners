@@ -26,6 +26,8 @@ dependencies:
   firebase_auth: ^3.3.9
   google_sign_in: ^5.2.0
   http: ^0.13.4
+  marquee: ^2.2.1
+  carousel_slider: ^4.0.0
 
 
 dev_dependencies:

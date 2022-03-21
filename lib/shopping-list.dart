@@ -1,8 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
 import 'package:cut_corners/repositories/shoppingList_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 
 /*class Ingredient{
   late String name;
@@ -69,6 +71,7 @@ class _ShoppingListState extends State<ShoppingList> {
             Expanded(
               child: ListView.builder(
                   itemCount: _all.length,
+                  itemExtent: 70,
                   itemBuilder: (context, i) {
                     return Card(
                       elevation: 0.0,
@@ -84,7 +87,7 @@ class _ShoppingListState extends State<ShoppingList> {
                               child: Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
                                 child: Text(
-                                  _all[i].amountNum.toString() + " " + _all[i].amountType,
+                                    (isInteger(_all[i].amountNum)?(_all[i].amountNum.toInt().toString()):_all[i].amountNum.toString()) + " " + _all[i].amountType,
                                   style: TextStyle(
                                     color: itemTextColor,
                                     fontFamily: 'Lexend Peta',
@@ -97,14 +100,7 @@ class _ShoppingListState extends State<ShoppingList> {
                               flex: 3,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                                child: Text(
-                                    _all[i].name,
-                                    style: TextStyle(
-                                      color: itemTextColor,
-                                      fontFamily: 'Lexend Peta',
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                ),
+                                child: nameOfFoodTextWidget(_all[i].name),
                               ),
                             ),
                             Expanded(
@@ -140,6 +136,56 @@ class _ShoppingListState extends State<ShoppingList> {
     );
 
   }
+  Widget nameOfFoodTextWidget(String foodName) {
+    if (hasTextOverflow(foodName, TextStyle(color: itemTextColor,
+      fontFamily: 'Lexend Peta',
+      fontWeight: FontWeight.w400,))) {
+      return Marquee(
+        text: foodName,
+        style: TextStyle(
+          color: itemTextColor,
+          fontFamily: 'Lexend Peta',
+          fontWeight: FontWeight.w400,
+        ),
+        scrollAxis: Axis.horizontal,
+        blankSpace: 50.0,
+        velocity: 50.0,
+        pauseAfterRound: Duration(seconds: 2),
+        startAfter: Duration(seconds: 2),
+        //startPadding: -300.0,
+        accelerationDuration: Duration(seconds: 1),
+        accelerationCurve: Curves.linear,
+        decelerationDuration: Duration(milliseconds: 500),
+        decelerationCurve: Curves.easeOut,
+        //numberOfRounds: 1,
+      );
+    }
+    else {
+      return Text(
+        foodName,
+        style: TextStyle(
+          color: itemTextColor,
+          fontFamily: 'Lexend Peta',
+          fontWeight: FontWeight.w400,
+        ),
+      );
+    }
+  }
 }
+bool isInteger(num value) =>
+    value is int || value == value.roundToDouble();
 
-
+bool hasTextOverflow(
+    String text,
+    TextStyle style,
+    {double minWidth = 0,
+      double maxWidth = 175,
+      int maxLines = 1
+    }) {
+  final TextPainter textPainter = TextPainter(
+    text: TextSpan(text: text, style: style),
+    maxLines: maxLines,
+    textDirection: TextDirection.ltr,
+  )..layout(minWidth: minWidth, maxWidth: maxWidth);
+  return textPainter.didExceedMaxLines;
+}
