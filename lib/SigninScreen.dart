@@ -51,40 +51,6 @@ class _SigninScreenState extends State<SigninScreen> {
               child: const Text("Sign In with Google")),
       )
     ) : const CircularProgressIndicator();
-    /*
-    return Scaffold(
-      body:isFirebaseInit?
-              Container(
-                constraints: const BoxConstraints.expand(),
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('images/sign-in-background.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                child: Center(
-                  child: ElevatedButton(onPressed: () async {
-                    await signInWithGoogle();
-                    bool isExistsCheck=await isExists();
-                    if(isExistsCheck)
-                    {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => const Home(),));
-                    }
-                    else
-                    {
-                      await Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => const Questionnaire(),));
-                    }
-                  },
-                      child: const Text("Sign In with Google")),
-                ),
-              )
-          :const CircularProgressIndicator()
-        );
-    */
   }
   Future<void> initializeFirebase() async{
     await Firebase.initializeApp();
