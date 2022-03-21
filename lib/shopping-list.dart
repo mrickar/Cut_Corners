@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
