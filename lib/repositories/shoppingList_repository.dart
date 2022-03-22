@@ -65,7 +65,6 @@ Future<void> createShoppingList() async {
           {
             needs.add(newIng);
           }
-
       }
       else {
         //TODO amountType farkliysa patliyor

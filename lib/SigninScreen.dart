@@ -7,7 +7,6 @@ import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:cut_corners/repositories/shoppingList_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'home-filled.dart';
 import 'meal-list-filled.dart';
 
@@ -50,13 +49,16 @@ class _SigninScreenState extends State<SigninScreen> {
                   await getUser();
                   await getTodayMealIndex();
                   await getTotalDay();
-                  if(totalDay!=0 && todayMealIndex==totalDay)
+                  if(totalDay!=0 && todayMealIndex>=totalDay)
                   {
                     await deleteMealList_FoodRecipes_ShoppingListFB();
                   }
-                  await getPersonalMealList();
-                  await  getAllFoodRecipes();
-                  await  getTodayMealIndex();
+                  else
+                    {
+                      await getPersonalMealList();
+                      await  getAllFoodRecipes();
+                      await  getTodayMealIndex();
+                    }
                   Navigator.of(context).pop();
                   signInChc=false;
                 }
@@ -82,13 +84,16 @@ class _SigninScreenState extends State<SigninScreen> {
         await getUser();
         await getTodayMealIndex();
         await getTotalDay();
-        if(totalDay!=0 && todayMealIndex==totalDay)
+        if(totalDay!=0 && todayMealIndex>=totalDay)
         {
           await deleteMealList_FoodRecipes_ShoppingListFB();
         }
-        await getPersonalMealList();
-        await  getAllFoodRecipes();
-        await  getTodayMealIndex();
+        else
+        {
+          await getPersonalMealList();
+          await  getAllFoodRecipes();
+          await  getTodayMealIndex();
+        }
       }
     else
       {

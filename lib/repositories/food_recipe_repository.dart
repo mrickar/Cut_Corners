@@ -198,7 +198,7 @@ async {
   dayNumber=1; //todo delete this at the end
   double dailyNeed=USER.dailyCal;
   print("***************breakfast**********");
-  await getIDsFromAPI(dailyNeed, "breakfast",dayNumber,isVegan,isVegetarian);
+  await getIDsFromAPI(dailyNeed, "breakfast",dayNumber,isVegan,isVegetarian); //personalmeallist + foodreciperep olusma
   print("***************lunch**********");
   await getIDsFromAPI(dailyNeed, "lunch",dayNumber,isVegan,isVegetarian);
   print("***************dinner**********");
@@ -211,10 +211,10 @@ async {
         "lunch":personalMealList["lunch"]![i],
         "dinner":personalMealList["dinner"]![i]
       };
-      FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i+1}").set(data);
-      uploadFood();
-    };
-  FirebaseFirestore.instance.collection("Profiles").doc(getUid()).update({"mealListCreated":DateTime.now()});
+      await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i+1}").set(data);
+    }
+  await uploadFood();// food_recipes set
+  await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).update({"mealListCreated":DateTime.now()});
   personalListNewCreated=true;
   await getPersonalMealList();
   await getAllFoodRecipes();
@@ -222,17 +222,17 @@ async {
 
   return;
 }
-void uploadFood() {
+Future<void> uploadFood() async {
   for (var key in foodRecipeRep.keys) {
     var food = foodRecipeRep[key];
     final name = food!.name;
-    FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+    await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
         name).set(food.toMap());
     for (var i in food.ingredients) {
-      FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+      await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
           name).collection("ingredients").doc(i.name).set(i.toMap());
     }
-    FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+    await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
         name).collection("nutrition").doc("nutrition").set(
         food.nutrition.toMap());
   }

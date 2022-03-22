@@ -292,19 +292,6 @@ async {
 }
 Future<void> deleteMealList_FoodRecipes_ShoppingListFB()
 async {
-  var documentReference = FirebaseFirestore.instance.collection("Profiles").doc(getUid());
-  documentReference.collection("personalMealList").snapshots().forEach((element) async {
-    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
-    {
-      docSnapshot.reference.delete();
-    }
-  });
-  documentReference.collection("shoppingList").snapshots().forEach((element) async {
-    for(QueryDocumentSnapshot<Map<String, dynamic>> docSnapshot  in element.docs)
-    {
-      docSnapshot.reference.delete();
-    }
-  });
   var snapshot = await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").get();
   for(var doc in snapshot.docs)
   {
