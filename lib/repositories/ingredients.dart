@@ -53,7 +53,7 @@ class Ingredient{
       amountNum*=1000;
       amountType="ml";
     }
-    else if(amountType=="kilograms") {
+    else if(amountType=="kilograms" ||amountType=="kilogram" ) {
       amountNum*=1000;
       amountType="g";
     }

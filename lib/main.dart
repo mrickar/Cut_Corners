@@ -195,7 +195,76 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final mq=MediaQuery.of(context);
+    final screenSize=mq.size;
+    final desiredWidth=411;
+    final desiredHeight=600;
+    final ratio=screenSize.width/desiredWidth;
+    return FractionallySizedBox(
+      widthFactor:1/ratio ,
+      heightFactor: 1/ratio,
+      child: Transform.scale(
+        scale: ratio,
+          child: MediaQuery(
+            data:mq.copyWith(
+            viewInsets: mq.viewInsets.copyWith(
+            bottom: mq.viewInsets.bottom/ratio,
+            )
+          ), child: Scaffold(
+                  body: Center(
+                    child: pages.elementAt(_currentIndex),
+                  ),
+                  bottomNavigationBar: BottomNavigationBar(
+                    backgroundColor: bottomNavigatorBack,
+                    elevation: 0.0,
+                    showSelectedLabels: false,
+                    showUnselectedLabels: false,
+                    //selectedIconTheme: const IconThemeData(size: 32),
+                    //unselectedIconTheme: const IconThemeData(size: 24),
+                    currentIndex: _currentIndex,
+                    onTap: onTabTapped,
+                    items: [
+                      BottomNavigationBarItem(
+                        icon: CircleAvatar(
+                          backgroundColor: bottomNavigatorIconBack,
+                          radius: 25,
+                          child: Icon(
+                            CustomIcons.shopping_list_icon,
+                            color: bottomNavigatorIconFront,
+                            size: 50,
+                          ),
+                        ),
+                        label: "Shop list",
+
+                      ),
+                      BottomNavigationBarItem(
+                        icon: Icon(
+                          CustomIcons.home_icon,
+                          color: bottomNavigatorIconFront,
+                          size: 50,
+                        ),
+                        label: "Home",
+                      ),
+                      BottomNavigationBarItem(
+                        icon: CircleAvatar(
+                          backgroundColor: bottomNavigatorIconBack,
+                          radius: 25,
+                          child: Icon(
+                            CustomIcons.meal_icon,
+                            color: bottomNavigatorIconFront,
+                            size: 50,
+                          ),
+                        ),
+                        label: "Meal list",
+                      ),
+                    ],
+                  ),
+                ),
+            ),
+            ),
+          );
+
+   /* return Scaffold(
       body: Center(
         child: pages.elementAt(_currentIndex),
       ),
@@ -244,7 +313,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-    );
+    );*/
   }
 
   }

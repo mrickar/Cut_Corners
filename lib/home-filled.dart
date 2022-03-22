@@ -112,8 +112,8 @@ class _HomeFilledState extends State<HomeFilled> {
             ),
           ),
           body: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              const SizedBox(height: 30.0,),
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => RecipePage(foodName: mealList[todayMealIndex].meals[mealTimes.breakfast.index],)));
@@ -273,6 +273,7 @@ class _HomeFilledState extends State<HomeFilled> {
                   ),
                 ),
               ),
+              const Flexible(child: SizedBox(height: 150.0,)),
             ],
           ),
         );
