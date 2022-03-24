@@ -195,7 +195,7 @@ Map<String,List<String>> personalMealList=
 bool personalListNewCreated=false;
 Future<void> createPersonalMealList(int dayNumber,bool isVegan,bool isVegetarian)
 async {
-  dayNumber=1; //todo delete this at the end
+  //dayNumber=1; //todo delete this at the end
   double dailyNeed=USER.dailyCal;
   print("***************breakfast**********");
   await getIDsFromAPI(dailyNeed, "breakfast",dayNumber,isVegan,isVegetarian); //personalmeallist + foodreciperep olusma
@@ -211,7 +211,7 @@ async {
         "lunch":personalMealList["lunch"]![i],
         "dinner":personalMealList["dinner"]![i]
       };
-      await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i+1}").set(data);
+      FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("personalMealList").doc("day${i+1}").set(data);
     }
   await uploadFood();// food_recipes set
   await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).update({"mealListCreated":DateTime.now()});
@@ -229,10 +229,29 @@ Future<void> uploadFood() async {
     await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
         name).set(food.toMap());
     for (var i in food.ingredients) {
-      await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+      FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
           name).collection("ingredients").doc(i.name).set(i.toMap());
     }
-    await FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+    FirebaseFirestore.instance.collection("Profiles").doc(getUid()).collection("food_recipes").doc(
+        name).collection("nutrition").doc("nutrition").set(
+        food.nutrition.toMap());
+    QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore.instance.collection("ALL_food_recipes").get();
+    bool existinAll=false;
+    for(var e in snapshot.docs)
+      {
+        if(e.id==name)
+          {
+            existinAll=true;
+          }
+      }
+    if(existinAll) continue;
+    await FirebaseFirestore.instance.collection("ALL_food_recipes").doc(
+        name).set(food.toMap());
+    for (var i in food.ingredients) {
+      FirebaseFirestore.instance.collection("ALL_food_recipes").doc(
+          name).collection("ingredients").doc(i.name).set(i.toMap());
+    }
+    FirebaseFirestore.instance..collection("ALL_food_recipes").doc(
         name).collection("nutrition").doc("nutrition").set(
         food.nutrition.toMap());
   }
