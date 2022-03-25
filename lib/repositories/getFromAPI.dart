@@ -79,8 +79,9 @@ async {
   int mealCnt=0;
   for(var mealData in data["results"])
     {
-      if(mealData["nutrition"]!=null && mealData["nutrition"].length>0 && mealData["nutrition"]["calories"]<=mealCalMax && mealData["nutrition"]["calories"]>=mealCalMin ) {
+      if(mealData["nutrition"]!=null && mealData["nutrition"].length>0 && mealData["nutrition"]["calories"]<=mealCalMax && mealData["nutrition"]["calories"]>=mealCalMin && !foodRecipeRep.containsKey(mealData["name"])) {
         FoodRecipe newFood = FoodRecipe.fromAPI(mealData);
+        if(foodRecipeRep.containsKey(newFood.name)) continue;
         foodRecipeRep[newFood.name] = newFood;
         personalMealList[mealTime]!.add(newFood.name);
         mealCnt++;
