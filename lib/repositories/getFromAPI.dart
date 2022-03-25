@@ -31,7 +31,7 @@ async {
   {
     tags+=",vegetarian";
   }
-  final queryString = {"from":Random().nextInt(10).toString(),"size":"40","tags":tags,"num_servings":"1"};//,"tags":"under_30_minutes"};//TODO TAKE QUERY
+  final queryString = {"from":Random().nextInt(10).toString(),"size":"40","tags":tags,"num_servings":"1"};
   Uri uri = Uri.https(authority,unencodedPath,queryString);
   http.Response response = await http.get(uri,headers: headers);
   final data=await jsonDecode(response.body);
@@ -68,7 +68,7 @@ async {
       rnd=Random().nextInt(maxPg);
     }
   usedPages.add(rnd);
-  final queryString = {"from":rnd.toString(),"size":"40","tags":tags,"num_servings":"1","nutrition_visibility":"auto"};//,"tags":"under_30_minutes"};//TODO TAKE QUERY
+  final queryString = {"from":rnd.toString(),"size":"40","tags":tags,"num_servings":"1","nutrition_visibility":"auto"};
   Uri uri = Uri.https(authority,unencodedPath,queryString);
   http.Response response = await http.get(uri,headers: headers);
   final data=await jsonDecode(response.body);
