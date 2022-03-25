@@ -1,3 +1,4 @@
+import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
@@ -163,14 +164,34 @@ class _MealListEmptyState extends State<MealListEmpty> {
                     ),
                   ),
                   onPressed: (dayNumber < 1) ? null:() async {
+                    showDialog(barrierDismissible: false,context: context, builder:(context) => Center(child: Column(
+                      mainAxisAlignment : MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Creating New Meal List. Please wait...",
+                            style: TextStyle(
+                              color: recreateTextColor,
+                              fontSize: 10.0,
+                              fontFamily: 'Krona One',
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        )
+                      ],
+                    )), );
+                    if(makeAgainChc)
+                      {
+                        await makeAgainFunc();
+                        makeAgainChc=false;
+                      }
                     createPersonalMealList(dayNumber,isVegan,isVegetarian).then((value) {
                       mealListCheck = false;
                       Navigator.of(context).pop();
                       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                       },);
-                    showDialog(context: context, builder:(context) => const Center(child: CircularProgressIndicator()), );
-
-                    //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
                   },
                 ),
               ),
@@ -192,8 +213,17 @@ class _MealListEmptyState extends State<MealListEmpty> {
                     ),
                   ),
                   onPressed: () async {
-                    mealListCheck = false;
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
+                    if(makeAgainChc)
+                    {
+                      makeAgainChc=false;
+                      mealListCheck = false;
+                      Navigator.of(context).pop();
+                    }
+                    else
+                      {
+                        mealListCheck = false;
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const Home(),));
+                      }
                   },
                 ),
               ),

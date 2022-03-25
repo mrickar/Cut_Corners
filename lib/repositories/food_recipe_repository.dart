@@ -183,7 +183,6 @@ async {
     Map<String, dynamic> data = food.data();
     foodRecipeRep[food.id]=FoodRecipe.fromMap(data,ingQSnap,nutData);
   }
-  //printAllFoodNames();
 }
 
 Map<String,List<String>> personalMealList=
@@ -193,10 +192,12 @@ Map<String,List<String>> personalMealList=
   "dinner":[],
 };
 bool personalListNewCreated=false;
+late String apiKey;
 Future<void> createPersonalMealList(int dayNumber,bool isVegan,bool isVegetarian)
 async {
-  //dayNumber=1; //todo delete this at the end
   double dailyNeed=USER.dailyCal;
+  var documentSnapshotTmp = await FirebaseFirestore.instance.collection("API").doc("api").get();
+  apiKey=documentSnapshotTmp.data()!["apiKey"] as String;
   print("***************breakfast**********");
   await getIDsFromAPI(dailyNeed, "breakfast",dayNumber,isVegan,isVegetarian); //personalmeallist + foodreciperep olusma
   print("***************lunch**********");

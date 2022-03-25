@@ -16,13 +16,12 @@ Map<String,dynamic> brokenNum= {
 Future<void> getIDsFromAPI(double dailyNeed,String mealTime,int numberOfMealDay,bool isVegan,bool isVegetarian) //tastyfood
 async {
   //String mealTime="breakfast";//"lunch", "dinner"
-  //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/list";
   //const url = "https://tasty.p.rapidapi.com/recipes/list";
   const headers = {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
-    'x-rapidapi-key': "8b5cdddc07msh524ae782e28529bp10ef40jsnc1bb01ea05da"
+    'x-rapidapi-key': apiKey
   };
   String tags=mealTime; //healthy ekle ;
   if(isVegan) {
@@ -48,14 +47,11 @@ List<int> usedPages=[];
 int maxPg=5;
 Future<void> getIDsFromAPI(double dailyNeed,String mealTime,int numberOfMealDay,bool isVegan,bool isVegetarian) //tastyfood
 async {
-  //String mealTime="breakfast";//"lunch", "dinner"
-  //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/list";
-  //const url = "https://tasty.p.rapidapi.com/recipes/list";
-  const headers = {
+  final headers = {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
-    'x-rapidapi-key': "8b5cdddc07msh524ae782e28529bp10ef40jsnc1bb01ea05da"
+    'x-rapidapi-key': apiKey,
   };
   String tags=mealTime+",healthy"; //healthy ekle ;
   if(isVegan) {
@@ -78,6 +74,7 @@ async {
   final data=await jsonDecode(response.body);
   double mealCalMax=(12*dailyNeed)/30;
   double mealCalMin=(8*dailyNeed)/30;
+  print("count: "+data["count"].toString());
   maxPg=((data["count"]as int)/40).floor();
   int mealCnt=0;
   for(var mealData in data["results"])
@@ -93,13 +90,13 @@ async {
     }
   await getIDsFromAPI(dailyNeed,mealTime,numberOfMealDay-mealCnt,isVegan,isVegetarian);
 }
+/*
 Future<void> getInformationsFromAPI(List<int> idList,int numberOfMealDay,double dailyNeed, String mealTime) async { //foodreciperep + personal meal list olusuyo
-  //const KEY="d135548dcemsh6edfdd094aa92e5p161a39jsn496fd28b501f";
   String authority="tasty.p.rapidapi.com";
   String unencodedPath="/recipes/get-more-info";
   const headers = {
     'x-rapidapi-host': "tasty.p.rapidapi.com",
-    'x-rapidapi-key': '8b5cdddc07msh524ae782e28529bp10ef40jsnc1bb01ea05da'
+    'x-rapidapi-key': apiKey
   };
   double mealCalMax=(12*dailyNeed)/30;
   double mealCalMin=(8*dailyNeed)/30;
@@ -136,3 +133,4 @@ Future<void> getInformationsFromAPI(List<int> idList,int numberOfMealDay,double 
   }
   print("*********DONE***********");
 }
+*/

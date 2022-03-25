@@ -1,6 +1,11 @@
 import 'dart:ui';
 
+import 'package:cut_corners/home-filled.dart';
+import 'package:cut_corners/main.dart';
 import 'package:cut_corners/recipe_page.dart';
+import 'package:cut_corners/repositories/food_recipe_repository.dart';
+import 'package:cut_corners/repositories/shoppingList_repository.dart';
+import 'package:cut_corners/shopping-list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -42,7 +47,7 @@ var now = DateTime.now();
 var formatter = DateFormat('yyyy.MM.dd');
 String formattedDate = formatter.format(now);
 String weekDay = DateFormat('EEEE').format(now);
-
+bool makeAgainChc=false;
 Widget dailyMealTemplate(Daily daily, int i) {
 
   return Card(
@@ -230,7 +235,11 @@ class _MealListFilledState extends State<MealListFilled> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  makeAgainChc=true;
+                  mealListCheck = true;
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Home(),));
+                },
               ),
             ),
           ),
@@ -239,4 +248,17 @@ class _MealListFilledState extends State<MealListFilled> {
     );
 
   }
+}
+Future<void> makeAgainFunc()
+async {
+  await deleteMealList_FoodRecipes_ShoppingListFB();
+  personalMealList["breakfast"]!.clear();
+  personalMealList["lunch"]!.clear();
+  personalMealList["dinner"]!.clear();
+  foodRecipeRep.clear();
+  mealList.clear();
+  all.clear();
+  needs.clear();
+  owned.clear();
+  allIngMap.clear();
 }

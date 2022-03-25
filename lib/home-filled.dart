@@ -47,7 +47,6 @@ class _HomeFilledState extends State<HomeFilled> {
 
     if(todayMealIndex>=mealList.length)
     {
-      //TODO UNCOMMENT TO DELETE DATA WHEN DAY IS UP
       setState(() {
         deleteMealList=true;
         deleteMealList_FoodRecipes_ShoppingListFB();
@@ -104,7 +103,6 @@ class _HomeFilledState extends State<HomeFilled> {
                     ),
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProfilePage()));
-                      //deleteMealList_FoodRecipes_ShoppingListFB();
                       },
                   ),
                 ),

@@ -9,7 +9,6 @@ Map<String,Ingredient> allIngMap={};
 
 Future<void> createShoppingList() async {
   if (personalListNewCreated) {
-    print("meal list length in createshopping list shoppinglistrep " + mealList.length.toString());
     for (var dailyMeal in mealList) {
       for (var mealName in dailyMeal.meals) {
         var querySnapshot = await FirebaseFirestore.instance.collection(
@@ -22,7 +21,6 @@ Future<void> createShoppingList() async {
           if (!allIngMap.containsKey(doc.data()["name"])) {
             if (doc.data()["amountNum"] == 0) continue;
             allIngMap[doc.data()["name"]] = newIng;
-            needs.add(newIng);
           }
           else {
             //TODO amountType farkliysa patliyor
@@ -47,6 +45,8 @@ Future<void> createShoppingList() async {
           .collection("shoppingList").doc(item.name)
           .set(newItem);
     }
+    all=allIngMap.values.toList();
+    needs=allIngMap.values.toList();
     personalListNewCreated=false;
   }
   else {
@@ -79,5 +79,6 @@ Future<void> createShoppingList() async {
         }
       }
     }
+    all=allIngMap.values.toList();
   }
 }

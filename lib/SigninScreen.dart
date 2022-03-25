@@ -131,7 +131,6 @@ Future<void> getPersonalMealList() async {
     ];
     mealList.add(Daily(meals: dailyMeal));
   }
-    isMealListReady = true;
     createShoppingList();
 }
 Future<void> getTotalDay()

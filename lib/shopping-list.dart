@@ -19,7 +19,7 @@ import 'package:marquee/marquee.dart';
   Ingredient(name: "rice", amountNum: 2, amountType: "kg"),
   Ingredient(name: "olive oil", amountNum: 1, amountType: "L"),
 ];*/
-List<Ingredient> all = allIngMap.values.toList();
+List<Ingredient> all = [];
 List<Ingredient> needs = [];
 List<Ingredient> owned = [];
 
