@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.cut_corners">
    <application
-        android:label="cut_corners"
+        android:label="Cut Corners"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
