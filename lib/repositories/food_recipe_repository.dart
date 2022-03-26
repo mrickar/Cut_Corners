@@ -4,7 +4,6 @@ import 'package:cut_corners/home-filled.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
-import 'package:cut_corners/repositories/shoppingList_repository.dart';
 
 import 'getFromAPI.dart';
 
