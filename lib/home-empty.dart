@@ -1,11 +1,9 @@
 import 'dart:ui';
-
 import 'package:cut_corners/main.dart';
 import 'package:cut_corners/profilePage.dart';
-import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'meal-list-empty.dart';
+
 
 
 
@@ -84,13 +82,13 @@ class _HomeEmptyState extends State<HomeEmpty> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Align(
+            const Align(
               alignment: Alignment.topRight,
             ),
             Ink(
               width: 120.0,
               height: 120.0,
-              decoration: ShapeDecoration(
+              decoration: const ShapeDecoration(
                 shape: CircleBorder(),
               ),
               child: IconButton(
