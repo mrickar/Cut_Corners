@@ -1,17 +1,16 @@
 # cut_corners
 
-A new Flutter project.
+This is the project that we developped for Google Solution Challange.
 
-## Getting Started
+Cut Corners aims to gain people healthy eating habits by preparing them a healthy meal list according to users' personal information. Cut Corners also offers the user most of the needed staff for the user to prepare the food such as ingredients and instructions. The fact that the user has all this information on his mobile phone makes preparing a healthy food process much easier and faster. With these features we want the user to prefer fast food less and prevent fast food's environmental and health issues. Moreover, Cut Corners prepares a shopping list for the user. With this shopping list, the user can buy all their needs precisely and avoid wasting food due to surplus goods.
 
-This project is a starting point for a Flutter application.
+How to use Cut Corners?
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-"# cut_corners" 
+1- Create an account with your Google Account.
+2- Enter your needed informations (Name, Surname, Age, Weight, Height, Gender, Daily Activity)
+3- Click on Create a meal list then choose the duration of the plan (5, 10 or 15 days) according to your eating habits (Vegetarian, Vegan, No Restriction).
+4- App will create you a healthy meal list according to your daily nutrition needs.
+5- You can see all the meals' ingredients, preparing instructions and nutrition values which are generated for you.
+6- With Shopping list Cut Corners provides you, you can make your shopping to prepare all the foods easily.
+7- After your time of your meal list is expired, app will automatically delete old meal list so you can create a new one.
+8- Enjoy Cut Corners and your healthy meals :)
