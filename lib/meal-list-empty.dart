@@ -43,6 +43,7 @@ class _MealListEmptyState extends State<MealListEmpty> {
 
   @override
   Widget build(BuildContext context) {
+    //TODO SCROLLABLE YAPMAYI DENEYELİM Bİ KUCUK EKRANLAR İCİN
     return SizedBox.expand(
       child: Container(
         color: bacgroundColor,

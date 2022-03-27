@@ -2,11 +2,13 @@ String tbsp="tablespoon";
 String tsp="teaspoon";
 Map<String,double>measurementConvert_gr=
 {
+  "ounce":28,
   tbsp:13,
   tsp:4,
 };
 Map<String,double>measurementConvert_ml=
 {
+  "ounce":30,
   tbsp:15,
   tsp:5,
 };
@@ -58,7 +60,7 @@ class Ingredient{
       amountType="g";
     }
 
-    else if(amountType==tsp || amountType==tbsp)
+    else if(amountType==tsp || amountType==tbsp || amountType=="ounce")
     {
       if(checkLiquid(amountType))
       {
@@ -74,7 +76,7 @@ class Ingredient{
   }
   bool checkLiquid(String amountType)
   {
-    List<String> liquids=["oil","water","extract"];
+    List<String> liquids=["oil","water","extract","vinegar"];
     for(var liq in liquids)
     {
       if(amountType.contains(liq))
@@ -85,24 +87,3 @@ class Ingredient{
     return false;
   }
 }
-
-Ingredient sogan=Ingredient(name:"sogan",amountNum:2,amountType: "tane");
-Ingredient sarimsak=Ingredient(name: "sarımsak",amountNum: 2,amountType: "tane");
-Ingredient yumurta=Ingredient(name: "yumurta",amountNum: 1,amountType: "tane");
-Ingredient sut=Ingredient(name: "süt",amountNum: 125 ,amountType: "ml");
-Ingredient sivi_yag=Ingredient(name: "sivi_yag",amountNum: 60 ,amountType: "ml");
-Ingredient makarna=Ingredient(name: "makarna",amountNum: 2,amountType: "paket");
-Ingredient havuc=Ingredient(name: "havuç",amountNum: 1,amountType: "tane");
-Ingredient ceviz=Ingredient(name: "ceviz",amountNum: 150,amountType: "gr");
-Ingredient vanilya=Ingredient(name: "vanilya",amountNum: 1,amountType: "paket");
-Ingredient yogurt=Ingredient(name: "yoğurt",amountNum: 110,amountType: "gr");
-
-
-
-
-List<Ingredient> IngList = [sogan,sarimsak,yumurta];
-List<Ingredient> IngList2 = [sogan,sarimsak,makarna];
-List<Ingredient> IngList3 = [makarna,yogurt,yumurta];
-List<Ingredient> IngList4 = [sogan,vanilya,yumurta,sut];
-List<Ingredient> IngList5 = [havuc,sivi_yag,yumurta,ceviz,sut];
-
