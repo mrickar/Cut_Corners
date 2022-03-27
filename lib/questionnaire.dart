@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/profileInformation.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +38,7 @@ List<Field> fieldQ = [
   Field(header: "height"),
   Field(header: "weight"),
 ];
+/*
 void printValues(){
   for(var i in fieldQ)
     {
@@ -50,6 +49,7 @@ void printValues(){
     print(i.header+" : "+i.value);
   }
 }
+ */
 ProfileInfo createProfile()
 {
   return ProfileInfo(fieldQ[0].value,fieldQ[1].value,dropdownQ[0].value,int.parse(fieldQ[3].value),int.parse(fieldQ[4].value),int.parse(dropdownQ[1].value),int.parse(fieldQ[2].value));

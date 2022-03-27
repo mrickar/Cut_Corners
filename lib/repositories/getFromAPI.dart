@@ -74,7 +74,6 @@ async {
   final data=await jsonDecode(response.body);
   double mealCalMax=(12*dailyNeed)/30;
   double mealCalMin=(8*dailyNeed)/30;
-  print("count: "+data["count"].toString());
   maxPg=((data["count"]as int)/40).floor();
   int mealCnt=0;
   for(var mealData in data["results"])
@@ -85,7 +84,6 @@ async {
         foodRecipeRep[newFood.name] = newFood;
         personalMealList[mealTime]!.add(newFood.name);
         mealCnt++;
-        print("NEW FOOD ADDED");
         if (mealCnt == numberOfMealDay) return;
       }
     }

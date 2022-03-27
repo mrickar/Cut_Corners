@@ -23,6 +23,7 @@ class Nutrition{
     fat=data["fat"];
     fiber=data["fiber"];
   }
+  /*
   void printNutrition()
   {
     print("calories: "+calories.toString());
@@ -32,7 +33,7 @@ class Nutrition{
     print("fat: "+fat.toString());
     print("fiber: "+fiber.toString());
   }
-
+*/
   Map<String, dynamic> toMap() {
     return
       {
@@ -121,9 +122,7 @@ class FoodRecipe{
           amountNum=double.tryParse(tmpAmountNum)!;
         }
         else if(brokenNum.containsKey(tmpAmountNum)){
-          print("tmpAmountNum "+tmpAmountNum);
           amountNum=brokenNum[tmpAmountNum];
-          print("AmountNum "+amountNum.toString());
         }
         else{
           continue; //ingredientı ekleme;
@@ -154,6 +153,7 @@ class FoodRecipe{
       };
     }
   }
+  /*
   void printFood() {
     print("name:$name");
     for(var i in ingredients)
@@ -163,8 +163,8 @@ class FoodRecipe{
     print(instructions);
     print("cook time: "+cookTime.toString());
     if(photoPath!=null)print("photoPath: "+ photoPath!);
-    nutrition.printNutrition();
   }
+  */
 }
 
 late Map<String,FoodRecipe>foodRecipeRep={};
@@ -196,13 +196,9 @@ async {
   double dailyNeed=USER.dailyCal;
   var documentSnapshotTmp = await FirebaseFirestore.instance.collection("API").doc("api").get();
   apiKey=documentSnapshotTmp.data()!["apiKey"] as String;
-  print("***************breakfast**********");
   await getIDsFromAPI(dailyNeed, "breakfast",dayNumber,isVegan,isVegetarian); //personalmeallist + foodreciperep olusma
-  print("***************lunch**********");
   await getIDsFromAPI(dailyNeed, "lunch",dayNumber,isVegan,isVegetarian);
-  print("***************dinner**********");
   await getIDsFromAPI(dailyNeed, "dinner",dayNumber,isVegan,isVegetarian);
-  print("***************bitti**********");
   for(int i=0;i<dayNumber;i++)
     {
       Map<String,String> data={
@@ -255,7 +251,7 @@ Future<void> uploadFood() async {
         food.nutrition.toMap());
   }
 }
-
+/*
 void printAllFoodNames()
 {
   for(var element in foodRecipeRep.keys)
@@ -264,5 +260,5 @@ void printAllFoodNames()
   }
   print("******DONE*****");
 }
-
+*/
 

@@ -28,9 +28,11 @@ Future<void> createShoppingList() async {
               allIngMap[doc.data()["name"]]!.amountNum += newIng.amountNum;
             }
             else {
+              /*
               print(allIngMap[doc.data()["name"]]!.name + " icin\n " +
                   allIngMap[doc.data()["name"]]!.amountType + " , " +
                   doc.data()["amountType"]);
+               */
             }
           }
         }
@@ -71,9 +73,12 @@ Future<void> createShoppingList() async {
           allIngMap[doc.data()["name"]]!.amountNum += newIng.amountNum;
         }
         else {
+          /*
           print(allIngMap[doc.data()["name"]]!.name + " icin\n " +
               allIngMap[doc.data()["name"]]!.amountType + " , " +
               doc.data()["amountType"]);
+
+           */
         }
       }
     }

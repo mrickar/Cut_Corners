@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:cut_corners/main.dart';
 import 'package:cut_corners/profilePage.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,8 @@ import 'package:intl/intl.dart';
 
 
 
-var now = new DateTime.now();
-var formatter = new DateFormat('yyyy.MM.dd');
+var now = DateTime.now();
+var formatter = DateFormat('yyyy.MM.dd');
 String formattedDate = formatter.format(now);
 String weekDay = DateFormat('EEEE').format(now);
 
@@ -44,14 +43,14 @@ class _HomeEmptyState extends State<HomeEmpty> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                    "$formattedDate",
+                    formattedDate,
                     style: TextStyle(
                         color: dateColor,
                         fontSize: 14.0,
                     ),
                 ),
                 Text(
-                  "$weekDay",
+                  weekDay,
                   style: TextStyle(
                     color: dateColor,
                     fontSize: 14.0,

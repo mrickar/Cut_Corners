@@ -1,10 +1,7 @@
 import 'package:cut_corners/meal-list-filled.dart';
 import 'package:cut_corners/profilePage.dart';
 import 'package:cut_corners/recipe_page.dart';
-import 'package:cut_corners/repositories/food_recipe_repository.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
-import 'package:cut_corners/repositories/shoppingList_repository.dart';
-import 'package:cut_corners/shopping-list.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

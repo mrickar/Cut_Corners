@@ -40,7 +40,7 @@ Map<String,dynamic> toMap()
   };
   return data;
 }
-
+/*
   void printInfo()
   {
     print("name: "+name);
@@ -52,6 +52,7 @@ Map<String,dynamic> toMap()
     print("dailyActivity: "+dailyActivity.toString());
 
   }
+  */
 }
 late ProfileInfo USER;
 Future <void> getUser()

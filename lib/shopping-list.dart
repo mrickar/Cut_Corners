@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/repositories/googleSign.dart';
 import 'package:cut_corners/repositories/ingredients.dart';
-import 'package:cut_corners/repositories/shoppingList_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 

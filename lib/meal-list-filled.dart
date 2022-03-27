@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:cut_corners/home-filled.dart';
 import 'package:cut_corners/main.dart';
 import 'package:cut_corners/recipe_page.dart';
