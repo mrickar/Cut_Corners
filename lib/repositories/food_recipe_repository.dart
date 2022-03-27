@@ -126,7 +126,6 @@ class FoodRecipe{
           print("AmountNum "+amountNum.toString());
         }
         else{
-          print("atlanılan ing miktar "+tmpAmountNum);
           continue; //ingredientı ekleme;
         }
         Ingredient tmp=Ingredient(name: tmpName, amountNum: amountNum, amountType: tmpAmountType);
