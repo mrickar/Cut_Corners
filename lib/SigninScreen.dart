@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cut_corners/main.dart';
 import 'package:cut_corners/questionnaire.dart';
@@ -29,6 +31,118 @@ class _SigninScreenState extends State<SigninScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final appNameTextColor = Color(0xff4297a0);
+    final appNameTextBackground = Color(0xfff7ac32);
+
+    return Material(
+      child: Container(
+          constraints: BoxConstraints.expand(),
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/sign-in-background.jpg'),
+                fit: BoxFit.cover
+            ),
+          ),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                            height: 100,
+                            width: 100,
+                            child: Image.asset('icons/app-icon-original.png')
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        width: 310,
+                        height: 100,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 30.0),
+                          child: PhysicalModel(
+                            borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            color: appNameTextBackground,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0,),
+                                child: Text(
+                                  "Cut Corners",
+                                  style: TextStyle(
+                                    fontSize: 50,
+                                    fontFamily: "Lexend Peta",
+                                    fontWeight: FontWeight.w900,
+                                    color: appNameTextColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: isFirebaseInit ?ElevatedButton(onPressed: () async {
+                    await signInWithGoogle();
+                    bool isExistsCheck=await isExists();
+                    if(isExistsCheck)
+                    {
+                      if(signInChc)
+                      {
+                        showDialog(context: context, builder:(context) => const Center(child: CircularProgressIndicator()), );
+                        await getUser();
+                        await getTodayMealIndex();
+                        await getTotalDay();
+                        if(totalDay!=0 && todayMealIndex>=totalDay)
+                        {
+                          await deleteMealList_FoodRecipes_ShoppingListFB();
+                        }
+                        else
+                        {
+                          await getPersonalMealList();
+                          await  getAllFoodRecipes();
+                          await  getTodayMealIndex();
+                        }
+                        Navigator.of(context).pop();
+                        signInChc=false;
+                      }
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const Home(),));
+                    }
+                    else
+                    {
+                      await Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => const Questionnaire(),));
+                    }
+                  },
+                      child: const Text("Sign In with Google")):const CircularProgressIndicator(),
+                ),
+              ),
+            ],
+          )
+      ),
+    );
+
+
+
+
+
     return Container(
       constraints: BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -75,7 +189,7 @@ class _SigninScreenState extends State<SigninScreen> {
           },
               child: const Text("Sign In with Google")):const CircularProgressIndicator(),
       )
-    ) ;
+    );
   }
   Future<void> initializeFirebase() async{
     await Firebase.initializeApp();
