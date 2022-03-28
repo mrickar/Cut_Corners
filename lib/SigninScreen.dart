@@ -67,7 +67,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         width: 310,
                         height: 100,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 30.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 36.0),
                           child: PhysicalModel(
                             borderRadius: const BorderRadius.all(Radius.circular(20)),
                             color: appNameTextBackground,
@@ -77,7 +77,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 child: Text(
                                   "Cut Corners",
                                   style: TextStyle(
-                                    fontSize: 50,
+                                    fontSize: 45,
                                     fontFamily: "Lexend Peta",
                                     fontWeight: FontWeight.w900,
                                     color: appNameTextColor,
