@@ -4,7 +4,7 @@ This is the project that we developped for Google Solution Challange with Google
 
 Cut Corners aims to gain people healthy eating habits by preparing them a healthy meal list according to users' personal information. Cut Corners also offers the user most of the needed staff for the user to prepare the food such as ingredients and instructions. The fact that the user has all this information on his mobile phone makes preparing a healthy food process much easier and faster. With these features we want the user to prefer fast food less and prevent fast food's environmental and health issues. Moreover, Cut Corners prepares a shopping list for the user. With this shopping list, the user can buy all their needs precisely and avoid wasting food due to surplus goods.
 
-Youtube Demo video : https://youtu.be/3KpxgxyFeCw
+Youtube demo video : https://youtu.be/3KpxgxyFeCw
 
 How to use Cut Corners?
 
